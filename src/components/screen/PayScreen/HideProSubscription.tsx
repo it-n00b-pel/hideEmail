@@ -1,0 +1,110 @@
+import React, {useCallback} from 'react';
+import {Alert, Linking, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Colors, width} from '../../../constants/Constants';
+
+const HideProSubscription: React.FC = () => {
+    const handlePress = useCallback(async () => {
+        const supported = await Linking.canOpenURL('https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043');
+        if (supported) {
+            await Linking.openURL('https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043');
+        } else {
+            Alert.alert(`Don't know how to open this URL: ${'https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043'}`);
+        }
+    }, []);
+    return (
+        <View>
+            <View style={styles.container}>
+                <Text style={[styles.text, {fontSize: 28, fontWeight: '600', paddingVertical: 0}]}>Тариф Hide PRO</Text>
+                <Text style={styles.text}>269 руб.</Text>
+                <Text style={styles.text}>Подключайте любое кол-во email</Text>
+                <View
+                    style={{
+                        borderTopColor: '#c7309c',
+                        borderBottomWidth: StyleSheet.hairlineWidth,
+                        borderTopWidth: 2,
+                        marginHorizontal: -10,
+                    }}
+                />
+
+                <Text style={styles.text}>Неограниченное кол-во email получателей</Text>
+                <Text style={styles.text}>Неограниченное кол-во новых email</Text>
+                <Text style={styles.text}>Онлайн поддержка клиентов</Text>
+                <View
+                    style={{
+                        borderTopColor: '#c7309c',
+                        borderBottomWidth: StyleSheet.hairlineWidth,
+                        borderTopWidth: 2,
+                        marginHorizontal: -10,
+                    }}
+                />
+
+                <TouchableHighlight onPress={handlePress}
+                                    underlayColor="#180830"
+                                    style={styles.button}>
+                    <View>
+                        <Text style={{fontSize: 22, fontWeight: '700', color: 'white'}}>
+                            Подключить на месяц 269 руб
+                        </Text>
+                    </View>
+                </TouchableHighlight>
+            </View>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    title: {
+        marginTop: 10,
+        fontSize: 32,
+        fontWeight: '600',
+        color: Colors.primaryLite,
+        textShadowColor: 'rgba(255,255,255,0.75)',
+        textShadowOffset: {width: 2, height: 2},
+        textShadowRadius: 5,
+    },
+    container: {
+        marginTop: 10,
+        padding: 10,
+        width: width - 40,
+        backgroundColor: '#1A0933',
+        shadowColor: '#c7309c',
+        borderWidth: 2,
+        borderColor: '#c7309c',
+        borderRadius: 2,
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 6,
+    },
+    text: {
+        color: 'white',
+        fontSize: 22,
+        paddingVertical: 5,
+        textShadowColor: 'rgba(255,255,255,0.75)',
+        textShadowOffset: {width: 2, height: 2},
+        textShadowRadius: 5,
+    },
+    button: {
+        marginTop: 10,
+        alignItems: 'center',
+        padding: 10,
+        height: 45,
+        backgroundColor: '#c7309c',
+        borderRadius: 3,
+        shadowColor: '#c7309c',
+        borderColor: '#c7309c',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 6,
+    },
+
+});
+
+export default HideProSubscription;

@@ -20,7 +20,6 @@ const TabButton = (props: { item: typeof TabArr[0]; onPress: (event: GestureResp
             textViewRef.current?.animate({0: {scale: 1}, 1: {scale: 0}});
         }
     }, [focused]);
-    console.log(item);
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -50,13 +49,34 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#44D9E8',
+        // backgroundColor: '#44D9E8',
+        background: "rgba(47,28,28,0)",
+
+        shadowColor: "#860488",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
     },
     btn: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 8,
         borderRadius: 16,
+
+        shadowColor: "#860488",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        elevation: 24,
     },
 });
 
