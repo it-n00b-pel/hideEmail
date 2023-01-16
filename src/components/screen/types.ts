@@ -7,6 +7,7 @@ export type RootTabParamsList = {
 }
 
 export type RootStackParamsList = {
+    StartPage: undefined,
     Authorization: undefined,
     HideMail: undefined,
 }

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {useAppNavigation} from './screen/types';
+import {useAppNavigation} from './types';
 import {LinearGradient} from 'expo-linear-gradient';
-import SuperTextField from './superComponents/SuperTextField';
+import SuperTextField from '../superComponents/SuperTextField';
 import {Formik} from 'formik';
-import SuperButton from './superComponents/SuperButton';
-import {useAppDispatch, useAppSelector} from '../store/store';
-import {authorizationUser, fetchCode} from '../store/reducers/appReducer';
+import SuperButton from '../superComponents/SuperButton';
+import {useAppDispatch, useAppSelector} from '../../store/store';
+import {authorizationUser, fetchCode} from '../../store/reducers/appReducer';
 
 type FormikErrorType = {
     email?: string,
@@ -75,7 +75,7 @@ const Authorization: React.FC = () => {
 
                             <SuperTextField label={'Ваш email'} onChangeText={handleChange('email')}
                                             onBlur={handleBlur('email')}
-                                            value={values.email}
+                                            value={'mummintrol@gmail.com'}
                                             style={{marginTop: 20, width: '100%'}}
                                             errorText={errors.email}/>
 
