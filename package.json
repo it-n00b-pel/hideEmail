@@ -9,10 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^0.17.2",
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/native-stack": "^6.9.8",
+    "@reduxjs/toolkit": "^1.9.1",
+    "@types/uuid": "^9.0.0",
     "axios": "^1.2.2",
     "expo": "~47.0.12",
     "expo-linear-gradient": "~12.0.1",
@@ -26,12 +29,14 @@
     "react-native-screens": "~3.18.0",
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.9",
+    "react-redux": "^8.0.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.70.6",
+    "@types/react-redux": "^7.1.25",
     "typescript": "^4.6.3"
   },
   "private": true

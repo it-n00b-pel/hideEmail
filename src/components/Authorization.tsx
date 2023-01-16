@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useAppNavigation} from './screen/types';
 import {LinearGradient} from 'expo-linear-gradient';
 import SuperTextField from './superComponents/SuperTextField';
 import {Formik} from 'formik';
 import SuperButton from './superComponents/SuperButton';
+import {useAppDispatch, useAppSelector} from '../store/store';
+import {authorizationUser, fetchCode} from '../store/reducers/appReducer';
 
 type FormikErrorType = {
     email?: string,
@@ -14,12 +16,14 @@ type FormikErrorType = {
 const Authorization: React.FC = () => {
     const navigation = useAppNavigation();
     const [isBlockButton, setBlockButton] = useState(true);
-    const [hasCode, setHasCode] = useState(false);
+    // const [hasCode, setHasCode] = useState(false);
     const errors: FormikErrorType = {};
+    const {isCode, isLogin} = useAppSelector(state => state.app);
+    const dispatch = useAppDispatch();
 
-    const sendCode = async () => {
-
-    };
+    useEffect(() => {
+        isLogin && navigation.navigate('HideMail');
+    }, [isLogin]);
 
     return (
         <LinearGradient
@@ -44,7 +48,7 @@ const Authorization: React.FC = () => {
                             setBlockButton(false);
                         }
 
-                        if (hasCode && values.password.length < 6) {
+                        if (isCode && values.password.length < 6) {
                             errors.password = 'Min 6 characters';
                             setBlockButton(true);
                         } else {
@@ -56,42 +60,46 @@ const Authorization: React.FC = () => {
 
                     }}
                     onSubmit={values => {
-                        if (hasCode) {
-                            navigation.navigate('HideMail');
-                            setHasCode(false);
+                        if (isCode) {
+                            // navigation.navigate('HideMail');
+                            dispatch(authorizationUser({email: values.email, password: values.password}));
                         } else {
-                            setHasCode(true);
+                            dispatch(fetchCode(values.email));
                         }
                     }}
 
             >
-                {({handleChange, handleBlur, handleSubmit, values, touched}) => (
-                    <View style={styles.container}>
-                        <SuperTextField label={'Ваш email'} onChangeText={handleChange('email')}
-                                        onBlur={handleBlur('email')}
-                                        value={values.email}
-                                        style={{marginTop: 20, width: '100%'}}
-                                        errorText={errors.email}/>
+                {({handleChange, handleBlur, handleSubmit, values}) => (
+                    <ScrollView keyboardShouldPersistTaps="handled">
+                        <View style={styles.container}>
 
-                        {!hasCode ?
-                            <SuperButton title={'Получить код'} handlePress={handleSubmit} isBlockButton={isBlockButton}/>
-                            :
-                            <View style={{width: '100%'}}>
-                                <SuperTextField label={'Код'}
-                                                onChangeText={handleChange('password')}
-                                                onBlur={handleBlur('password')}
-                                                value={values.password}
-                                                style={{marginTop: 20}}
-                                                errorText={errors.password}/>
-                                <SuperButton title={'Вход'} handlePress={handleSubmit} isBlockButton={isBlockButton}/>
-                                <Text style={styles.text}>Если вашего аккаунта нет, мы его создадим.
-                                    Запомните пароль</Text>
-                            </View>
-                        }
-                    </View>
+                            <SuperTextField label={'Ваш email'} onChangeText={handleChange('email')}
+                                            onBlur={handleBlur('email')}
+                                            value={values.email}
+                                            style={{marginTop: 20, width: '100%'}}
+                                            errorText={errors.email}/>
+
+                            {!isCode ?
+                                <SuperButton title={'Получить код'} handlePress={handleSubmit} isBlockButton={isBlockButton}/>
+                                :
+                                <View style={{width: '100%'}}>
+                                    <SuperTextField label={'Код'}
+                                                    onChangeText={handleChange('password')}
+                                                    onBlur={handleBlur('password')}
+                                                    value={values.password}
+                                                    keyboardType="numeric"
+                                                    style={{marginTop: 20}}
+                                                    errorText={errors.password}/>
+                                    <SuperButton title={'Вход'} handlePress={handleSubmit} isBlockButton={isBlockButton}/>
+                                    <Text style={styles.text}>Если вашего аккаунта нет, мы его создадим.
+                                        Запомните пароль.</Text>
+                                </View>
+                            }
+                        </View>
+                    </ScrollView>
                 )}
-            </Formik>
 
+            </Formik>
         </LinearGradient>
     );
 };
@@ -111,6 +119,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: '50%',
     },
     text: {
         marginTop: 20,
