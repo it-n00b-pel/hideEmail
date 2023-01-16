@@ -1,7 +1,7 @@
-import GradientContainer from '../GradientContainer';
+import GradientContainer from '../../superComponents/GradientContainer';
 import {ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import React, {useState} from 'react';
-import {Colors, width} from '../../constants/Constants';
+import {Colors, width} from '../../../constants/Constants';
 
 const SupportScreen: React.FC = () => {
     const [value, setValue] = useState('');

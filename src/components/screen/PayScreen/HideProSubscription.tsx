@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
-import {Alert, Linking, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Alert, Linking, StyleSheet, Text, View} from 'react-native';
 import {Colors, width} from '../../../constants/Constants';
+import SuperButton from '../../superComponents/SuperButton';
 
 const HideProSubscription: React.FC = () => {
     const handlePress = useCallback(async () => {
@@ -38,15 +39,7 @@ const HideProSubscription: React.FC = () => {
                     }}
                 />
 
-                <TouchableHighlight onPress={handlePress}
-                                    underlayColor="#180830"
-                                    style={styles.button}>
-                    <View>
-                        <Text style={{fontSize: 22, fontWeight: '700', color: 'white'}}>
-                            Подключить на месяц 269 руб
-                        </Text>
-                    </View>
-                </TouchableHighlight>
+                <SuperButton title={'Подключить на месяц 269 руб'} handlePress={()=>{}}/>
             </View>
         </View>
     );
@@ -86,23 +79,6 @@ const styles = StyleSheet.create({
         textShadowColor: 'rgba(255,255,255,0.75)',
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 5,
-    },
-    button: {
-        marginTop: 10,
-        alignItems: 'center',
-        padding: 10,
-        height: 45,
-        backgroundColor: '#c7309c',
-        borderRadius: 3,
-        shadowColor: '#c7309c',
-        borderColor: '#c7309c',
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-        elevation: 6,
     },
 
 });

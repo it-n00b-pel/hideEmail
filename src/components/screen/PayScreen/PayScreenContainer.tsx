@@ -1,5 +1,5 @@
 import React from 'react';
-import GradientContainer from '../../GradientContainer';
+import GradientContainer from '../../superComponents/GradientContainer';
 import {StyleSheet, View} from 'react-native';
 import CurrentTariff from './CurrentTariff';
 import Emails from './Emails';

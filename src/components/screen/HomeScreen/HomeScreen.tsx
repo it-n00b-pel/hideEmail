@@ -1,5 +1,5 @@
 import React from 'react';
-import GradientContainer from '../GradientContainer';
+import GradientContainer from '../../superComponents/GradientContainer';
 import {Text, View} from 'react-native';
 
 const HomeScreen: React.FC = () => {

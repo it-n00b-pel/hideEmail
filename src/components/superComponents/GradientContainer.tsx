@@ -2,8 +2,9 @@ import React from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import {MaterialIcons} from '@expo/vector-icons';
-import {width} from '../constants/Constants';
+import {width} from '../../constants/Constants';
 import {useNavigationState} from '@react-navigation/native';
+import {useAppNavigation} from '../screen/types';
 
 type GradientContainerPropsType = {
     component: React.ReactNode
@@ -11,8 +12,9 @@ type GradientContainerPropsType = {
 
 const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) => {
     const screenName = useNavigationState((state) => state.routes[state.index].name);
+    const navigation = useAppNavigation();
 
-    const isShowLogout = screenName === 'Home' ? <TouchableOpacity>
+    const isShowLogout = screenName === 'Home' ? <TouchableOpacity onPress={() => navigation.navigate('Authorization')}>
         <MaterialIcons name="exit-to-app" size={24} color="#e44c55"/>
     </TouchableOpacity> : <></>;
 
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 42,
         color: '#44D9E8',
-        width: 150,
+        // width: 180,
         textShadowColor: 'rgba(255,255,255,0.75)',
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 5,
