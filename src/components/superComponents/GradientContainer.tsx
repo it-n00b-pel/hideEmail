@@ -32,12 +32,9 @@ const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) =>
                     </TouchableOpacity>
                     {isShowLogout}
                 </View>
-                <View
-                    style={styles.line}
-                />
+                <View style={styles.line}/>
                 {component}
             </ScrollView>
-
         </LinearGradient>
     );
 };
@@ -55,7 +52,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-
     },
     text: {
         fontSize: 42,
@@ -71,7 +67,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         alignItems: 'center',
         width: width - 40,
-
         padding: 1,
         backgroundColor: '#ffffff',
         borderRadius: 3,

@@ -10,8 +10,6 @@ import StartPage from './src/components/screen/StartPage';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
-
     return (
         <Provider store={store}>
             <NavigationContainer>
@@ -22,6 +20,5 @@ export default function App() {
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>
-
     );
 }

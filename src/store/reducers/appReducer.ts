@@ -15,7 +15,7 @@ export const fetchCode = createAsyncThunk('app/fetchCode', async (email: string,
     }
 });
 
-export const authorizationUser = createAsyncThunk('app/authorizationUser', async (data: { email: string, password: string }, thunkAPI) => {
+export const login = createAsyncThunk('app/authorizationUser', async (data: { email: string, password: string }, thunkAPI) => {
     const device_id = v1().substring(0, 8);
     try {
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
