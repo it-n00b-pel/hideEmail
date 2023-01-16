@@ -4,7 +4,8 @@ import {LinearGradient} from 'expo-linear-gradient';
 import {MaterialIcons} from '@expo/vector-icons';
 import {width} from '../../constants/Constants';
 import {useNavigationState} from '@react-navigation/native';
-import {useAppNavigation} from '../screen/types';
+import {useAppDispatch} from '../../store/store';
+import {logOut} from '../../store/reducers/appReducer';
 
 type GradientContainerPropsType = {
     component: React.ReactNode
@@ -12,9 +13,9 @@ type GradientContainerPropsType = {
 
 const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) => {
     const screenName = useNavigationState((state) => state.routes[state.index].name);
-    const navigation = useAppNavigation();
+    const dispatch = useAppDispatch();
 
-    const isShowLogout = screenName === 'Home' ? <TouchableOpacity onPress={() => navigation.navigate('Authorization')}>
+    const isShowLogout = screenName === 'Home' ? <TouchableOpacity onPress={() => dispatch(logOut())}>
         <MaterialIcons name="exit-to-app" size={24} color="#e44c55"/>
     </TouchableOpacity> : <></>;
 

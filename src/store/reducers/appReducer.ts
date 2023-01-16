@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {authApi} from '../../api/mailHideApi';
 import {v1} from 'uuid';
-import {getDataRead, storeDataSave} from '../../utils';
+import {clearStorage, getDataRead, storeDataSave} from '../../utils';
 
 export const fetchCode = createAsyncThunk('app/fetchCode', async (email: string, thunkAPI) => {
     try {
@@ -29,11 +29,16 @@ export const authorizationUser = createAsyncThunk('app/authorizationUser', async
     }
 });
 
+export const logOut = createAsyncThunk('app/logOut', async (arg, thunkAPI) => {
+    await clearStorage();
+    thunkAPI.dispatch(setLogin({isLogin: false}));
+});
+
 export const checkLoginUser = createAsyncThunk('app/checkLoginUser', async (arg, thunkAPI) => {
     let token = '';
     await getDataRead().then(res => token = res);
     if (token) {
-        thunkAPI.dispatch(setLogin({isLogin: false}));
+        thunkAPI.dispatch(setLogin({isLogin: true}));
     } else {
         thunkAPI.dispatch(setLogin({isLogin: false}));
     }
