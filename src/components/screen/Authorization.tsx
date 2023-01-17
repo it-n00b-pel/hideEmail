@@ -75,7 +75,7 @@ const Authorization: React.FC = () => {
 
                             <SuperTextField label={'Ваш email'} onChangeText={handleChange('email')}
                                             onBlur={handleBlur('email')}
-                                            value={'mummintrol@gmail.com'}
+                                            value={values.email}
                                             style={{marginTop: 20, width: '100%'}}
                                             errorText={errors.email}/>
 

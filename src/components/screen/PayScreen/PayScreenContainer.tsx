@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import GradientContainer from '../../superComponents/GradientContainer';
 import {StyleSheet, View} from 'react-native';
 import CurrentTariff from './CurrentTariff';
 import Emails from './Emails';
 import HideSubscription from './HideSubscription';
 import HideProSubscription from './HideProSubscription';
+import {instance} from '../../../api/mailHideApi';
 
 const PayScreenContainer: React.FC = () => {
+    useEffect(()=>{
+        instance.get('https://my.mailhide.ru/api/v1/sub').then(res=> {
+            console.log(res);})
+    },[])
     return (
         <GradientContainer component={
             // <ScrollView showsVerticalScrollIndicator={false}>

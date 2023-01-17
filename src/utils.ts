@@ -11,9 +11,9 @@ export const storeDataSave = async (value: string) => {
 
 export const getDataRead = async () => {
     try {
-        const token = await AsyncStorage.getItem('token');
-        if (token) {
-            return JSON.parse(token);
+        const value = await AsyncStorage.getItem('token');
+        if (value !== null) {
+            return await JSON.parse(value);
         }
     }
     catch (e) {
