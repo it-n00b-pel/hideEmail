@@ -34,9 +34,9 @@ export const authApi = {
     },
 };
 
-export const emailApi = {
-    async getEmail(): Promise<AxiosResponse<SubscriptionResponseType>> {
-        return instance.get('emails');
+export const subscriptionApi = {
+    async getSubscription(): Promise<AxiosResponse<SubscriptionResponseType>> {
+        return instance.get('sub');
     },
 };
 

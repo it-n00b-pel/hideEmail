@@ -2,9 +2,11 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {appReducer} from './reducers/appReducer';
+import {subscriptionReducer} from './reducers/subscriptionReducer';
 
 const rootReducer = combineReducers({
     app: appReducer,
+    subscription: subscriptionReducer,
 });
 
 export const store = configureStore({
