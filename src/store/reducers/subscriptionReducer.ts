@@ -18,7 +18,7 @@ const slice = createSlice({
     } as SubscriptionResponseType,
     reducers: {
         setSubscription(state, action: PayloadAction<{ subscription: SubscriptionResponseType }>) {
-            state = action.payload.subscription;
+           return   state = action.payload.subscription;
         },
     },
 });

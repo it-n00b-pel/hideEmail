@@ -5,19 +5,23 @@ import CurrentTariff from './CurrentTariff';
 import Emails from './Emails';
 import HideSubscription from './HideSubscription';
 import HideProSubscription from './HideProSubscription';
-import {instance} from '../../../api/mailHideApi';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {fetchSubscription} from '../../../store/reducers/subscriptionReducer';
 
 const PayScreenContainer: React.FC = () => {
-    useEffect(()=>{
-        instance.get('https://my.mailhide.ru/api/v1/sub').then(res=> {
-            console.log(res);})
-    },[])
+    const dispatch = useAppDispatch();
+    const subscription = useAppSelector(state => state.subscription);
+
+    useEffect(() => {
+        dispatch(fetchSubscription());
+    }, []);
+
     return (
         <GradientContainer component={
             // <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
-                <CurrentTariff/>
-                <Emails/>
+                <CurrentTariff subscription={subscription}/>
+                <Emails emails={subscription.emails}/>
                 <HideSubscription/>
                 <HideProSubscription/>
             </View>

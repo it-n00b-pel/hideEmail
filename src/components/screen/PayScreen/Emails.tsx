@@ -1,26 +1,31 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Colors, width} from '../../../constants/Constants';
+import {EmailType} from '../../../api/mailHideApi';
 
-const Emails: React.FC = () => {
+type EmailsPropsType = {
+    emails: EmailType[]
+}
+
+const Emails: React.FC<EmailsPropsType> = ({emails}) => {
+
+    const emailList = emails.map(email => {
+        const date = new Date(email.ended_at);
+        const endedDate = date.getDate() + '-' + date.getMonth() + 1 + '-' + date.getFullYear();
+        return <View key={email.id} style={styles.email}>
+            <View style={{width: width / 2 + 40}}>
+                <Text style={styles.text}>{email.address}</Text></View>
+            <View>
+                <Text style={styles.text}>{endedDate}</Text>
+            </View>
+        </View>;
+    });
+
     return (
         <View>
             <Text style={styles.title}>Emails</Text>
             <View style={styles.container}>
-                <View style={styles.email}>
-                    <View style={{width: width / 2 + 40}}><Text style={styles.text}>shanahsdssfan.emelidsfe@mailhi.ru</Text></View>
-                    <View><Text style={styles.text}>12-01-2023</Text></View>
-                </View>
-
-                <View style={styles.email}>
-                    <Text style={styles.text}>mummintrol@gmail.com</Text>
-                    <Text style={styles.text}>12-01-2023</Text>
-                </View>
-
-                <View style={styles.email}>
-                    <View style={{width: width / 2}}><Text style={styles.text}>mummintrol@gmail.com</Text></View>
-                    <View><Text style={styles.text}>12-01-2023</Text></View>
-                </View>
+                {emailList}
             </View>
         </View>
     );
@@ -29,7 +34,7 @@ const Emails: React.FC = () => {
 const styles = StyleSheet.create({
     title: {
         marginTop: 20,
-        fontWeight:"600",
+        fontWeight: '600',
         fontSize: 32,
         color: Colors.primaryLite,
         textShadowColor: 'rgba(255,255,255,0.75)',
