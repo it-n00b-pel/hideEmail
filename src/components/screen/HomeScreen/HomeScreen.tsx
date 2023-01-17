@@ -3,7 +3,7 @@ import GradientContainer from '../../superComponents/GradientContainer';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {useAppNavigation} from '../types';
-import {fetchSecretList} from '../../../store/reducers/secretsEmailsReducer';
+import {fetchSecretEmailsList} from '../../../store/reducers/secretsEmailsReducer';
 import SecretsList from './SecretsList';
 import AddNewEmail from './modals/AddNewEmail';
 
@@ -14,7 +14,7 @@ const HomeScreen: React.FC = () => {
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        dispatch(fetchSecretList()).then(() => {
+        dispatch(fetchSecretEmailsList()).then(() => {
             setRefreshing(false);
         });
     }, []);
@@ -24,7 +24,7 @@ const HomeScreen: React.FC = () => {
     }, [isLogin]);
 
     useEffect(() => {
-        dispatch(fetchSecretList());
+        dispatch(fetchSecretEmailsList());
     }, []);
 
     return (
@@ -34,11 +34,11 @@ const HomeScreen: React.FC = () => {
                             <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
                         }
             >
-            <View style={styles.container}>
-                <Text style={styles.title}>Ваши email</Text>
-                <AddNewEmail/>
-                <SecretsList/>
-            </View>
+                <View style={styles.container}>
+                    <Text style={styles.title}>Ваши email</Text>
+                    <AddNewEmail/>
+                    <SecretsList/>
+                </View>
             </ScrollView>
         }/>
     );
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         paddingTop: 10,
-        paddingHorizontal:20
+        paddingHorizontal: 20,
     },
     title: {
         fontSize: 28,

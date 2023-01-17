@@ -1,11 +1,46 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import SuperTextField from '../../../superComponents/SuperTextField';
 import SuperButton from '../../../superComponents/SuperButton';
+import {useAppDispatch, useAppSelector} from '../../../../store/store';
+import {addNewSecret, generateNewSecretEmail} from '../../../../store/reducers/secretsEmailsReducer';
+import SelectDropdown from 'react-native-select-dropdown';
 
 const AddNewEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const dispatch = useAppDispatch();
+    const secretEmail = useAppSelector(state => state.secrets.newEmail.secretEmail);
+    const emails = useAppSelector(state => state.secrets.newEmail.emails);
+
+    const [title, setTitle] = useState('');
+    const [currentEmail, setCurrentEmail] = useState('');
+
+    const emailsList: string[] = [];
+
+    emails.map(e => emailsList.push(e.address));
+
+    const generateSecretEmail = () => {
+        dispatch(generateNewSecretEmail());
+    };
+
+    const addSecret = () => {
+        dispatch(addNewSecret({
+            secret_email: secretEmail,
+            title: title ? title : secretEmail,
+            email: currentEmail,
+        })).then(() => {
+            setModalVisible(false);
+        });
+
+    };
+
+    useEffect(() => {
+        if (emails[0]) {
+            setCurrentEmail(emails[0].address);
+        }
+    }, [emails]);
+
     return (
         <View style={styles.centeredView}>
             <Modal
@@ -32,8 +67,8 @@ const AddNewEmail: React.FC = () => {
                             <View>
                                 <Text style={[styles.title, {fontSize: 12, marginTop: 25}]}>Ваш новый email:</Text>
                                 <View style={styles.generatorEmail}>
-                                    <SuperTextField style={{width: '100%', marginTop: 10}} focusable={false} value={'wupton@maildddddhide.ru'}/>
-                                    <TouchableOpacity style={styles.refreshEmail}>
+                                    <SuperTextField style={{width: '100%', marginTop: 10}} focusable={false} value={secretEmail}/>
+                                    <TouchableOpacity style={styles.refreshEmail} onPress={generateSecretEmail}>
                                         <MaterialIcons name="refresh" size={24} color="white"/>
                                     </TouchableOpacity>
                                 </View>
@@ -41,13 +76,36 @@ const AddNewEmail: React.FC = () => {
 
 
                             <Text style={[styles.title, {fontSize: 12, marginTop: 25}]}>Ваш мини комментарий:</Text>
-                            <SuperTextField style={{width: '100%', marginTop: 10}}/>
+                            <SuperTextField style={{width: '100%', marginTop: 10}} value={title} onChangeText={setTitle}/>
 
                             <Text style={[styles.title, {fontSize: 12, marginTop: 25}]}>Выберите куда пересылать:</Text>
-                            <SuperTextField style={{width: '100%', marginTop: 10, marginBottom: 20}}/>
+                            {/*<SuperTextField style={{width: '100%', marginTop: 10, marginBottom: 20}}/>*/}
+
+                            <SelectDropdown
+                                data={emailsList}
+                                onSelect={(selectedItem) => {
+                                    setCurrentEmail(selectedItem);
+                                }}
+                                defaultValue={emailsList[0]}
+                                buttonTextStyle={styles.buttonTextStyle}
+                                buttonStyle={styles.button}
+                                buttonTextAfterSelection={(selectedItem) => {
+                                    // text represented after item is selected
+                                    // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                    // setCurrentEmail(selectedItem);
+                                    return selectedItem;
+                                }}
+                                rowTextForSelection={(item) => {
+                                    // text represented for each item in dropdown
+                                    // if data array is an array of objects then return item.property to represent item in dropdown
+                                    setCurrentEmail(item);
+                                    return item;
+                                }}
+                                onChangeSearchInputText={() => {
+                                }}/>
 
                         </View>
-                        <SuperButton title={'Создать'}/>
+                        <SuperButton title={'Создать'} handlePress={addSecret}/>
                     </View>
                 </View>
             </Modal>
@@ -161,6 +219,22 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    button: {
+        marginTop: 10,
+        width: '100%',
+        height: 60,
+        borderWidth: 1,
+        borderRadius: 4,
+        fontSize: 22,
+        color: '#fff',
+        backgroundColor: '#30115e',
+        borderColor: '#fff',
+    },
+    buttonTextStyle: {
+        color: '#fff',
+        textAlign: 'left',
+        padding: 0,
     },
 });
 
