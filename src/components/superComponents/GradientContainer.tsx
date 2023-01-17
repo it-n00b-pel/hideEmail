@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import {MaterialIcons} from '@expo/vector-icons';
 import {width} from '../../constants/Constants';
@@ -14,7 +14,6 @@ type GradientContainerPropsType = {
 const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) => {
     const screenName = useNavigationState((state) => state.routes[state.index].name);
     const dispatch = useAppDispatch();
-
     const isShowLogout = screenName === 'Home' ? <TouchableOpacity onPress={() => dispatch(logOut())}>
         <MaterialIcons name="exit-to-app" size={24} color="#e44c55"/>
     </TouchableOpacity> : <></>;
@@ -25,7 +24,7 @@ const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) =>
             style={styles.mainGradient}
             start={{x: 0.5, y: 0.05}}
             end={{x: 0.5, y: 0.9}}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            {/*<ScrollView showsVerticalScrollIndicator={false}>*/}
                 <View style={styles.textLogo}>
                     <TouchableOpacity>
                         <Text style={styles.text}>mailHide</Text>
@@ -34,7 +33,7 @@ const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) =>
                 </View>
                 <View style={styles.line}/>
                 {component}
-            </ScrollView>
+            {/*</ScrollView>*/}
         </LinearGradient>
     );
 };

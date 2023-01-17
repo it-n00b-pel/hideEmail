@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import GradientContainer from '../../superComponents/GradientContainer';
-import {StyleSheet, View} from 'react-native';
+import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import CurrentTariff from './CurrentTariff';
 import Emails from './Emails';
 import HideSubscription from './HideSubscription';
@@ -11,21 +11,33 @@ import {fetchSubscription} from '../../../store/reducers/subscriptionReducer';
 const PayScreenContainer: React.FC = () => {
     const dispatch = useAppDispatch();
     const subscription = useAppSelector(state => state.subscription);
-
+    const [refreshing, setRefreshing] = useState(false);
     useEffect(() => {
         dispatch(fetchSubscription());
     }, []);
 
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        dispatch(fetchSubscription()).then(() => {
+            setRefreshing(false);
+        });
+    }, []);
+
     return (
+
         <GradientContainer component={
-            // <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.container}>
-                <CurrentTariff subscription={subscription}/>
-                <Emails emails={subscription.emails}/>
-                <HideSubscription/>
-                <HideProSubscription/>
-            </View>
-            // </ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}
+                        refreshControl={
+                            <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+                        }
+            >
+                <View style={styles.container}>
+                    <CurrentTariff subscription={subscription}/>
+                    <Emails emails={subscription.emails}/>
+                    <HideSubscription/>
+                    <HideProSubscription/>
+                </View>
+            </ScrollView>
         }/>
     );
 };

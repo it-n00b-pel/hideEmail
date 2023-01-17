@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 type Props = React.ComponentProps<typeof TextInput> & {
-    label: string
+    label?: string
     errorText?: string | null
 }
 
@@ -59,7 +59,7 @@ const SuperTextField: React.FC<Props> = (props) => {
                     setIsFocused(false);
                     onBlur?.(event);
                 }}
-                autoFocus
+                autoFocus={props.autoFocus}
                 onFocus={(event) => {
                     setIsFocused(true);
                     onFocus?.(event);
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         fontSize: 22,
         color: '#fff',
-        backgroundColor: 'rgb(17,26,126)',
+        backgroundColor: '#30115e',
     },
     labelContainer: {
         position: 'absolute',

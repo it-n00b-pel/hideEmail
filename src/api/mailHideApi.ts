@@ -11,11 +11,10 @@ export let instance: AxiosInstance;
         withCredentials: true,
         baseURL: 'https://my.mailhide.ru/api/v1/',
         headers: {
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
         },
     });
 })();
-
 
 // export const instance = axios.create({
 //     withCredentials: true,
@@ -35,8 +34,14 @@ export const authApi = {
 };
 
 export const subscriptionApi = {
-    async getSubscription(): Promise<AxiosResponse<SubscriptionResponseType>> {
+    getSubscription(): Promise<AxiosResponse<SubscriptionResponseType>> {
         return instance.get('sub');
+    },
+};
+
+export const secretsApi = {
+    getSecretsEmails(): Promise<AxiosResponse<{ secrets: SecretType[] }>> {
+        return instance.get('secrets');
     },
 };
 
@@ -61,4 +66,11 @@ export type EmailType = {
     ended_at: Date,
     created_at: Date,
     updated_at: Date
+}
+
+export type SecretType = {
+    id: number,
+    title: string,
+    email: string,
+    alias: string,
 }

@@ -3,10 +3,12 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {appReducer} from './reducers/appReducer';
 import {subscriptionReducer} from './reducers/subscriptionReducer';
+import {secretsEmailsReducer} from './reducers/secretsEmailsReducer';
 
 const rootReducer = combineReducers({
     app: appReducer,
     subscription: subscriptionReducer,
+    secrets: secretsEmailsReducer,
 });
 
 export const store = configureStore({
