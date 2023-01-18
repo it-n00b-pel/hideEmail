@@ -16,42 +16,42 @@ export const TabArr = [
 
 export default function HideEmail() {
     return (
-            <Tab.Navigator
-                initialRouteName={"Home"}
-                screenOptions={{
-                    headerShown: false,
-                    tabBarStyle: {
-                        position: 'absolute',
-                        bottom: 0,
-                        height: 60,
-                        paddingBottom: 10,
-                        borderTopWidth: 0,
-                        backgroundColor:"rgba(14,229,229,0)",
+        <Tab.Navigator
+            initialRouteName={'Home'}
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle: {
+                    position: 'absolute',
+                    bottom: 0,
+                    height: 60,
+                    paddingBottom: 10,
+                    borderTopWidth: 0,
+                    backgroundColor: 'rgba(14,229,229,0)',
 
-                        shadowColor: "#000",
-                        shadowOffset: {
-                            width: 0,
-                            height: 12,
-                        },
-                        shadowOpacity: 0.58,
-                        shadowRadius: 16.00,
-
-                        elevation: 24,
+                    shadowColor: 'rgba(255,255,255,0)',
+                    shadowOffset: {
+                        width: 0,
+                        height: 12,
                     },
-                }}
-            >
-                {TabArr.map((item, index) => {
-                    return (
-                        <Tab.Screen key={index} name={item.route} component={item.component}
-                                    options={{
-                                        tabBarShowLabel: false,
-                                        // @ts-ignore
-                                        tabBarButton: (props) => <TabButton {...props} item={item}/>,
-                                    }}
-                        />
-                    );
-                })}
-            </Tab.Navigator>
+                    shadowOpacity: 1,
+                    shadowRadius: 0,
+                    //
+                    elevation: 24,
+                },
+            }}
+        >
+            {TabArr.map((item, index) => {
+                return (
+                    <Tab.Screen key={index} name={item.route} component={item.component}
+                                options={{
+                                    tabBarShowLabel: false,
+                                    // @ts-ignore
+                                    tabBarButton: (props) => <TabButton {...props} item={item}/>,
+                                }}
+                    />
+                );
+            })}
+        </Tab.Navigator>
 
     );
 }

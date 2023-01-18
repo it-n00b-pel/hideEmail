@@ -30,7 +30,9 @@ const AddNewEmail: React.FC = () => {
             title: title ? title : secretEmail,
             email: currentEmail,
         })).then(() => {
-            setModalVisible(false);
+            setModalVisible(false)
+            setTitle('')
+            ;
         });
 
     };
@@ -67,7 +69,7 @@ const AddNewEmail: React.FC = () => {
                             <View>
                                 <Text style={[styles.title, {fontSize: 12, marginTop: 25}]}>Ваш новый email:</Text>
                                 <View style={styles.generatorEmail}>
-                                    <SuperTextField style={{width: '100%', marginTop: 10}} focusable={false} value={secretEmail}/>
+                                    <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secretEmail}/>
                                     <TouchableOpacity style={styles.refreshEmail} onPress={generateSecretEmail}>
                                         <MaterialIcons name="refresh" size={24} color="white"/>
                                     </TouchableOpacity>
@@ -75,10 +77,10 @@ const AddNewEmail: React.FC = () => {
                             </View>
 
 
-                            <Text style={[styles.title, {fontSize: 12, marginTop: 25}]}>Ваш мини комментарий:</Text>
-                            <SuperTextField style={{width: '100%', marginTop: 10}} value={title} onChangeText={setTitle}/>
+                            <Text style={[styles.title, {fontSize: 12}]}>Ваш мини комментарий:</Text>
+                            <SuperTextField style={{width: '100%', marginTop: 10, marginBottom: 25}} value={title} onChangeText={setTitle}/>
 
-                            <Text style={[styles.title, {fontSize: 12, marginTop: 25}]}>Выберите куда пересылать:</Text>
+                            <Text style={[styles.title, {fontSize: 12}]}>Выберите куда пересылать:</Text>
                             {/*<SuperTextField style={{width: '100%', marginTop: 10, marginBottom: 20}}/>*/}
 
                             <SelectDropdown
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     modalView: {
-        marginTop: 50,
+        height: 480,
         marginHorizontal: 10,
         backgroundColor: '#1A0933',
         borderRadius: 20,
@@ -170,13 +172,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         position: 'relative',
+        marginBottom: 25,
     },
 
     refreshEmail: {
         marginTop: 10,
         backgroundColor: '#5e38a4',
         borderRadius: 3,
-        height: 64,
+        height: 60,
         width: 40,
         position: 'absolute',
         right: 0,
@@ -230,6 +233,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         backgroundColor: '#30115e',
         borderColor: '#fff',
+        marginBottom: 25,
     },
     buttonTextStyle: {
         color: '#fff',

@@ -104,7 +104,8 @@ const SuperTextField: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
     input: {
-        padding: 20,
+        height:60,
+        padding: 15,
         borderWidth: 1,
         borderRadius: 4,
         fontSize: 22,

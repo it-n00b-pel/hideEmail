@@ -4,6 +4,7 @@ import {useAppSelector} from '../../../store/store';
 import {width} from '../../../constants/Constants';
 import {MaterialIcons} from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
+import ShowMoreSecretData from './modals/ShowMoreSecretData';
 
 const SecretsList: React.FC = () => {
     const secretList = useAppSelector(state => state.secrets.secretsList);
@@ -21,11 +22,13 @@ const SecretsList: React.FC = () => {
 
     const emailList = secretList.map(email => {
         return <View key={email.id} style={styles.secretBlock}>
-            <View style={styles.secretData}>
-                <Text style={styles.title}>{email.title ? email.title : email.alias}</Text>
-                <Text style={styles.secret}>{email.alias ? email.alias : ''}</Text>
-                <Text style={styles.email}>{email.email}</Text>
-            </View>
+            <ShowMoreSecretData id={email.id} view={
+                <View style={styles.secretData}>
+                    <Text style={styles.title}>{email.title ? email.title : email.alias}</Text>
+                    <Text style={styles.secret}>{email.alias ? email.alias : ''}</Text>
+                    <Text style={styles.email}>{email.email}</Text>
+                </View>
+            }/>
             <TouchableOpacity onPress={() => onPressHandler(email.alias)}>
                 <MaterialIcons name="content-copy" size={28} color="white"/>
             </TouchableOpacity>

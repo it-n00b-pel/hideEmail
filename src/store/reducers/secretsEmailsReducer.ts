@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {SecretDataType, secretsApi, SecretType} from '../../api/mailHideApi';
+import {CurrentSecretType, SecretDataType, secretsApi, SecretType} from '../../api/mailHideApi';
 import {logOut, setPreloaderStatus} from './appReducer';
 
 export const fetchSecretEmailsList = createAsyncThunk('secret/fetchSecretList', async (arg, thunkAPI) => {
@@ -30,11 +30,31 @@ export const fetchSimpleEmailList = createAsyncThunk('secret/fetchSimpleEmailLis
     return simpleEmail;
 });
 
+export const removeSecretEmail = createAsyncThunk('secre/removeSecretEmail', async (id: number, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+        await secretsApi.deleteSecretEmail(id);
+        thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+        return id;
+    }
+    catch (e) {
+
+    }
+});
+
 export const addNewSecret = createAsyncThunk('secret/addNewSecret', async (data: SecretDataType, thunkAPI) => {
     thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
-    await secretsApi.addNewSecretEmail(data);
+    const x = await secretsApi.addNewSecretEmail(data);
+    console.log(x);
     thunkAPI.dispatch(fetchSecretEmailsList());
     thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+});
+
+export const showSecretData = createAsyncThunk('secret/showSecretData', async (id: number, thunkAPI) => {
+    thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+    const currentSecret = await secretsApi.getSecretEmailData(id);
+    thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+    return currentSecret.data.secret;
 });
 
 const slice = createSlice({
@@ -45,6 +65,7 @@ const slice = createSlice({
             secretEmail: '',
             emails: [] as Array<{ address: string }>,
         },
+        currentSecret: {} as CurrentSecretType,
     },
     reducers: {},
     extraReducers(builder) {
@@ -65,6 +86,12 @@ const slice = createSlice({
         });
         builder.addCase(logOut.fulfilled, (state) => {
             state.secretsList = [];
+        });
+        builder.addCase(showSecretData.fulfilled, (state, action) => {
+            state.currentSecret = action.payload;
+        });
+        builder.addCase(removeSecretEmail.fulfilled, (state, action) => {
+            state.secretsList = state.secretsList.filter(s => s.id !== action.payload);
         });
     },
 });

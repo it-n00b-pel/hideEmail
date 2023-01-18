@@ -43,7 +43,22 @@ export const secretsApi = {
     addNewSecretEmail(secretData: any): Promise<AxiosResponse> {
         return instance.post('secrets', secretData);
     },
+    getSecretEmailData(id: number): Promise<AxiosResponse<{ secret: CurrentSecretType }>> {
+        return instance.get('secrets/' + id);
+    },
+    deleteSecretEmail(id: number): Promise<AxiosResponse> {
+        return instance.delete('secrets/' + id);
+    },
 };
+
+export type CurrentSecretType = {
+    id: number,
+    title: string,
+    email: string,
+    alias: string,
+    created_at: Date,
+    redirect_count: number
+}
 
 export type SecretDataType = {
     secret_email: string,

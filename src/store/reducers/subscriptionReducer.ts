@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {EmailType, subscriptionApi, SubscriptionResponseType} from '../../api/mailHideApi';
 import {setPreloaderStatus} from './appReducer';
+import {addNewSecret, removeSecretEmail} from './secretsEmailsReducer';
 
 const slice = createSlice({
     name: 'subscription',
@@ -20,6 +21,14 @@ const slice = createSlice({
         setSubscription(state, action: PayloadAction<{ subscription: SubscriptionResponseType }>) {
             return state = action.payload.subscription;
         },
+    },
+    extraReducers(builder) {
+        builder.addCase(removeSecretEmail.fulfilled, (state) => {
+            state.alias_used = state.alias_used - 1;
+        });
+        builder.addCase(addNewSecret.fulfilled, (state) => {
+            state.alias_used = state.alias_used + 1;
+        });
     },
 });
 
