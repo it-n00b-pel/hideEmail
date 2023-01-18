@@ -6,7 +6,7 @@ import SuperTextField from '../superComponents/SuperTextField';
 import {Formik} from 'formik';
 import SuperButton from '../superComponents/SuperButton';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {login, fetchCode} from '../../store/reducers/appReducer';
+import {fetchCode, login} from '../../store/reducers/appReducer';
 
 type FormikErrorType = {
     email?: string,
@@ -63,6 +63,8 @@ const Authorization: React.FC = () => {
                         if (isCode) {
                             // navigation.navigate('HideMail');
                             dispatch(login({email: values.email, password: values.password}));
+                            values.email = '';
+                            values.password = '';
                         } else {
                             dispatch(fetchCode(values.email));
                         }

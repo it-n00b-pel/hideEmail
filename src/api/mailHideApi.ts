@@ -4,8 +4,7 @@ import {getDataRead} from '../utils';
 
 export let instance: AxiosInstance;
 
-(async () => {
-    // const token = await AsyncStorage.getItem('token');
+export async function createAxiosInstance() {
     const token = await getDataRead();
     instance = axios.create({
         withCredentials: true,
@@ -14,19 +13,11 @@ export let instance: AxiosInstance;
             'Authorization': 'Bearer ' + token,
         },
     });
-})();
-
-// export const instance = axios.create({
-//     withCredentials: true,
-//     baseURL: 'https://my.mailhide.ru/api/v1/',
-//     headers: {
-//         'Authorization': 'Bearer ' + token,
-//     },
-// });
+}
 
 export const authApi = {
     sendCode(email: string): Promise<AxiosResponse> {
-        return instance.post('code/email', {email});
+        return axios.post('https://my.mailhide.ru/api/v1/code/email', {email});
     },
     authorization(loginData: LoginData): Promise<AxiosResponse<{ token: string }>> {
         return axios.post('https://my.mailhide.ru/api/v1/login', loginData);

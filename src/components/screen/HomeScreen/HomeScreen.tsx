@@ -21,11 +21,8 @@ const HomeScreen: React.FC = () => {
 
     useEffect(() => {
         !isLogin && navigation.navigate('Authorization');
+        isLogin && dispatch(fetchSecretEmailsList());
     }, [isLogin]);
-
-    useEffect(() => {
-        dispatch(fetchSecretEmailsList());
-    }, []);
 
     return (
         <GradientContainer component={

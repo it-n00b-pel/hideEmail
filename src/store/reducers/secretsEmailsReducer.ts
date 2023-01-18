@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {SecretDataType, secretsApi, SecretType} from '../../api/mailHideApi';
-import {setPreloaderStatus} from './appReducer';
+import {logOut, setPreloaderStatus} from './appReducer';
 
 export const fetchSecretEmailsList = createAsyncThunk('secret/fetchSecretList', async (arg, thunkAPI) => {
     try {
@@ -62,6 +62,9 @@ const slice = createSlice({
             if (action.payload) {
                 state.newEmail.emails = action.payload.data.emails;
             }
+        });
+        builder.addCase(logOut.fulfilled, (state) => {
+            state.secretsList = [];
         });
     },
 });
