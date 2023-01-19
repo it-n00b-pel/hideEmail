@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Colors, width} from '../../../constants/Constants';
+import {Colors} from '../../../constants/Constants';
 import SuperButton from '../../superComponents/SuperButton';
 
 const HideProSubscription: React.FC = () => {
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         padding: 10,
-        width: width - 40,
         backgroundColor: '#1A0933',
         shadowColor: '#c7309c',
         borderWidth: 2,

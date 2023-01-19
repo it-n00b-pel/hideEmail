@@ -1,4 +1,4 @@
-import {Dimensions} from 'react-native';
+
 
 export const Colors =  {
     primary: 'rgba(110,65,191,0.9)',
@@ -6,4 +6,4 @@ export const Colors =  {
     primaryLite: '#44D9E8',
 };
 
-export const {width, height} = Dimensions.get('screen');
+// export const {width, height} = Dimensions.get('screen');

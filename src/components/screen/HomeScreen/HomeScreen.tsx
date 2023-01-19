@@ -6,6 +6,7 @@ import {useAppNavigation} from '../types';
 import {fetchSecretEmailsList} from '../../../store/reducers/secretsEmailsReducer';
 import SecretsList from './SecretsList';
 import AddNewEmail from './modals/AddNewEmail';
+import {Colors} from '../../../constants/Constants';
 
 const HomeScreen: React.FC = () => {
     const {isLogin} = useAppSelector(state => state.app);
@@ -49,11 +50,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     title: {
-        fontSize: 28,
-        color: '#44D9E8',
+        fontSize: 32,
+        fontWeight: '600',
+        color: Colors.primaryLite,
         textShadowColor: 'rgba(255,255,255,0.75)',
-        textShadowOffset: {width: 0, height: 0},
-        textShadowRadius: 3,
+        textShadowOffset: {width: 2, height: 2},
+        textShadowRadius: 5,
     },
 });
 

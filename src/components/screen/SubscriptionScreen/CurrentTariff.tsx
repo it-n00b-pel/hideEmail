@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Colors, width} from '../../../constants/Constants';
+import {Colors} from '../../../constants/Constants';
 import {SubscriptionResponseType} from '../../../api/mailHideApi';
 
 type CurrentTariffPropsType = {
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         padding: 10,
-        width: width - 40,
         backgroundColor: '#1A0933',
         shadowColor: '#ffffff',
         borderWidth: 2,

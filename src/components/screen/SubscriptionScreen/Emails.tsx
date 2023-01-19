@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Colors, width} from '../../../constants/Constants';
+import {Colors} from '../../../constants/Constants';
 import {EmailType} from '../../../api/mailHideApi';
 
 type EmailsPropsType = {
@@ -13,7 +13,7 @@ const Emails: React.FC<EmailsPropsType> = ({emails}) => {
         const date = new Date(email.ended_at);
         const endedDate = date.getDate() + '-' + date.getMonth() + 1 + '-' + date.getFullYear();
         return <View key={email.id} style={styles.email}>
-            <View style={{width: width / 2 + 40}}>
+            <View>
                 <Text style={styles.text}>{email.address}</Text></View>
             <View>
                 <Text style={styles.text}>{endedDate}</Text>

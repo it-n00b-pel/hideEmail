@@ -42,21 +42,10 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        paddingTop: 20,
+        paddingTop: 10,
         paddingHorizontal: 20,
         flex: 1,
         marginBottom: 65,
-    },
-    button: {
-        marginTop: 20,
-        alignItems: 'center',
-        padding: 10,
-        width: 120,
-        height: 45,
-        backgroundColor: '#44D9E8',
-        borderRadius: 5,
-        borderWidth: 1,
-        borderColor: '#180830',
     },
 });
 
