@@ -2,6 +2,8 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {authApi, createAxiosInstance} from '../../api/mailHideApi';
 import {v1} from 'uuid';
 import {clearStorage, getDataRead, storeDataSave} from '../../utils';
+import {fetchSubscription} from './subscriptionReducer';
+import {fetchSecretEmailsList} from './secretsEmailsReducer';
 
 export const fetchCode = createAsyncThunk('app/fetchCode', async (email: string, thunkAPI) => {
     try {
@@ -40,14 +42,22 @@ export const checkLoginUser = createAsyncThunk('app/checkLoginUser', async (arg,
     let token = '';
     await getDataRead().then(res => token = res);
     if (token) {
-        thunkAPI.dispatch(setLogin({isLogin: true}));
         await createAxiosInstance();
+        await thunkAPI.dispatch(fetchSubscription());
+        await thunkAPI.dispatch(fetchSecretEmailsList());
+
+        const id = setTimeout(() => {
+            thunkAPI.dispatch(setLogin({isLogin: true}));
+            thunkAPI.dispatch(setInitialized({isInitialized: true}));
+        }, 2450);
+
+        return () => {
+            clearInterval(id);
+        };
     } else {
+        thunkAPI.dispatch(setInitialized({isInitialized: true}));
         thunkAPI.dispatch(setLogin({isLogin: false}));
     }
-
-    thunkAPI.dispatch(setInitialized({isInitialized: true}));
-
 });
 
 const slice = createSlice({

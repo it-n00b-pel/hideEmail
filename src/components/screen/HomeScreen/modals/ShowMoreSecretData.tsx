@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Modal, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {removeSecretEmail, showSecretData} from '../../../../store/reducers/secretsEmailsReducer';
 import SuperTextField from '../../../superComponents/SuperTextField';
 import * as Clipboard from 'expo-clipboard';
 import SuperButton from '../../../superComponents/SuperButton';
+import {BlurView} from 'expo-blur';
 
 type ShowMoreSecretDataPropsType = {
-    id: number
+    id: number,
     view: React.ReactNode,
 }
 
@@ -49,36 +50,51 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                     Alert.alert('Modal has been closed.');
                     setModalVisible(!modalVisible);
                 }}>
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <View style={styles.header}>
-                            <Text style={[styles.title, {fontSize: 22, marginTop: 0}]}>{secret.alias}</Text>
-                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                <MaterialIcons name="close" size={24} color="#fff"/>
-                            </TouchableOpacity>
+                <BlurView intensity={100} tint={'dark'} style={[styles.blur]}>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <View style={styles.header}>
+                                <Text style={[styles.title, {fontSize: 22, marginTop: 0}]}>{secret.alias}</Text>
+                                <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                    <MaterialIcons name="close" size={24} color="#fff"/>
+                                </TouchableOpacity>
+                            </View>
+
+                            <Text style={[styles.title]}>Ваш новый email:</Text>
+                            <View style={styles.generatorEmail}>
+                                <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secret.alias}/>
+                                <TouchableOpacity style={styles.copyEmail} onPress={() => onPressHandler(secret.alias)}>
+                                    <MaterialIcons name="content-copy" size={24} color="white"/>
+                                </TouchableOpacity>
+                            </View>
+
+                            <Text style={[styles.title]}>Ваш мини комментарий:</Text>
+                            {/*<SuperTextField style={{width: "100%", marginTop: 10, height: 60}} focusable={false} editable={false} value={secret.title}/>*/}
+                            <TextInput style={{
+                                marginTop: 12,
+                                padding: 15,
+                                minHeight:60,
+                                borderWidth: 1,
+                                borderColor: '#fff',
+                                borderRadius: 4,
+                                fontSize: 22,
+                                color: '#fff',
+                                backgroundColor: '#30115e',
+                            }} value={secret.title} multiline focusable={false} editable={false}/>
+                            <Text style={[styles.title]}>Пересылаем на вот эту почту:</Text>
+                            <SuperTextField style={{width: '100%', marginTop: 12, height: 60}} focusable={false} editable={false} value={secret.email}/>
+
+
+                            <Text style={[styles.title, {fontSize: 16}]}>Дата создания: {startDate}</Text>
+                            <Text style={[styles.title, {fontSize: 16}]}>Перенаправлено писем: {secret.redirect_count}</Text>
+
+                            <SuperButton title={'Удалить этот адрес'} handlePress={destroySecretEmail}/>
                         </View>
-
-                        <Text style={[styles.title]}>Ваш новый email:</Text>
-                        <View style={styles.generatorEmail}>
-                            <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secret.alias}/>
-                            <TouchableOpacity style={styles.copyEmail} onPress={() => onPressHandler(secret.alias)}>
-                                <MaterialIcons name="content-copy" size={24} color="white"/>
-                            </TouchableOpacity>
-                        </View>
-
-                        <Text style={[styles.title]}>Ваш мини комментарий:</Text>
-                        <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secret.title}/>
-
-                        <Text style={[styles.title]}>Пересылаем на вот эту почту:</Text>
-                        <SuperTextField style={{width: '100%', marginTop: 12, height: 60}} focusable={false} editable={false} value={secret.email}/>
-
-                        <Text style={[styles.title, {fontSize: 16}]}>Дата создания: {startDate}</Text>
-                        <Text style={[styles.title, {fontSize: 16}]}>Перенаправлено писем: {secret.redirect_count}</Text>
-
-                        <SuperButton title={'Удалить этот адрес'} handlePress={destroySecretEmail}/>
                     </View>
-                </View>
+                </BlurView>
+
             </Modal>
+
             <TouchableOpacity
                 // style={[styles.button, styles.buttonOpen]}
                 onPress={() => setModalVisible(true)}>
@@ -89,6 +105,12 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
 };
 
 const styles = StyleSheet.create({
+    blur: {
+        height: '100%',
+        // position: 'absolute',
+        // width: '100%'
+        //   position: 'absolute'
+    },
     centeredView: {
         flex: 1,
         justifyContent: 'center',

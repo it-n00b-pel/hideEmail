@@ -12,6 +12,7 @@ const HomeScreen: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigation = useAppNavigation();
     const [refreshing, setRefreshing] = useState(false);
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         dispatch(fetchSecretEmailsList()).then(() => {
@@ -21,7 +22,7 @@ const HomeScreen: React.FC = () => {
 
     useEffect(() => {
         !isLogin && navigation.navigate('Authorization');
-        isLogin && dispatch(fetchSecretEmailsList());
+        // isLogin && dispatch(fetchSecretEmailsList());
     }, [isLogin]);
 
     return (

@@ -12,16 +12,17 @@ const SupportScreen: React.FC = () => {
                 <Text style={styles.title}>Поддержка</Text>
                 <Text style={[styles.title, {fontSize: 20, marginTop: 20}]}>Сообщение</Text>
 
-                <ScrollView keyboardShouldPersistTaps="handled" >
+                <ScrollView keyboardShouldPersistTaps="handled">
                     <TextInput style={styles.input}
                                value={value}
                                onChangeText={text => setValue(text)}
-                               numberOfLines={10}
+                        // numberOfLines={5}
                                multiline
                         // placeholder="Type here your fucking problem"
                                placeholderTextColor="rgba(110,65,191,0.9)"
                     />
-                    <TouchableHighlight onPress={() => {}}
+                    <TouchableHighlight onPress={() => {
+                    }}
                                         underlayColor="#180830"
                                         style={styles.button}>
                         <View>
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
 
     input: {
         width: width - 40,
-        minHeight: 100,
+        minHeight: 80,
         maxHeight: 250,
         fontSize: 20,
         backgroundColor: Colors.primaryDark,
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 20,
         alignItems: 'center',
-        padding: 10,
+        padding: 5,
         width: 120,
         height: 45,
         backgroundColor: '#44D9E8',

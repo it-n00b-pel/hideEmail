@@ -13,9 +13,9 @@ const PayScreenContainer: React.FC = () => {
     const subscription = useAppSelector(state => state.subscription);
     const [refreshing, setRefreshing] = useState(false);
     useEffect(() => {
-        dispatch(fetchSubscription());
+        // dispatch(fetchSubscription());
     }, []);
-
+    console.log(subscription);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         dispatch(fetchSubscription()).then(() => {

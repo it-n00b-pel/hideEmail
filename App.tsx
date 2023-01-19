@@ -6,10 +6,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider} from 'react-redux';
 import {store} from './src/store/store';
 import StartPage from './src/components/screen/StartPage';
+import {LogBox} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+    LogBox.ignoreAllLogs(true);
+
     return (
         <Provider store={store}>
             <NavigationContainer>

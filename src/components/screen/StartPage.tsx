@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {useAppNavigation} from './types';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {checkLoginUser} from '../../store/reducers/appReducer';
+import AnimatedTyping from '../superComponents/AnimatedTyping';
 
 const StartPage: React.FC = () => {
     const navigation = useAppNavigation();
@@ -10,13 +11,13 @@ const StartPage: React.FC = () => {
     const {isLogin, isInitialized} = useAppSelector(state => state.app);
 
     useEffect(() => {
-        const id = setTimeout(() => {
-            dispatch(checkLoginUser());
-        }, 2500);
+        // const id = setTimeout(() => {
+             dispatch(checkLoginUser());
+        // }, 2450);
 
-        return () => {
-            clearInterval(id);
-        };
+        // return () => {
+        //     clearInterval(id);
+        // };
     }, []);
 
     useEffect(() => {
@@ -29,14 +30,27 @@ const StartPage: React.FC = () => {
     }, [isLogin, isInitialized]);
 
     return (
-        <View style={{width: '100%', backgroundColor: '#000', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={styles.container}>
             <Image
                 source={require('../../assets/img/image_processing20210911-8144-1jb2kfa.gif')}
-                style={{width: 100, height: 100}}
+                style={{width: 150, height: 150}}
             />
-            <Text style={{color: '#fff'}}>Mail Hide</Text>
+            <View>
+                <AnimatedTyping text={['Mail Hide']}/>
+            </View>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#000',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+});
 
 export default StartPage;

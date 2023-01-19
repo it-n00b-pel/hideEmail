@@ -44,8 +44,7 @@ export const removeSecretEmail = createAsyncThunk('secre/removeSecretEmail', asy
 
 export const addNewSecret = createAsyncThunk('secret/addNewSecret', async (data: SecretDataType, thunkAPI) => {
     thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
-    const x = await secretsApi.addNewSecretEmail(data);
-    console.log(x);
+    await secretsApi.addNewSecretEmail(data);
     thunkAPI.dispatch(fetchSecretEmailsList());
     thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
 });

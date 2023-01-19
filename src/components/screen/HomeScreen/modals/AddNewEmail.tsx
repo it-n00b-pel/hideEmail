@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import SuperTextField from '../../../superComponents/SuperTextField';
 import SuperButton from '../../../superComponents/SuperButton';
@@ -30,7 +30,7 @@ const AddNewEmail: React.FC = () => {
             title: title ? title : secretEmail,
             email: currentEmail,
         })).then(() => {
-            setModalVisible(false)
+            setModalVisible(false);
             setTitle('')
             ;
         });
@@ -78,8 +78,18 @@ const AddNewEmail: React.FC = () => {
 
 
                             <Text style={[styles.title, {fontSize: 12}]}>Ваш мини комментарий:</Text>
-                            <SuperTextField style={{width: '100%', marginTop: 10, marginBottom: 25}} value={title} onChangeText={setTitle}/>
-
+                            {/*<SuperTextField style={{marginTop: 10, marginBottom: 25}} numberOfLines={10} multiline value={title} onChangeText={setTitle}/>*/}
+                            <TextInput style={{
+                                marginTop: 12,
+                                marginBottom: 25,
+                                padding: 15,
+                                borderWidth: 1,
+                                borderColor: '#fff',
+                                borderRadius: 4,
+                                fontSize: 22,
+                                color: '#fff',
+                                backgroundColor: '#30115e',
+                            }} maxLength={100} multiline value={title} onChangeText={setTitle}/>
                             <Text style={[styles.title, {fontSize: 12}]}>Выберите куда пересылать:</Text>
                             {/*<SuperTextField style={{width: '100%', marginTop: 10, marginBottom: 20}}/>*/}
 
@@ -127,7 +137,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     modalView: {
-        height: 480,
+        // height: 480,
         marginHorizontal: 10,
         backgroundColor: '#1A0933',
         borderRadius: 20,

@@ -19,6 +19,7 @@ const SuperTextField: React.FC<Props> = (props) => {
         label,
         errorText,
         value,
+        multiline,
         style,
         onBlur,
         onFocus,
@@ -52,6 +53,7 @@ const SuperTextField: React.FC<Props> = (props) => {
                         borderColor: color,
                     },
                 ]}
+                 multiline={!!multiline}
                 ref={inputRef}
                 {...restOfProps}
                 value={value}
