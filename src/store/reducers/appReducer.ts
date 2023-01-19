@@ -25,6 +25,8 @@ export const login = createAsyncThunk('app/authorizationUser', async (data: { em
         thunkAPI.dispatch(setCode({isCode: false}));
         await storeDataSave(authorizationData.data.token);
         await createAxiosInstance();
+        await thunkAPI.dispatch(fetchSubscription());
+        await thunkAPI.dispatch(fetchSecretEmailsList());
         thunkAPI.dispatch(setLogin({isLogin: true}));
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
     }

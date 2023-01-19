@@ -22,15 +22,13 @@ const HomeScreen: React.FC = () => {
 
     useEffect(() => {
         !isLogin && navigation.navigate('Authorization');
-        // isLogin && dispatch(fetchSecretEmailsList());
     }, [isLogin]);
 
     return (
         <GradientContainer component={
             <ScrollView showsVerticalScrollIndicator={false}
-                        refreshControl={
-                            <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
-                        }
+                        refreshControl={<RefreshControl refreshing={refreshing}
+                                                        onRefresh={onRefresh}/>}
             >
                 <View style={styles.container}>
                     <Text style={styles.title}>Ваши email</Text>

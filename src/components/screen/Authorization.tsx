@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useAppNavigation} from './types';
 import {LinearGradient} from 'expo-linear-gradient';
 import SuperTextField from '../superComponents/SuperTextField';
 import {Formik} from 'formik';
 import SuperButton from '../superComponents/SuperButton';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {fetchCode, login} from '../../store/reducers/appReducer';
+import {fetchCode, login, setCode} from '../../store/reducers/appReducer';
+import {MaterialIcons} from '@expo/vector-icons';
 
 type FormikErrorType = {
     email?: string,
@@ -16,10 +17,14 @@ type FormikErrorType = {
 const Authorization: React.FC = () => {
     const navigation = useAppNavigation();
     const [isBlockButton, setBlockButton] = useState(true);
-    // const [hasCode, setHasCode] = useState(false);
     const errors: FormikErrorType = {};
     const {isCode, isLogin} = useAppSelector(state => state.app);
     const dispatch = useAppDispatch();
+
+    const ArrowBack = isCode ? <TouchableOpacity style={styles.backButton} onPress={() => dispatch(setCode({isCode: false}))}>
+        <MaterialIcons name="arrow-back" size={24} color="white"/>
+        <Text style={{color: 'white'}}>back</Text>
+    </TouchableOpacity> : <></>;
 
     useEffect(() => {
         isLogin && navigation.navigate('HideMail');
@@ -31,7 +36,7 @@ const Authorization: React.FC = () => {
             style={styles.mainGradient}
             start={{x: 0.5, y: 0.05}}
             end={{x: 0.5, y: 1.3}}>
-
+            {ArrowBack}
             <Formik initialValues={{
                 email: '',
                 password: '',
@@ -72,9 +77,10 @@ const Authorization: React.FC = () => {
 
             >
                 {({handleChange, handleBlur, handleSubmit, values}) => (
-                    <ScrollView keyboardShouldPersistTaps="handled">
-                        <View style={styles.container}>
 
+                    <ScrollView keyboardShouldPersistTaps="handled">
+
+                        <View style={styles.container}>
                             <SuperTextField label={'Ваш email'} onChangeText={handleChange('email')}
                                             onBlur={handleBlur('email')}
                                             value={values.email}
@@ -112,6 +118,16 @@ const styles = StyleSheet.create({
         height: '100%',
         padding: 30,
         display: 'flex',
+    },
+    backButton: {
+        width: 50,
+        height: 30,
+        position: 'absolute',
+        top: 30,
+        left: 30,
+        flexDirection: 'row',
+        alignItems: 'center',
+        zIndex: 1,
     },
     container: {
         width: '100%',

@@ -50,8 +50,9 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                     Alert.alert('Modal has been closed.');
                     setModalVisible(!modalVisible);
                 }}>
-                <BlurView intensity={100} tint={'dark'} style={[styles.blur]}>
+                <BlurView intensity={30} tint={'dark'} style={[styles.blur]}>
                     <View style={styles.centeredView}>
+
                         <View style={styles.modalView}>
                             <View style={styles.header}>
                                 <Text style={[styles.title, {fontSize: 22, marginTop: 0}]}>{secret.alias}</Text>
@@ -61,7 +62,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                             </View>
 
                             <Text style={[styles.title]}>Ваш новый email:</Text>
-                            <View style={styles.generatorEmail}>
+                            <View>
                                 <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secret.alias}/>
                                 <TouchableOpacity style={styles.copyEmail} onPress={() => onPressHandler(secret.alias)}>
                                     <MaterialIcons name="content-copy" size={24} color="white"/>
@@ -69,11 +70,10 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                             </View>
 
                             <Text style={[styles.title]}>Ваш мини комментарий:</Text>
-                            {/*<SuperTextField style={{width: "100%", marginTop: 10, height: 60}} focusable={false} editable={false} value={secret.title}/>*/}
                             <TextInput style={{
                                 marginTop: 12,
                                 padding: 15,
-                                minHeight:60,
+                                minHeight: 60,
                                 borderWidth: 1,
                                 borderColor: '#fff',
                                 borderRadius: 4,
@@ -81,12 +81,12 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                                 color: '#fff',
                                 backgroundColor: '#30115e',
                             }} value={secret.title} multiline focusable={false} editable={false}/>
+
                             <Text style={[styles.title]}>Пересылаем на вот эту почту:</Text>
                             <SuperTextField style={{width: '100%', marginTop: 12, height: 60}} focusable={false} editable={false} value={secret.email}/>
 
-
                             <Text style={[styles.title, {fontSize: 16}]}>Дата создания: {startDate}</Text>
-                            <Text style={[styles.title, {fontSize: 16}]}>Перенаправлено писем: {secret.redirect_count}</Text>
+                            <Text style={[styles.title, {fontSize: 16, marginTop: 5, marginBottom: 12}]}>Перенаправлено писем: {secret.redirect_count}</Text>
 
                             <SuperButton title={'Удалить этот адрес'} handlePress={destroySecretEmail}/>
                         </View>
@@ -96,7 +96,6 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
             </Modal>
 
             <TouchableOpacity
-                // style={[styles.button, styles.buttonOpen]}
                 onPress={() => setModalVisible(true)}>
                 {view}
             </TouchableOpacity>
@@ -106,50 +105,31 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
 
 const styles = StyleSheet.create({
     blur: {
-        height: '100%',
-        // position: 'absolute',
-        // width: '100%'
-        //   position: 'absolute'
+        flex: 1,
     },
     centeredView: {
         flex: 1,
         justifyContent: 'center',
-        // alignItems: 'center',
     },
     modalView: {
-        // height: 500,
         marginHorizontal: 10,
         backgroundColor: '#1A0933',
         borderRadius: 20,
         padding: 20,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        // alignItems: 'center',
         shadowColor: '#ffffff',
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 0,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowRadius: 10,
         elevation: 5,
     },
-
     header: {
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: '100%',
     },
-    generatorEmail: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        position: 'relative',
-    },
-
     copyEmail: {
         marginTop: 10,
         backgroundColor: '#5e38a4',
@@ -159,10 +139,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         top: 0,
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-
         shadowColor: '#ffffff',
         borderWidth: 1,
         borderColor: '#815fc0',

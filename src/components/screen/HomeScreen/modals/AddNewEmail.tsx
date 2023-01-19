@@ -6,42 +6,36 @@ import SuperButton from '../../../superComponents/SuperButton';
 import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {addNewSecret, generateNewSecretEmail} from '../../../../store/reducers/secretsEmailsReducer';
 import SelectDropdown from 'react-native-select-dropdown';
+import {BlurView} from 'expo-blur';
 
 const AddNewEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const dispatch = useAppDispatch();
     const secretEmail = useAppSelector(state => state.secrets.newEmail.secretEmail);
-    const emails = useAppSelector(state => state.secrets.newEmail.emails);
+    const emailsList = useAppSelector(state => state.secrets.newEmail.emails).map(e => e.address);
 
     const [title, setTitle] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
-
-    const emailsList: string[] = [];
-
-    emails.map(e => emailsList.push(e.address));
 
     const generateSecretEmail = () => {
         dispatch(generateNewSecretEmail());
     };
 
-    const addSecret = () => {
+    const createNewSecret = () => {
         dispatch(addNewSecret({
-            secret_email: secretEmail,
-            title: title ? title : secretEmail,
-            email: currentEmail,
-        })).then(() => {
-            setModalVisible(false);
-            setTitle('')
-            ;
-        });
-
+            secret_email: secretEmail, title: title ? title : secretEmail, email: currentEmail,
+        }))
+            .then(() => {
+                setModalVisible(false);
+                setTitle('');
+            });
     };
 
     useEffect(() => {
-        if (emails[0]) {
-            setCurrentEmail(emails[0].address);
+        if (emailsList[0]) {
+            setCurrentEmail(emailsList[0]);
         }
-    }, [emails]);
+    }, [emailsList]);
 
     return (
         <View style={styles.centeredView}>
@@ -53,18 +47,17 @@ const AddNewEmail: React.FC = () => {
                     Alert.alert('Modal has been closed.');
                     setModalVisible(!modalVisible);
                 }}>
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <View style={styles.header}>
-                            <Text style={styles.title}>Создание секретного email</Text>
+                <BlurView intensity={30} tint={'dark'} style={[styles.blur]}>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
 
-                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                <MaterialIcons name="close" size={24} color="#fff"/>
-                            </TouchableOpacity>
-                        </View>
+                            <View style={styles.header}>
+                                <Text style={styles.title}>Создание секретного email</Text>
+                                <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                    <MaterialIcons name="close" size={24} color="#fff"/>
+                                </TouchableOpacity>
+                            </View>
 
-
-                        <View style={styles.inputData}>
 
                             <View>
                                 <Text style={[styles.title, {fontSize: 12, marginTop: 25}]}>Ваш новый email:</Text>
@@ -76,9 +69,7 @@ const AddNewEmail: React.FC = () => {
                                 </View>
                             </View>
 
-
                             <Text style={[styles.title, {fontSize: 12}]}>Ваш мини комментарий:</Text>
-                            {/*<SuperTextField style={{marginTop: 10, marginBottom: 25}} numberOfLines={10} multiline value={title} onChangeText={setTitle}/>*/}
                             <TextInput style={{
                                 marginTop: 12,
                                 marginBottom: 25,
@@ -87,12 +78,12 @@ const AddNewEmail: React.FC = () => {
                                 borderColor: '#fff',
                                 borderRadius: 4,
                                 fontSize: 22,
+                                minHeight: 60,
                                 color: '#fff',
                                 backgroundColor: '#30115e',
                             }} maxLength={100} multiline value={title} onChangeText={setTitle}/>
-                            <Text style={[styles.title, {fontSize: 12}]}>Выберите куда пересылать:</Text>
-                            {/*<SuperTextField style={{width: '100%', marginTop: 10, marginBottom: 20}}/>*/}
 
+                            <Text style={[styles.title, {fontSize: 12}]}>Выберите куда пересылать:</Text>
                             <SelectDropdown
                                 data={emailsList}
                                 onSelect={(selectedItem) => {
@@ -115,11 +106,10 @@ const AddNewEmail: React.FC = () => {
                                 }}
                                 onChangeSearchInputText={() => {
                                 }}/>
-
+                            <SuperButton title={'Создать'} handlePress={createNewSecret}/>
                         </View>
-                        <SuperButton title={'Создать'} handlePress={addSecret}/>
                     </View>
-                </View>
+                </BlurView>
             </Modal>
             <TouchableOpacity
                 style={[styles.buttonOpen]}
@@ -137,54 +127,37 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     modalView: {
-        // height: 480,
         marginHorizontal: 10,
         backgroundColor: '#1A0933',
         borderRadius: 20,
         padding: 20,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
         shadowColor: '#ffffff',
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 0,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
+        shadowOpacity: 0.8,
+        shadowRadius: 10,
         elevation: 5,
     },
-
+    blur: {
+        flex: 1,
+    },
     header: {
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: '100%',
     },
-
     title: {
         fontSize: 24,
         color: '#44D9E8',
         textShadowColor: 'rgba(255,255,255,0.75)',
         textShadowOffset: {width: 2, height: 2},
-        textShadowRadius: 5,
-    },
-
-    inputData: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
+        textShadowRadius: 3,
     },
     generatorEmail: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        position: 'relative',
         marginBottom: 25,
     },
-
     refreshEmail: {
         marginTop: 10,
         backgroundColor: '#5e38a4',
@@ -194,22 +167,19 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         top: 0,
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-
         shadowColor: '#ffffff',
         borderWidth: 1,
         borderColor: '#815fc0',
         shadowOffset: {
-            width: 0,
+            width: 1,
             height: 1,
         },
         shadowOpacity: 0.5,
         shadowRadius: 5,
         elevation: 2,
     },
-
     buttonOpen: {
         width: 120,
         padding: 8,
@@ -220,7 +190,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center',
         shadowOffset: {
-            width: 0,
+            width: 1,
             height: 1,
         },
         shadowOpacity: 0.5,

@@ -36,18 +36,16 @@
     "react-native-screens": "~3.18.0",
     "react-native-select-dropdown": "^3.2.1",
     "react-native-svg": "13.4.0",
-    "react-native-typing-animation-effect": "^1.0.5",
-    "react-native-typing-effect": "github:userbq201/react-native-typing-effect",
     "react-native-web": "~0.18.9",
     "react-redux": "^8.0.5",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-av": "~13.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.70.6",
     "@types/react-redux": "^7.1.25",
-    "react-native-typewriter": "^0.7.0",
     "typescript": "^4.6.3"
   },
   "private": true

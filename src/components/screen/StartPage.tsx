@@ -8,16 +8,20 @@ import AnimatedTyping from '../superComponents/AnimatedTyping';
 const StartPage: React.FC = () => {
     const navigation = useAppNavigation();
     const dispatch = useAppDispatch();
+    // const [sound, setSound] = useState<any>();
     const {isLogin, isInitialized} = useAppSelector(state => state.app);
 
-    useEffect(() => {
-        // const id = setTimeout(() => {
-             dispatch(checkLoginUser());
-        // }, 2450);
+    // async function playSound() {
+    //     console.log('Loading Sound');
+    //     const { sound } = await Audio.Sound.createAsync( require('../../assets/audio.mp3')
+    //     );
+    //     // setSound(sound);
+    //     await sound.playAsync();
+    // }
 
-        // return () => {
-        //     clearInterval(id);
-        // };
+    useEffect(() => {
+        // playSound()
+             dispatch(checkLoginUser());
     }, []);
 
     useEffect(() => {
@@ -49,7 +53,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-
     },
 });
 
