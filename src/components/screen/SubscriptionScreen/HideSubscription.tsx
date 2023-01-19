@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Colors, width} from '../../../constants/Constants';
+import {Colors} from '../../../constants/Constants';
 import SuperButton from '../../superComponents/SuperButton';
 
 const HideSubscription: React.FC = () => {
@@ -11,6 +11,7 @@ const HideSubscription: React.FC = () => {
                 <Text style={[styles.text, {fontSize: 28, fontWeight: '600', paddingVertical: 0}]}>Тариф Hide</Text>
                 <Text style={styles.text}>169 руб.</Text>
                 <Text style={styles.text}>Рассчитан на 1 ваш email</Text>
+
                 <View
                     style={{
                         borderTopColor: '#00FF40',
@@ -23,6 +24,7 @@ const HideSubscription: React.FC = () => {
                 <Text style={styles.text}>Кол-во email получателей: 1</Text>
                 <Text style={styles.text}>Неограниченное кол-во новых email</Text>
                 <Text style={styles.text}>Онлайн поддержка клиентов</Text>
+
                 <View
                     style={{
                         borderTopColor: '#00FF40',
@@ -32,7 +34,8 @@ const HideSubscription: React.FC = () => {
                     }}
                 />
 
-                <SuperButton title={'Подключить на месяц 169 руб'} handlePress={()=>{}}/>
+                <SuperButton title={'Подключить на месяц 169 руб'} handlePress={() => {
+                }}/>
             </View>
         </View>
     );
@@ -51,18 +54,17 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         padding: 10,
-        width: width - 40,
         backgroundColor: '#1A0933',
         shadowColor: '#00FF40',
         borderWidth: 2,
         borderColor: '#00FF40',
-        borderRadius: 2,
+        borderRadius: 10,
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 0,
         },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
+        shadowOpacity: 1,
+        shadowRadius: 10,
         elevation: 6,
     },
     text: {

@@ -35,14 +35,13 @@ const SecretsList: React.FC = () => {
     });
 
     return (
-        <View style={styles.container}>
+        <View>
             {emailList}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {},
     secretBlock: {
         marginTop: 15,
         padding: 10,
@@ -50,15 +49,15 @@ const styles = StyleSheet.create({
         shadowColor: '#fff',
         borderWidth: 2,
         borderColor: '#815fc0',
-        borderRadius: 2,
+        borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
         shadowOffset: {
-            width: 3,
-            height: 3,
+            width: 0,
+            height: 0,
         },
-        shadowOpacity: 0.7,
-        shadowRadius: 3,
+        shadowOpacity: 0.9,
+        shadowRadius: 5,
         elevation: 5,
     },
     title: {

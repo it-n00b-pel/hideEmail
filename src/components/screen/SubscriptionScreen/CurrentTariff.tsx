@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
         shadowColor: '#ffffff',
         borderWidth: 2,
         borderColor: '#815fc0',
-        borderRadius: 2,
+        borderRadius: 10,
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 0,
         },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
+        shadowOpacity: 1,
+        shadowRadius: 10,
         elevation: 6,
     },
     text: {

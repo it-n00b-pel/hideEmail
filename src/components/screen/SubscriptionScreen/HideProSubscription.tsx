@@ -1,23 +1,26 @@
-import React, {useCallback} from 'react';
-import {Alert, Linking, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {Colors, width} from '../../../constants/Constants';
 import SuperButton from '../../superComponents/SuperButton';
 
 const HideProSubscription: React.FC = () => {
-    const handlePress = useCallback(async () => {
-        const supported = await Linking.canOpenURL('https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043');
-        if (supported) {
-            await Linking.openURL('https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043');
-        } else {
-            Alert.alert(`Don't know how to open this URL: ${'https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043'}`);
-        }
-    }, []);
+
+    // const handlePress = useCallback(async () => {
+    //     const supported = await Linking.canOpenURL('https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043');
+    //     if (supported) {
+    //         await Linking.openURL('https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043');
+    //     } else {
+    //         Alert.alert(`Don't know how to open this URL: ${'https://yoomoney.ru/checkout/payments/v2/contract?orderId=2b52101d-000f-5000-a000-15583075a043'}`);
+    //     }
+    // }, []);
+
     return (
         <View>
             <View style={styles.container}>
                 <Text style={[styles.text, {fontSize: 28, fontWeight: '600', paddingVertical: 0}]}>Тариф Hide PRO</Text>
                 <Text style={styles.text}>269 руб.</Text>
                 <Text style={styles.text}>Подключайте любое кол-во email</Text>
+
                 <View
                     style={{
                         borderTopColor: '#c7309c',
@@ -30,6 +33,7 @@ const HideProSubscription: React.FC = () => {
                 <Text style={styles.text}>Неограниченное кол-во email получателей</Text>
                 <Text style={styles.text}>Неограниченное кол-во новых email</Text>
                 <Text style={styles.text}>Онлайн поддержка клиентов</Text>
+
                 <View
                     style={{
                         borderTopColor: '#c7309c',
@@ -39,7 +43,8 @@ const HideProSubscription: React.FC = () => {
                     }}
                 />
 
-                <SuperButton title={'Подключить на месяц 269 руб'} handlePress={()=>{}}/>
+                <SuperButton title={'Подключить на месяц 269 руб'} handlePress={() => {
+                }}/>
             </View>
         </View>
     );
@@ -52,7 +57,10 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: Colors.primaryLite,
         textShadowColor: 'rgba(255,255,255,0.75)',
-        textShadowOffset: {width: 2, height: 2},
+        textShadowOffset: {
+            width: 2,
+            height: 2,
+        },
         textShadowRadius: 5,
     },
     container: {
@@ -63,13 +71,13 @@ const styles = StyleSheet.create({
         shadowColor: '#c7309c',
         borderWidth: 2,
         borderColor: '#c7309c',
-        borderRadius: 2,
+        borderRadius: 10,
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 0,
         },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
+        shadowOpacity: 1,
+        shadowRadius: 10,
         elevation: 6,
     },
     text: {

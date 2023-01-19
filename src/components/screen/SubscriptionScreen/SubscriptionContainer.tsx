@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import GradientContainer from '../../superComponents/GradientContainer';
 import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import CurrentTariff from './CurrentTariff';
@@ -8,14 +8,11 @@ import HideProSubscription from './HideProSubscription';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {fetchSubscription} from '../../../store/reducers/subscriptionReducer';
 
-const PayScreenContainer: React.FC = () => {
+const SubscriptionContainer: React.FC = () => {
     const dispatch = useAppDispatch();
     const subscription = useAppSelector(state => state.subscription);
     const [refreshing, setRefreshing] = useState(false);
-    useEffect(() => {
-        // dispatch(fetchSubscription());
-    }, []);
-    console.log(subscription);
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         dispatch(fetchSubscription()).then(() => {
@@ -24,7 +21,6 @@ const PayScreenContainer: React.FC = () => {
     }, []);
 
     return (
-
         <GradientContainer component={
             <ScrollView showsVerticalScrollIndicator={false}
                         refreshControl={
@@ -64,4 +60,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PayScreenContainer;
+export default SubscriptionContainer;
