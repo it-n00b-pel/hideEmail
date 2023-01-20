@@ -7,6 +7,7 @@ import HideSubscription from './HideSubscription';
 import HideProSubscription from './HideProSubscription';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {fetchSubscription} from '../../../store/reducers/subscriptionReducer';
+import CardsList from './CardsList';
 
 const SubscriptionContainer: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ const SubscriptionContainer: React.FC = () => {
                     <Emails emails={subscription.emails}/>
                     <HideSubscription/>
                     <HideProSubscription/>
+                    {subscription.cards && <CardsList cards={subscription.cards}/>}
                 </View>
             </ScrollView>
         }/>
