@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import SuperTextField from '../../../superComponents/SuperTextField';
@@ -15,7 +15,7 @@ const AddNewEmail: React.FC = () => {
     const emailsList = useAppSelector(state => state.secrets.newEmail.emails).map(e => e.address);
 
     const [title, setTitle] = useState('');
-    const [currentEmail, setCurrentEmail] = useState('');
+    const [currentEmail, setCurrentEmail] = useState(emailsList[0]);
 
     const generateSecretEmail = () => {
         dispatch(generateNewSecretEmail());
@@ -30,12 +30,6 @@ const AddNewEmail: React.FC = () => {
                 setTitle('');
             });
     };
-
-    useEffect(() => {
-        if (emailsList[0]) {
-            setCurrentEmail(emailsList[0]);
-        }
-    }, [emailsList]);
 
     return (
         <View style={styles.centeredView}>
@@ -95,13 +89,13 @@ const AddNewEmail: React.FC = () => {
                                 buttonTextAfterSelection={(selectedItem) => {
                                     // text represented after item is selected
                                     // if data array is an array of objects then return selectedItem.property to render after item is selected
-                                    // setCurrentEmail(selectedItem);
+                                    // console.log(selectedItem);
                                     return selectedItem;
                                 }}
                                 rowTextForSelection={(item) => {
                                     // text represented for each item in dropdown
                                     // if data array is an array of objects then return item.property to represent item in dropdown
-                                    setCurrentEmail(item);
+                                    //  setCurrentEmail(item);
                                     return item;
                                 }}
                                 onChangeSearchInputText={() => {

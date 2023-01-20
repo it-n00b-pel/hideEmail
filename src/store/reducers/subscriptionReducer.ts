@@ -37,6 +37,7 @@ export const fetchSubscription = createAsyncThunk('subscription/fetchSubscriptio
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
         const subscription = await subscriptionApi.getSubscription();
         thunkAPI.dispatch(setSubscription({subscription: subscription.data}));
+        console.log(subscription.data);
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
     }
     catch (e) {

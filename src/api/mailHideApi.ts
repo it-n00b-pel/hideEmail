@@ -78,9 +78,37 @@ export type SubscriptionResponseType = {
     alias_total: number,
     alias_used: number,
     ended_at: Date,
-    cards: Array<any>,
+    cards: CardType[],
     plans: Array<any>,
     self_plan: {}
+}
+
+export type CardType = {
+    card_type: string,
+    created_at: string,
+    expiry_month: string,
+    expiry_year: string,
+    first6: string,
+    id: number,
+    last4: number,
+    more: {
+        card: {
+            card_type: string,
+            expiry_month: number,
+            expiry_year: number,
+            first6: number,
+            issuer_country: string,
+            last4: number,
+        },
+        id: string,
+        saved: boolean,
+        title: string,
+        type: string,
+    },
+    payment_id: string,
+    type: string,
+    updated_at: string,
+    user_id: number,
 }
 
 export type EmailType = {
