@@ -55,13 +55,13 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
 
                         <View style={styles.modalView}>
                             <View style={styles.header}>
-                                <Text style={[styles.title, {fontSize: 22, marginTop: 0}]}>{secret.alias}</Text>
+                                <Text style={[styles.text, {fontSize: 22, marginTop: 0}]}>{secret.alias}</Text>
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                                     <MaterialIcons name="close" size={24} color="#fff"/>
                                 </TouchableOpacity>
                             </View>
 
-                            <Text style={[styles.title]}>Ваш новый email:</Text>
+                            <Text style={[styles.text]}>Ваш новый email:</Text>
                             <View>
                                 <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secret.alias}/>
                                 <TouchableOpacity style={styles.copyEmail} onPress={() => onPressHandler(secret.alias)}>
@@ -69,7 +69,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                                 </TouchableOpacity>
                             </View>
 
-                            <Text style={[styles.title]}>Ваш мини комментарий:</Text>
+                            <Text style={[styles.text]}>Ваш мини комментарий:</Text>
                             <TextInput style={{
                                 marginTop: 12,
                                 padding: 15,
@@ -80,13 +80,13 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                                 fontSize: 22,
                                 color: '#fff',
                                 backgroundColor: '#30115e',
-                            }} value={secret.title} multiline focusable={false} editable={false}/>
+                            }} value={secret.text} multiline focusable={false} editable={false}/>
 
-                            <Text style={[styles.title]}>Пересылаем на вот эту почту:</Text>
+                            <Text style={[styles.text]}>Пересылаем на вот эту почту:</Text>
                             <SuperTextField style={{width: '100%', marginTop: 12, height: 60}} focusable={false} editable={false} value={secret.email}/>
 
-                            <Text style={[styles.title, {fontSize: 16}]}>Дата создания: {startDate}</Text>
-                            <Text style={[styles.title, {fontSize: 16, marginTop: 5, marginBottom: 12}]}>Перенаправлено писем: {secret.redirect_count}</Text>
+                            <Text style={[styles.text, {fontSize: 16}]}>Дата создания: {startDate}</Text>
+                            <Text style={[styles.text, {fontSize: 16, marginTop: 5, marginBottom: 12}]}>Перенаправлено писем: {secret.redirect_count}</Text>
 
                             <SuperButton title={'Удалить этот адрес'} handlePress={destroySecretEmail}/>
                         </View>
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 2,
     },
-    title: {
+    text: {
         fontSize: 12,
         color: '#44D9E8',
         textShadowColor: 'rgba(255,255,255,0.75)',

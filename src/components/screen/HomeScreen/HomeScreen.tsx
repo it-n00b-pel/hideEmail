@@ -32,7 +32,7 @@ const HomeScreen: React.FC = () => {
                                                         onRefresh={onRefresh}/>}
             >
                 <View style={styles.container}>
-                    <Text style={styles.title}>Ваши email</Text>
+                    <Text style={styles.text}>Ваши email</Text>
                     <AddNewEmail/>
                     <SecretsList/>
                 </View>
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingHorizontal: 20,
     },
-    title: {
+    text: {
         fontSize: 32,
         fontWeight: '600',
         color: Colors.primaryLite,

@@ -10,8 +10,8 @@ const SupportScreen: React.FC = () => {
         <GradientContainer component={
             <View style={styles.container}>
                 <ScrollView keyboardShouldPersistTaps="handled">
-                    <Text style={styles.title}>Поддержка</Text>
-                    <Text style={[styles.title, {fontSize: 20, marginTop: 20}]}>Сообщение</Text>
+                    <Text style={styles.text}>Поддержка</Text>
+                    <Text style={[styles.text, {fontSize: 20, marginTop: 20}]}>Сообщение</Text>
                     <TextInput style={styles.input}
                                value={value}
                                onChangeText={text => setValue(text)}
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         flex: 1,
     },
-    title: {
+    text: {
         marginHorizontal: 20,
         fontSize: 32,
         fontWeight: '600',

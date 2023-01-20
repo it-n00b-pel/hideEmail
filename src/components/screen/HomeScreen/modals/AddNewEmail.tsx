@@ -23,7 +23,7 @@ const AddNewEmail: React.FC = () => {
 
     const createNewSecret = () => {
         dispatch(addNewSecret({
-            secret_email: secretEmail, title: title ? title : secretEmail, email: currentEmail,
+            secret_email: secretEmail, text: title ? title : secretEmail, email: currentEmail,
         }))
             .then(() => {
                 setModalVisible(false);
@@ -46,7 +46,7 @@ const AddNewEmail: React.FC = () => {
                         <View style={styles.modalView}>
 
                             <View style={styles.header}>
-                                <Text style={styles.title}>Создание секретного email</Text>
+                                <Text style={styles.text}>Создание секретного email</Text>
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                                     <MaterialIcons name="close" size={24} color="#fff"/>
                                 </TouchableOpacity>
@@ -54,7 +54,7 @@ const AddNewEmail: React.FC = () => {
 
 
                             <View>
-                                <Text style={[styles.title, {fontSize: 12, marginTop: 25}]}>Ваш новый email:</Text>
+                                <Text style={[styles.text, {fontSize: 12, marginTop: 25}]}>Ваш новый email:</Text>
                                 <View style={styles.generatorEmail}>
                                     <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secretEmail}/>
                                     <TouchableOpacity style={styles.refreshEmail} onPress={generateSecretEmail}>
@@ -63,7 +63,7 @@ const AddNewEmail: React.FC = () => {
                                 </View>
                             </View>
 
-                            <Text style={[styles.title, {fontSize: 12}]}>Ваш мини комментарий:</Text>
+                            <Text style={[styles.text, {fontSize: 12}]}>Ваш мини комментарий:</Text>
                             <TextInput style={{
                                 marginTop: 12,
                                 marginBottom: 25,
@@ -77,7 +77,7 @@ const AddNewEmail: React.FC = () => {
                                 backgroundColor: '#30115e',
                             }} maxLength={100} multiline value={title} onChangeText={setTitle}/>
 
-                            <Text style={[styles.title, {fontSize: 12}]}>Выберите куда пересылать:</Text>
+                            <Text style={[styles.text, {fontSize: 12}]}>Выберите куда пересылать:</Text>
                             <SelectDropdown
                                 data={emailsList}
                                 onSelect={(selectedItem) => {
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
-    title: {
+    text: {
         fontSize: 24,
         color: '#44D9E8',
         textShadowColor: 'rgba(255,255,255,0.75)',
