@@ -28,6 +28,13 @@ export const subscriptionApi = {
     getSubscription(): Promise<AxiosResponse<SubscriptionResponseType>> {
         return instance.get('sub');
     },
+    addNewEmail(data: NewEmailDataType): Promise<AxiosResponse> {
+        return instance.post('emails', data);
+    },
+    getVerifyCode(email: string): Promise<AxiosResponse> {
+        return instance.post('emails/verify/code', {email});
+    },
+
 };
 
 export const secretsApi = {
@@ -126,4 +133,9 @@ export type SecretType = {
     title: string,
     email: string,
     alias: string,
+}
+
+export type NewEmailDataType = {
+    email: string,
+    code: number,
 }

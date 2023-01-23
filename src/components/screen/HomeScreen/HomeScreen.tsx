@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {useAppNavigation} from '../types';
 import {fetchSecretEmailsList} from '../../../store/reducers/secretsEmailsReducer';
 import SecretsList from './SecretsList';
-import AddNewEmail from './modals/AddNewEmail';
+import AddNewSecretEmail from './modals/AddNewSecretEmail';
 import {Colors} from '../../../constants/Constants';
 
 const HomeScreen: React.FC = () => {
@@ -33,7 +33,7 @@ const HomeScreen: React.FC = () => {
             >
                 <View style={styles.container}>
                     <Text style={styles.text}>Ваши email</Text>
-                    <AddNewEmail/>
+                    <AddNewSecretEmail/>
                     <SecretsList/>
                 </View>
             </ScrollView>

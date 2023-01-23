@@ -1,33 +1,39 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {EmailType, subscriptionApi, SubscriptionResponseType} from '../../api/mailHideApi';
+import {CardType, EmailType, NewEmailDataType, subscriptionApi, SubscriptionResponseType} from '../../api/mailHideApi';
 import {setPreloaderStatus} from './appReducer';
 import {addNewSecret, removeSecretEmail} from './secretsEmailsReducer';
 
 const slice = createSlice({
     name: 'subscription',
     initialState: {
-        emails: [] as EmailType[],
-        can_add_email: false,
-        emails_total: 0,
-        emails_used: 0,
-        alias_total: 0,
-        alias_used: 0,
-        ended_at: '' as unknown as Date,
-        cards: [],
-        plans: [],
-        self_plan: {},
-    } as SubscriptionResponseType,
+        subscription: {
+            emails: [] as EmailType[],
+            can_add_email: false,
+            emails_total: 0,
+            emails_used: 0,
+            alias_total: 0,
+            alias_used: 0,
+            ended_at: '' as unknown as Date,
+            cards: [] as CardType[],
+            plans: [],
+            self_plan: {},
+        } as SubscriptionResponseType,
+        hasCode: false,
+    },
     reducers: {
         setSubscription(state, action: PayloadAction<{ subscription: SubscriptionResponseType }>) {
-            return state = action.payload.subscription;
+            state.subscription = action.payload.subscription;
+        },
+        setNewCode(state, action: PayloadAction<{ hasCode: boolean }>) {
+            state.hasCode = action.payload.hasCode;
         },
     },
     extraReducers(builder) {
         builder.addCase(removeSecretEmail.fulfilled, (state) => {
-            state.alias_used = state.alias_used - 1;
+            state.subscription.alias_used = state.subscription.alias_used - 1;
         });
         builder.addCase(addNewSecret.fulfilled, (state) => {
-            state.alias_used = state.alias_used + 1;
+            state.subscription.alias_used = state.subscription.alias_used + 1;
         });
     },
 });
@@ -44,5 +50,30 @@ export const fetchSubscription = createAsyncThunk('subscription/fetchSubscriptio
     }
 });
 
+export const fetchVerifyCode = createAsyncThunk('subscription/fetchVerifyCode', async (email: string, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+        await subscriptionApi.getVerifyCode(email);
+        thunkAPI.dispatch(setNewCode({hasCode: true}));
+        thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+    }
+    catch (e) {
+
+    }
+});
+
+export const addNewEmail = createAsyncThunk('subscription/addNewEmail', async (data: NewEmailDataType, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+        await subscriptionApi.addNewEmail(data);
+        thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+    }
+    catch (e) {
+
+    }
+});
+
 export const subscriptionReducer = slice.reducer;
-export const {setSubscription} = slice.actions;
+export const {setSubscription, setNewCode} = slice.actions;
+
+export type SubscriptionActionCreatorsType = ReturnType<typeof setNewCode>

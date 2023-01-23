@@ -1,8 +1,8 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {appReducer} from './reducers/appReducer';
-import {subscriptionReducer} from './reducers/subscriptionReducer';
+import {AppActionCreatorType, appReducer} from './reducers/appReducer';
+import {SubscriptionActionCreatorsType, subscriptionReducer} from './reducers/subscriptionReducer';
 import {secretsEmailsReducer} from './reducers/secretsEmailsReducer';
 
 const rootReducer = combineReducers({
@@ -16,7 +16,7 @@ export const store = configureStore({
     middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck: false}).prepend(thunkMiddleware),
 });
 
-type AppActionsType = any
+type AppActionsType = SubscriptionActionCreatorsType | AppActionCreatorType
 export type AppRootStateType = ReturnType<typeof store.getState>;
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>

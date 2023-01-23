@@ -26,7 +26,7 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
             <Text style={[styles.text, {marginTop: 30}]}>Bank Card</Text>
             <View style={styles.cardNumber}>
                 {cardType(card)}
-                <Text style={[styles.text, {fontSize: 34}]}>{card.first6.substring(0, 4)} {card.first6.substring(4, 6)}** **** {card.last4}</Text>
+                <Text style={[styles.text, {fontSize: 28}]}>{card.first6.substring(0, 4)} {card.first6.substring(4, 6)}** **** {card.last4}</Text>
             </View>
 
             <View style={styles.cardNumber}>
@@ -73,6 +73,9 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontSize: 24,
+        textShadowColor: 'rgba(255,255,255,0.75)',
+        textShadowOffset: {width: 2, height: 2},
+        textShadowRadius: 5,
     },
     cardNumber: {
         marginTop: 20,

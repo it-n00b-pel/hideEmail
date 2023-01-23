@@ -18,7 +18,7 @@ const SuperButton: React.FC<Props> = (props) => {
                             onPress={handlePress}
                             underlayColor="#180830"
                             style={styles.button}>
-           <Text style={{fontSize: 22, fontWeight: '700', color: 'white'}}> {title}</Text>
+           <Text style={{fontSize: 18, fontWeight: '700', color: 'white'}}> {title}</Text>
         </TouchableHighlight>
     );
 };

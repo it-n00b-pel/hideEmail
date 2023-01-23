@@ -2,12 +2,14 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Colors} from '../../../constants/Constants';
 import {EmailType} from '../../../api/mailHideApi';
+import AddNewEmail from './modal/AddNewEmail';
 
 type EmailsPropsType = {
-    emails: EmailType[]
+    emails: EmailType[],
+    canAddEmail: boolean
 }
 
-const Emails: React.FC<EmailsPropsType> = ({emails}) => {
+const Emails: React.FC<EmailsPropsType> = ({emails, canAddEmail}) => {
 
     const emailList = emails.map(email => {
         const date = new Date(email.ended_at);
@@ -26,6 +28,7 @@ const Emails: React.FC<EmailsPropsType> = ({emails}) => {
             <Text style={styles.title}>Emails</Text>
             <View style={styles.container}>
                 {emailList}
+                {canAddEmail && <AddNewEmail/>}
             </View>
         </View>
     );

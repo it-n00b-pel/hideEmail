@@ -101,3 +101,4 @@ export type LoginData = {
 }
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type AppActionCreatorType = ReturnType<typeof setCode>

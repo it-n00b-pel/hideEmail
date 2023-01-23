@@ -11,7 +11,7 @@ import CardsList from './CardsList';
 
 const SubscriptionContainer: React.FC = () => {
     const dispatch = useAppDispatch();
-    const subscription = useAppSelector(state => state.subscription);
+    const subscription = useAppSelector(state => state.subscription.subscription);
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefresh = React.useCallback(() => {
@@ -30,7 +30,7 @@ const SubscriptionContainer: React.FC = () => {
             >
                 <View style={styles.container}>
                     <CurrentTariff subscription={subscription}/>
-                    <Emails emails={subscription.emails}/>
+                    <Emails emails={subscription.emails} canAddEmail={subscription.can_add_email}/>
                     <HideSubscription/>
                     <HideProSubscription/>
                     {subscription.cards && <CardsList cards={subscription.cards}/>}

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        fontSize: 22,
+        fontSize: 20,
         paddingVertical: 5,
         textShadowColor: 'rgba(255,255,255,0.75)',
         textShadowOffset: {width: 2, height: 2},

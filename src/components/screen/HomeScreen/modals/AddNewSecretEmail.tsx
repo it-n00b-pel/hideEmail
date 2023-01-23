@@ -8,7 +8,7 @@ import {addNewSecret, generateNewSecretEmail} from '../../../../store/reducers/s
 import SelectDropdown from 'react-native-select-dropdown';
 import {BlurView} from 'expo-blur';
 
-const AddNewEmail: React.FC = () => {
+const AddNewSecretEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const dispatch = useAppDispatch();
     const secretEmail = useAppSelector(state => state.secrets.newEmail.secretEmail);
@@ -23,7 +23,7 @@ const AddNewEmail: React.FC = () => {
 
     const createNewSecret = () => {
         dispatch(addNewSecret({
-            secret_email: secretEmail, text: title ? title : secretEmail, email: currentEmail,
+            secret_email: secretEmail, title: title ? title : secretEmail, email: currentEmail,
         }))
             .then(() => {
                 setModalVisible(false);
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     text: {
-        fontSize: 24,
+        fontSize: 20,
         color: '#44D9E8',
         textShadowColor: 'rgba(255,255,255,0.75)',
         textShadowOffset: {width: 2, height: 2},
@@ -216,4 +216,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AddNewEmail;
+export default AddNewSecretEmail;
