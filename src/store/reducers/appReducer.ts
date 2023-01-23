@@ -15,7 +15,7 @@ export const fetchCode = createAsyncThunk('app/fetchCode', async (email: string,
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
     }
     catch (e) {
-        console.log(e);
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
     }
 });
 
@@ -38,8 +38,13 @@ export const login = createAsyncThunk('app/authorizationUser', async (data: { em
 });
 
 export const logOut = createAsyncThunk('app/logOut', async (arg, thunkAPI) => {
-    await clearStorage();
-    thunkAPI.dispatch(setLogin({isLogin: false}));
+    try {
+        await clearStorage();
+        thunkAPI.dispatch(setLogin({isLogin: false}));
+    }
+    catch (e) {
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
+    }
 });
 
 export const checkLoginUser = createAsyncThunk('app/checkLoginUser', async (arg, thunkAPI) => {
