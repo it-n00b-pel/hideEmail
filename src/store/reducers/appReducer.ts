@@ -1,9 +1,11 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {authApi, createAxiosInstance} from '../../api/mailHideApi';
 import {v1} from 'uuid';
-import {clearStorage, getDataRead, storeDataSave} from '../../utils';
+import {clearStorage, getDataRead, handleServerNetworkError, storeDataSave} from '../../utils';
 import {fetchSubscription} from './subscriptionReducer';
 import {fetchSecretEmailsList} from './secretsEmailsReducer';
+import {AxiosError} from 'axios';
+import {AppDispatch} from '../store';
 
 export const fetchCode = createAsyncThunk('app/fetchCode', async (email: string, thunkAPI) => {
     try {
@@ -13,7 +15,7 @@ export const fetchCode = createAsyncThunk('app/fetchCode', async (email: string,
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
     }
     catch (e) {
-
+        console.log(e);
     }
 });
 
@@ -31,7 +33,7 @@ export const login = createAsyncThunk('app/authorizationUser', async (data: { em
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
     }
     catch (e) {
-        console.log(e);
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
     }
 });
 
@@ -69,7 +71,10 @@ const slice = createSlice({
         isInitialized: false,
         isCode: false,
         status: 'idle' as RequestStatusType,
-        error: null as string | null,
+        error: {
+            status: null,
+            message: null,
+        } as ErrorType,
         token: '',
     },
     reducers: {
@@ -79,8 +84,9 @@ const slice = createSlice({
         setInitialized(state, action: PayloadAction<{ isInitialized: boolean }>) {
             state.isInitialized = action.payload.isInitialized;
         },
-        setError(state, action: PayloadAction<{ error: string | null }>) {
-            state.error = action.payload.error;
+        setError(state, action: PayloadAction<{ error: ErrorType }>) {
+            state.error.status = action.payload.error.status;
+            state.error.message = action.payload.error.message;
         },
         setCode(state, action: PayloadAction<{ isCode: boolean }>) {
             state.isCode = action.payload.isCode;
@@ -100,5 +106,10 @@ export type LoginData = {
     device_id: string,
 }
 
+type ErrorType = {
+    status: number | null,
+    message: string | null,
+}
+
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type AppActionCreatorType = ReturnType<typeof setCode>
+export type AppActionCreatorType = ReturnType<typeof setCode> | ReturnType<typeof setError> | ReturnType<typeof setPreloaderStatus>

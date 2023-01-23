@@ -68,11 +68,14 @@ const Authorization: React.FC = () => {
                         if (isCode) {
                             // navigation.navigate('HideMail');
                             dispatch(login({email: values.email, password: values.password}));
-                            values.email = '';
-                            values.password = '';
+                            // values.email = '';
+                            //  values.password = '';
                         } else {
                             dispatch(fetchCode(values.email));
+                            // values.email = '';
+                             values.password = '';
                         }
+
                     }}
 
             >
@@ -84,6 +87,7 @@ const Authorization: React.FC = () => {
                             <SuperTextField label={'Ваш email'} onChangeText={handleChange('email')}
                                             onBlur={handleBlur('email')}
                                             value={values.email}
+                                            editable={!isCode}
                                             style={{marginTop: 20, width: '100%'}}
                                             errorText={errors.email}/>
 

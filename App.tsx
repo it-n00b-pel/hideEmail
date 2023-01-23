@@ -6,6 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider} from 'react-redux';
 import {store} from './src/store/store';
 import StartPage from './src/components/screen/StartPage';
+import ErrorModalHandler from './src/components/superComponents/ErrorModalHandler';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
                     <Stack.Screen name="HideMail" component={HideEmail}/>
                 </Stack.Navigator>
             </NavigationContainer>
+            <ErrorModalHandler/>
         </Provider>
     );
 }

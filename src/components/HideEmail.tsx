@@ -35,7 +35,6 @@ export default function HideEmail() {
                     },
                     shadowOpacity: 1,
                     shadowRadius: 0,
-                    //
                     elevation: 24,
                 },
             }}
