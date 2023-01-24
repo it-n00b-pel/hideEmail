@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {addNewSecret, generateNewSecretEmail} from '../../../../store/reducers/secretsEmailsReducer';
 import SelectDropdown from 'react-native-select-dropdown';
 import {BlurView} from 'expo-blur';
+import {blurValue} from '../../../../constants/Constants';
 
 const AddNewSecretEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -41,7 +42,7 @@ const AddNewSecretEmail: React.FC = () => {
                     Alert.alert('Modal has been closed.');
                     setModalVisible(!modalVisible);
                 }}>
-                <BlurView intensity={30} tint={'dark'} style={[styles.blur]}>
+                <BlurView intensity={blurValue} tint={'dark'} style={[styles.blur]}>
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
 

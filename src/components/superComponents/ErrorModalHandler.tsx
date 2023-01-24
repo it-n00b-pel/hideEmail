@@ -5,6 +5,7 @@ import {MaterialIcons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
 import {logOut, setError} from '../../store/reducers/appReducer';
 import {useAppNavigation} from '../screen/types';
+import {blurValue} from '../../constants/Constants';
 
 const ErrorModalHandler: React.FC = () => {
     const error = useAppSelector(state => state.app.error);
@@ -34,7 +35,7 @@ const ErrorModalHandler: React.FC = () => {
                     //     Alert.alert('Modal has been closed.');
                     // }}
                 >
-                    <BlurView intensity={100} tint={'dark'} style={[styles.blur]}>
+                    <BlurView intensity={blurValue} tint={'dark'} style={[styles.blur]}>
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <View style={styles.header}>

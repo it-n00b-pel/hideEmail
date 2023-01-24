@@ -7,6 +7,7 @@ import SuperTextField from '../../../superComponents/SuperTextField';
 import * as Clipboard from 'expo-clipboard';
 import SuperButton from '../../../superComponents/SuperButton';
 import {BlurView} from 'expo-blur';
+import {blurValue} from '../../../../constants/Constants';
 
 type ShowMoreSecretDataPropsType = {
     id: number,
@@ -58,7 +59,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                 //     setModalVisible(!modalVisible);
                 // }}
             >
-                <BlurView intensity={30} tint={'dark'} style={[styles.blur]}>
+                <BlurView intensity={blurValue} tint={'dark'} style={[styles.blur]}>
                     <View style={styles.centeredView}>
 
                         <View style={styles.modalView}>
