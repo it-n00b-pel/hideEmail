@@ -1,19 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {MaterialIcons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
-import {setError} from '../../store/reducers/appReducer';
+import {logOut, setError} from '../../store/reducers/appReducer';
+import {useAppNavigation} from '../screen/types';
 
 const ErrorModalHandler: React.FC = () => {
     const error = useAppSelector(state => state.app.error);
     const dispatch = useAppDispatch();
+    const navigation = useAppNavigation();
 
     console.log(error);
 
     const closeHandler = () => {
         dispatch(setError({error: {message: null, status: null}}));
     };
+    useEffect(() => {
+        if (error.status === 401) {
+            dispatch(logOut());
+            navigation.navigate('Authorization');
+        }
+    }, [error]);
 
     return (
         <View>
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex:100
+        zIndex: 100,
     },
     blur: {
         flex: 1,

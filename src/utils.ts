@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AxiosError} from 'axios';
 import {AppDispatch} from './store/store';
-import {setError, setPreloaderStatus} from './store/reducers/appReducer';
+import {setError, setInitialized, setLogin, setPreloaderStatus} from './store/reducers/appReducer';
 
 export const storeDataSave = async (value: string) => {
     try {
@@ -38,3 +38,13 @@ export const handleServerNetworkError = (error: AxiosError, dispatch: AppDispatc
     dispatch(setError({error: {status: error.request.status, message}}));
     dispatch(setPreloaderStatus({status: 'failed'}));
 };
+
+export const handleShowStartAnimated = (isLogin: boolean, dispatch: AppDispatch) => {
+    const id = setTimeout(() => {
+        dispatch(setLogin({isLogin}));
+        dispatch(setInitialized({isInitialized: true}));
+    }, 2450);
+    return () => {
+        clearInterval(id);
+    };
+}

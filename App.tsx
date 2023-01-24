@@ -22,8 +22,9 @@ export default function App() {
                     <Stack.Screen name="Authorization" component={Authorization}/>
                     <Stack.Screen name="HideMail" component={HideEmail}/>
                 </Stack.Navigator>
+                <ErrorModalHandler/>
             </NavigationContainer>
-            <ErrorModalHandler/>
+
         </Provider>
     );
 }

@@ -30,7 +30,6 @@ const StartPage: React.FC = () => {
         } else if (isInitialized && !isLogin) {
             navigation.navigate('Authorization');
         }
-
     }, [isLogin, isInitialized]);
 
     return (

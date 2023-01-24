@@ -1,11 +1,11 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {authApi, createAxiosInstance} from '../../api/mailHideApi';
 import {v1} from 'uuid';
-import {clearStorage, getDataRead, handleServerNetworkError, storeDataSave} from '../../utils';
+import {clearStorage, getDataRead, handleServerNetworkError, handleShowStartAnimated, storeDataSave} from '../../utils';
 import {fetchSubscription} from './subscriptionReducer';
 import {fetchSecretEmailsList} from './secretsEmailsReducer';
 import {AxiosError} from 'axios';
-import {AppDispatch} from '../store';
+import {AppDispatch, AppRootStateType} from '../store';
 
 export const fetchCode = createAsyncThunk('app/fetchCode', async (email: string, thunkAPI) => {
     try {
@@ -40,7 +40,7 @@ export const login = createAsyncThunk('app/authorizationUser', async (data: { em
 export const logOut = createAsyncThunk('app/logOut', async (arg, thunkAPI) => {
     try {
         await clearStorage();
-        thunkAPI.dispatch(setLogin({isLogin: false}));
+        await thunkAPI.dispatch(setLogin({isLogin: false}));
     }
     catch (e) {
         handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
@@ -55,17 +55,15 @@ export const checkLoginUser = createAsyncThunk('app/checkLoginUser', async (arg,
         await thunkAPI.dispatch(fetchSubscription());
         await thunkAPI.dispatch(fetchSecretEmailsList());
 
-        const id = setTimeout(() => {
-            thunkAPI.dispatch(setLogin({isLogin: true}));
-            thunkAPI.dispatch(setInitialized({isInitialized: true}));
-        }, 2450);
+        const error = thunkAPI.getState() as AppRootStateType;
 
-        return () => {
-            clearInterval(id);
-        };
+        if (error.app.error.status === null) {
+            handleShowStartAnimated(true, thunkAPI.dispatch as AppDispatch);
+        } else {
+            handleShowStartAnimated(false, thunkAPI.dispatch as AppDispatch);
+        }
     } else {
-        thunkAPI.dispatch(setInitialized({isInitialized: true}));
-        thunkAPI.dispatch(setLogin({isLogin: false}));
+        handleShowStartAnimated(false, thunkAPI.dispatch as AppDispatch);
     }
 });
 
@@ -117,4 +115,9 @@ type ErrorType = {
 }
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type AppActionCreatorType = ReturnType<typeof setCode> | ReturnType<typeof setError> | ReturnType<typeof setPreloaderStatus>
+
+export type AppActionCreatorType = ReturnType<typeof setCode>
+    | ReturnType<typeof setError>
+    | ReturnType<typeof setPreloaderStatus>
+    | ReturnType<typeof setLogin>
+    | ReturnType<typeof setInitialized>
