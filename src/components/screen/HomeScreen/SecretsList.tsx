@@ -23,7 +23,7 @@ const SecretsList: React.FC = () => {
         return <View key={email.id} style={styles.secretBlock}>
             <ShowMoreSecretData id={email.id} view={
                 <View>
-                    <Text style={styles.text}>{email.text ? email.text : email.alias}</Text>
+                    <Text style={styles.text}>{email.title ? email.title : email.alias}</Text>
                     <Text style={styles.secret}>{email.alias ? email.alias : ''}</Text>
                     <Text style={styles.email}>{email.email}</Text>
                 </View>

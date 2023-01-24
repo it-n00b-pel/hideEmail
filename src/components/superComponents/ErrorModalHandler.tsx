@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {MaterialIcons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
@@ -9,6 +9,8 @@ const ErrorModalHandler: React.FC = () => {
     const error = useAppSelector(state => state.app.error);
     const dispatch = useAppDispatch();
 
+    console.log(error);
+
     const closeHandler = () => {
         dispatch(setError({error: {message: null, status: null}}));
     };
@@ -17,12 +19,13 @@ const ErrorModalHandler: React.FC = () => {
         <View>
             <View style={styles.centeredView}>
                 <Modal
-                    animationType="slide"
+                    animationType="fade"
                     transparent={true}
                     visible={!!error.status}
-                    onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                    }}>
+                    // onRequestClose={() => {
+                    //     Alert.alert('Modal has been closed.');
+                    // }}
+                >
                     <BlurView intensity={100} tint={'dark'} style={[styles.blur]}>
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
@@ -65,6 +68,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        zIndex:100
     },
     blur: {
         flex: 1,
@@ -81,6 +85,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 30,
         elevation: 5,
+
     },
     header: {
         borderTopStartRadius: 10,

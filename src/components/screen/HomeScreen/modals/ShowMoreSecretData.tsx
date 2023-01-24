@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import {useAppDispatch, useAppSelector} from '../../../../store/store';
@@ -36,9 +36,16 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
         dispatch(removeSecretEmail(secret.id)).then(() => setModalVisible(false));
     };
 
-    useEffect(() => {
-        modalVisible && dispatch(showSecretData(id));
-    }, [modalVisible]);
+    const openModal = () => {
+        dispatch(showSecretData(id)).then((res) => {
+            // if res.payload !== undefined => request passed the norms and open this modal.
+            // Else => error and will open ErrorModal
+            // because Multiple Modals don't work
+            if (res.payload !== undefined) {
+                setModalVisible(true);
+            }
+        });
+    };
 
     return (
         <View style={styles.centeredView}>
@@ -46,10 +53,11 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert('Modal has been closed.');
-                    setModalVisible(!modalVisible);
-                }}>
+                // onRequestClose={() => {
+                //     Alert.alert('Modal has been closed.');
+                //     setModalVisible(!modalVisible);
+                // }}
+            >
                 <BlurView intensity={30} tint={'dark'} style={[styles.blur]}>
                     <View style={styles.centeredView}>
 
@@ -80,7 +88,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                                 fontSize: 22,
                                 color: '#fff',
                                 backgroundColor: '#30115e',
-                            }} value={secret.text} multiline focusable={false} editable={false}/>
+                            }} value={secret.title} multiline focusable={false} editable={false}/>
 
                             <Text style={[styles.text]}>Пересылаем на вот эту почту:</Text>
                             <SuperTextField style={{width: '100%', marginTop: 12, height: 60}} focusable={false} editable={false} value={secret.email}/>
@@ -96,7 +104,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
             </Modal>
 
             <TouchableOpacity
-                onPress={() => setModalVisible(true)}>
+                onPress={openModal}>
                 {view}
             </TouchableOpacity>
         </View>

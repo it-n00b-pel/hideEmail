@@ -47,7 +47,7 @@ export const secretsApi = {
     getSimpleEmailList(): Promise<AxiosResponse<GetSimpleEmailsListResponseType>> {
         return instance.get('emails');
     },
-    addNewSecretEmail(secretData: any): Promise<AxiosResponse> {
+    addNewSecretEmail(secretData: SecretDataType): Promise<AxiosResponse> {
         return instance.post('secrets', secretData);
     },
     getSecretEmailData(id: number): Promise<AxiosResponse<{ secret: CurrentSecretType }>> {

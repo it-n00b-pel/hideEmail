@@ -2,6 +2,9 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CardType, EmailType, NewEmailDataType, subscriptionApi, SubscriptionResponseType} from '../../api/mailHideApi';
 import {setPreloaderStatus} from './appReducer';
 import {addNewSecret, removeSecretEmail} from './secretsEmailsReducer';
+import {handleServerNetworkError} from '../../utils';
+import {AxiosError} from 'axios';
+import {AppDispatch} from '../store';
 
 const slice = createSlice({
     name: 'subscription',
@@ -46,7 +49,7 @@ export const fetchSubscription = createAsyncThunk('subscription/fetchSubscriptio
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
     }
     catch (e) {
-
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
     }
 });
 
@@ -58,7 +61,7 @@ export const fetchVerifyCode = createAsyncThunk('subscription/fetchVerifyCode', 
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
     }
     catch (e) {
-
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
     }
 });
 
