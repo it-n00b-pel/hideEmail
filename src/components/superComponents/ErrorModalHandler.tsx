@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Modal, StyleSheet, Text, TouchableOpacity, Vibration, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {MaterialIcons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
@@ -12,12 +12,12 @@ const ErrorModalHandler: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigation = useAppNavigation();
 
-    console.log(error);
-
     const closeHandler = () => {
         dispatch(setError({error: {message: null, status: null}}));
     };
+
     useEffect(() => {
+        error.status && Vibration.vibrate();
         if (error.status === 401) {
             dispatch(logOut());
             navigation.navigate('Authorization');
@@ -48,14 +48,6 @@ const ErrorModalHandler: React.FC = () => {
 
                                 <Text style={styles.textStyle}>{error.message}</Text>
 
-                                {/*<View*/}
-                                {/*    style={{*/}
-                                {/*        borderTopColor: '#d52f2f',*/}
-                                {/*        borderBottomWidth: StyleSheet.hairlineWidth,*/}
-                                {/*        borderTopWidth: 1,*/}
-                                {/*        marginHorizontal: 0,*/}
-                                {/*    }}*/}
-                                {/*/>*/}
                                 <View style={{flexDirection: 'row', justifyContent: 'flex-end', padding: 10}}>
                                     <TouchableOpacity
                                         style={[styles.button]}
