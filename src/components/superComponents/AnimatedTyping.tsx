@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import {StyleSheet, Text } from 'react-native';
+import {Colors} from '../../constants/Constants';
 
 export default function AnimatedTyping(props: any) {
     let [text, setText] = useState("");
@@ -65,7 +66,7 @@ export default function AnimatedTyping(props: any) {
 
     let cursorAnimation = () => {
         if (cursorColorRef.current === "transparent") {
-            setCursorColor("#8EA960");
+            setCursorColor(Colors.Lite);
         } else {
             setCursorColor("transparent");
         }
@@ -97,7 +98,7 @@ export default function AnimatedTyping(props: any) {
 
 let styles = StyleSheet.create({
     text: {
-        color: "#fff",
+        color: Colors.White,
         fontSize: 30,
         alignSelf: "stretch"
     }

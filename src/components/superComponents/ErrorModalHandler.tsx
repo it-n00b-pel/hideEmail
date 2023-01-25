@@ -4,8 +4,8 @@ import {useAppDispatch, useAppSelector} from '../../store/store';
 import {MaterialIcons} from '@expo/vector-icons';
 import {BlurView} from 'expo-blur';
 import {logOut, setError} from '../../store/reducers/appReducer';
-import {useAppNavigation} from '../screen/types';
-import {blurValue} from '../../constants/Constants';
+import {useAppNavigation} from '../../utils/types';
+import {blurValue, Colors} from '../../constants/Constants';
 
 const ErrorModalHandler: React.FC = () => {
     const error = useAppSelector(state => state.app.error);
@@ -60,7 +60,7 @@ const ErrorModalHandler: React.FC = () => {
                                     <TouchableOpacity
                                         style={[styles.button]}
                                         onPress={() => closeHandler()}>
-                                        <Text style={[styles.textStyle, {color: '#fff', textAlign: 'center'}]}>Close</Text>
+                                        <Text style={[styles.textStyle, {color: Colors.White, textAlign: 'center'}]}>Close</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
     },
     modalView: {
         width: 280,
-        backgroundColor: 'white',
+        backgroundColor: Colors.White,
         borderRadius: 10,
-        shadowColor: '#d52f2f',
+        shadowColor: Colors.Danger,
         shadowOffset: {
             width: 0,
             height: 0,
@@ -103,10 +103,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#E44C55',
+        backgroundColor: Colors.Danger,
     },
     headerText: {
-        color: 'white',
+        color: Colors.White,
         fontSize: 24,
         fontWeight: '500',
     },
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     textStyle: {
         textAlign: 'center',
         padding: 10,
-        color: '#d52f2f',
+        color: Colors.Danger,
     },
 });
 

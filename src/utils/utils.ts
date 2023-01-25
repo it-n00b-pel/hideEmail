@@ -1,20 +1,20 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AxiosError} from 'axios';
-import {AppDispatch} from './store/store';
-import {setError, setInitialized, setLogin, setPreloaderStatus} from './store/reducers/appReducer';
+import {AppDispatch} from '../store/store';
+import {setError, setInitialized, setLogin, setPreloaderStatus} from '../store/reducers/appReducer';
 
-export const storeDataSave = async (value: string) => {
+export const storeDataSave = async (key: string,value: string) => {
     try {
-        await AsyncStorage.setItem('token', JSON.stringify(value));
+        await AsyncStorage.setItem(key, JSON.stringify(value));
     }
     catch (e) {
         // saving error
     }
 };
 
-export const getDataRead = async () => {
+export const getDataRead = async (key:string) => {
     try {
-        const value = await AsyncStorage.getItem('token');
+        const value = await AsyncStorage.getItem(key);
         if (value !== null) {
             return await JSON.parse(value);
         }
@@ -47,4 +47,4 @@ export const handleShowStartAnimated = (isLogin: boolean, dispatch: AppDispatch)
     return () => {
         clearInterval(id);
     };
-}
+};

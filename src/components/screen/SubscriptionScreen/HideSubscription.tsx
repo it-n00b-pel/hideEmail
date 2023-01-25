@@ -14,7 +14,7 @@ const HideSubscription: React.FC = () => {
 
                 <View
                     style={{
-                        borderTopColor: '#00FF40',
+                        borderTopColor: Colors.Success,
                         borderBottomWidth: StyleSheet.hairlineWidth,
                         borderTopWidth: 2,
                         marginHorizontal: -10,
@@ -27,7 +27,7 @@ const HideSubscription: React.FC = () => {
 
                 <View
                     style={{
-                        borderTopColor: '#00FF40',
+                        borderTopColor: Colors.Success,
                         borderBottomWidth: StyleSheet.hairlineWidth,
                         borderTopWidth: 2,
                         marginHorizontal: -10,
@@ -46,18 +46,18 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 32,
         fontWeight: '600',
-        color: Colors.primaryLite,
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        color: Colors.Lite,
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 5,
     },
     container: {
         marginTop: 10,
         padding: 10,
-        backgroundColor: '#1A0933',
-        shadowColor: '#00FF40',
+        backgroundColor: Colors.Dark,
+        shadowColor: Colors.Success,
         borderWidth: 2,
-        borderColor: '#00FF40',
+        borderColor: Colors.Success,
         borderRadius: 10,
         shadowOffset: {
             width: 0,
@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     text: {
-        color: 'white',
+        color: Colors.White,
         fontSize: 20,
         paddingVertical: 5,
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 5,
     },

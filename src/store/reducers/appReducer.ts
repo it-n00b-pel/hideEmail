@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {authApi, createAxiosInstance} from '../../api/mailHideApi';
 import {v1} from 'uuid';
-import {clearStorage, getDataRead, handleServerNetworkError, handleShowStartAnimated, storeDataSave} from '../../utils';
+import {clearStorage, getDataRead, handleServerNetworkError, handleShowStartAnimated, storeDataSave} from '../../utils/utils';
 import {fetchSubscription} from './subscriptionReducer';
 import {fetchSecretEmailsList} from './secretsEmailsReducer';
 import {AxiosError} from 'axios';
@@ -25,8 +25,8 @@ export const login = createAsyncThunk('app/authorizationUser', async (data: { em
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
         const authorizationData = await authApi.authorization({email: data.email, device_id, code: +data.password});
         thunkAPI.dispatch(setCode({isCode: false}));
-        await storeDataSave(authorizationData.data.token);
-        await createAxiosInstance();
+        await storeDataSave('token', authorizationData.data.token);
+        await createAxiosInstance(authorizationData.data.token);
         await thunkAPI.dispatch(fetchSubscription());
         await thunkAPI.dispatch(fetchSecretEmailsList());
         thunkAPI.dispatch(setLogin({isLogin: true}));
@@ -49,9 +49,9 @@ export const logOut = createAsyncThunk('app/logOut', async (arg, thunkAPI) => {
 
 export const checkLoginUser = createAsyncThunk('app/checkLoginUser', async (arg, thunkAPI) => {
     let token = '';
-    await getDataRead().then(res => token = res);
+    await getDataRead('token').then(res => token = res);
     if (token) {
-        await createAxiosInstance();
+        await createAxiosInstance(token);
         await thunkAPI.dispatch(fetchSubscription());
         await thunkAPI.dispatch(fetchSecretEmailsList());
 

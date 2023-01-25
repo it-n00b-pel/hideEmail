@@ -23,7 +23,7 @@ const HideProSubscription: React.FC = () => {
 
                 <View
                     style={{
-                        borderTopColor: '#c7309c',
+                        borderTopColor: Colors.Secondary,
                         borderBottomWidth: StyleSheet.hairlineWidth,
                         borderTopWidth: 2,
                         marginHorizontal: -10,
@@ -36,7 +36,7 @@ const HideProSubscription: React.FC = () => {
 
                 <View
                     style={{
-                        borderTopColor: '#c7309c',
+                        borderTopColor: Colors.Secondary,
                         borderBottomWidth: StyleSheet.hairlineWidth,
                         borderTopWidth: 2,
                         marginHorizontal: -10,
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 32,
         fontWeight: '600',
-        color: Colors.primaryLite,
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        color: Colors.Lite,
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {
             width: 2,
             height: 2,
@@ -66,10 +66,10 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         padding: 10,
-        backgroundColor: '#1A0933',
-        shadowColor: '#c7309c',
+        backgroundColor: Colors.Dark,
+        shadowColor: Colors.Secondary,
         borderWidth: 2,
-        borderColor: '#c7309c',
+        borderColor: Colors.Secondary,
         borderRadius: 10,
         shadowOffset: {
             width: 0,
@@ -80,10 +80,10 @@ const styles = StyleSheet.create({
         elevation: 6,
     },
     text: {
-        color: 'white',
+        color: Colors.White,
         fontSize: 20,
         paddingVertical: 5,
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 5,
     },

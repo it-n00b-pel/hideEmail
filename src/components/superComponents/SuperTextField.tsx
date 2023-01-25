@@ -8,6 +8,7 @@ import {
     Easing,
     TouchableWithoutFeedback,
 } from 'react-native';
+import {Colors} from '../../constants/Constants';
 
 type Props = React.ComponentProps<typeof TextInput> & {
     label?: string
@@ -39,9 +40,9 @@ const SuperTextField: React.FC<Props> = (props) => {
         }).start();
     }, [focusAnim, isFocused, value]);
 
-    let color = isFocused ? '#c7309c' : '#fff';
+    let color = isFocused ? Colors.Secondary : Colors.White;
     if (errorText) {
-        color = '#B00020';
+        color = Colors.Danger;
     }
 
     return (
@@ -111,8 +112,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 4,
         fontSize: 22,
-        color: '#fff',
-        backgroundColor: '#30115e',
+        color: Colors.White,
+        backgroundColor: Colors.Primary,
     },
     labelContainer: {
         position: 'absolute',
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
         marginTop: 4,
         marginLeft: 12,
         fontSize: 12,
-        color: '#B00020',
+        color: Colors.Danger,
     },
 });
 

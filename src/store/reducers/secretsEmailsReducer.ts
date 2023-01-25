@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {CurrentSecretType, SecretDataType, secretsApi, SecretType} from '../../api/mailHideApi';
 import {logOut, setPreloaderStatus} from './appReducer';
-import {handleServerNetworkError} from '../../utils';
+import {handleServerNetworkError} from '../../utils/utils';
 import {AxiosError} from 'axios';
 import {AppDispatch} from '../store';
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useAppNavigation} from './types';
+import {useAppNavigation} from '../../utils/types';
 import {LinearGradient} from 'expo-linear-gradient';
 import SuperTextField from '../superComponents/SuperTextField';
 import {Formik} from 'formik';
@@ -8,6 +8,7 @@ import SuperButton from '../superComponents/SuperButton';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {fetchCode, login, setCode} from '../../store/reducers/appReducer';
 import {MaterialIcons} from '@expo/vector-icons';
+import {Colors} from '../../constants/Constants';
 
 type FormikErrorType = {
     email?: string,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 20,
         fontSize: 18,
-        color: '#c7309c',
+        color: Colors.Secondary,
         textAlign: 'center',
     },
 

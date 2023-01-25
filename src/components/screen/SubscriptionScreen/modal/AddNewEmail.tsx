@@ -6,6 +6,7 @@ import SuperButton from '../../../superComponents/SuperButton';
 import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {BlurView} from 'expo-blur';
 import {addNewEmail, fetchVerifyCode, setNewCode} from '../../../../store/reducers/subscriptionReducer';
+import {Colors} from '../../../../constants/Constants';
 
 const AddNewEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -127,10 +128,10 @@ const styles = StyleSheet.create({
     },
     modalView: {
         marginHorizontal: 10,
-        backgroundColor: '#1A0933',
+        backgroundColor: Colors.Dark,
         borderRadius: 20,
         padding: 20,
-        shadowColor: '#ffffff',
+        shadowColor: Colors.White,
         shadowOffset: {
             width: 0,
             height: 0,
@@ -149,14 +150,14 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        color: '#44D9E8',
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        color: Colors.Lite,
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 3,
     },
     refreshEmail: {
         marginTop: 10,
-        backgroundColor: '#5e38a4',
+        backgroundColor: Colors.Primary,
         borderRadius: 3,
         height: 60,
         width: 40,
@@ -165,9 +166,9 @@ const styles = StyleSheet.create({
         top: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: '#ffffff',
+        shadowColor: Colors.White,
         borderWidth: 1,
-        borderColor: '#815fc0',
+        borderColor: Colors.LightPrimary,
         shadowOffset: {
             width: 1,
             height: 1,
@@ -179,10 +180,10 @@ const styles = StyleSheet.create({
     buttonOpen: {
         width: 120,
         padding: 8,
-        backgroundColor: 'rgba(111,66,193,.9)',
-        shadowColor: '#ffffff',
+        backgroundColor: Colors.Primary,
+        shadowColor: Colors.White,
         borderWidth: 2,
-        borderColor: '#815fc0',
+        borderColor: Colors.LightPrimary,
         borderRadius: 5,
         alignItems: 'center',
         shadowOffset: {
@@ -195,24 +196,12 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         fontSize: 18,
-        color: 'white',
+        color: Colors.White,
         fontWeight: 'bold',
         textAlign: 'center',
     },
-    button: {
-        marginTop: 10,
-        width: '100%',
-        height: 60,
-        borderWidth: 1,
-        borderRadius: 4,
-        fontSize: 22,
-        color: '#fff',
-        backgroundColor: '#30115e',
-        borderColor: '#fff',
-        marginBottom: 25,
-    },
     buttonTextStyle: {
-        color: '#fff',
+        color: Colors.White,
         textAlign: 'left',
         padding: 0,
     },

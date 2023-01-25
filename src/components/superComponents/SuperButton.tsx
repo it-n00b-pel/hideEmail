@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput, TouchableHighlight} from 'react-native';
+import {Colors} from '../../constants/Constants';
 
 type Props = React.ComponentProps<typeof TextInput> & {
     title: string
@@ -31,10 +32,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 45,
-        backgroundColor: '#c7309c',
+        backgroundColor: Colors.Secondary,
         borderRadius: 3,
-        shadowColor: '#c7309c',
-        borderColor: '#c7309c',
+        shadowColor: Colors.Secondary,
+        borderColor: Colors.Secondary,
         shadowOffset: {
             width: 0,
             height: 0,

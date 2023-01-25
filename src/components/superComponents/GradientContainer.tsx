@@ -5,6 +5,7 @@ import {MaterialIcons} from '@expo/vector-icons';
 import {useNavigationState} from '@react-navigation/native';
 import {useAppDispatch} from '../../store/store';
 import {logOut} from '../../store/reducers/appReducer';
+import {Colors} from '../../constants/Constants';
 
 type GradientContainerPropsType = {
     component: React.ReactNode
@@ -20,7 +21,7 @@ const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) =>
 
     return (
         <LinearGradient
-            colors={['#180830', '#6e41bf', '#44D9E8']}
+            colors={[Colors.Dark, Colors.Primary, Colors.Lite]}
             style={styles.mainGradient}
             start={{x: 0.5, y: 0.05}}
             end={{x: 0.5, y: 0.9}}>
@@ -39,8 +40,9 @@ const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) =>
 };
 const styles = StyleSheet.create({
     mainGradient: {
-        width: '100%',
-        height: '100%',
+        // width: '100%',
+        // height: '100%',
+        flex:1
     },
     textLogo: {
         paddingTop: 20,
@@ -52,8 +54,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 42,
-        color: '#44D9E8',
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        color: Colors.Lite,
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 5,
     },
@@ -63,9 +65,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         alignItems: 'center',
         padding: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: Colors.White,
         borderRadius: 3,
-        shadowColor: '#ffffff',
+        shadowColor: Colors.White,
         shadowOffset: {
             width: 0,
             height: 1,

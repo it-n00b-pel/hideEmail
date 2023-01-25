@@ -7,7 +7,7 @@ import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {addNewSecret, generateNewSecretEmail} from '../../../../store/reducers/secretsEmailsReducer';
 import SelectDropdown from 'react-native-select-dropdown';
 import {BlurView} from 'expo-blur';
-import {blurValue} from '../../../../constants/Constants';
+import {blurValue, Colors} from '../../../../constants/Constants';
 
 const AddNewSecretEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -70,12 +70,12 @@ const AddNewSecretEmail: React.FC = () => {
                                 marginBottom: 25,
                                 padding: 15,
                                 borderWidth: 1,
-                                borderColor: '#fff',
+                                borderColor: Colors.White,
                                 borderRadius: 4,
                                 fontSize: 22,
                                 minHeight: 60,
-                                color: '#fff',
-                                backgroundColor: '#30115e',
+                                color: Colors.White,
+                                backgroundColor: Colors.Primary,
                             }} maxLength={100} multiline value={title} onChangeText={setTitle}/>
 
                             <Text style={[styles.text, {fontSize: 12}]}>Выберите куда пересылать:</Text>
@@ -123,10 +123,10 @@ const styles = StyleSheet.create({
     },
     modalView: {
         marginHorizontal: 10,
-        backgroundColor: '#1A0933',
+        backgroundColor: Colors.Dark,
         borderRadius: 20,
         padding: 20,
-        shadowColor: '#ffffff',
+        shadowColor: Colors.White,
         shadowOffset: {
             width: 0,
             height: 0,
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        color: '#44D9E8',
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        color: Colors.Lite,
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 3,
     },
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     },
     refreshEmail: {
         marginTop: 10,
-        backgroundColor: '#5e38a4',
+        backgroundColor: Colors.Primary,
         borderRadius: 3,
         height: 60,
         width: 40,
@@ -164,24 +164,24 @@ const styles = StyleSheet.create({
         top: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: '#ffffff',
+        shadowColor: Colors.White,
         borderWidth: 1,
-        borderColor: '#815fc0',
+        borderColor: Colors.LightPrimary,
         shadowOffset: {
-            width: 1,
-            height: 1,
+            width: 0,
+            height: 0,
         },
-        shadowOpacity: 0.5,
+        shadowOpacity: 1,
         shadowRadius: 5,
-        elevation: 2,
+        elevation: 5,
     },
     buttonOpen: {
         width: 120,
         padding: 8,
-        backgroundColor: 'rgba(111,66,193,.9)',
-        shadowColor: '#ffffff',
+        backgroundColor: Colors.Primary,
+        shadowColor: Colors.White,
         borderWidth: 2,
-        borderColor: '#815fc0',
+        borderColor: Colors.LightPrimary,
         borderRadius: 5,
         alignItems: 'center',
         shadowOffset: {
@@ -205,13 +205,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 4,
         fontSize: 22,
-        color: '#fff',
-        backgroundColor: '#30115e',
-        borderColor: '#fff',
+        color: Colors.White,
+        backgroundColor: Colors.Primary,
+        borderColor: Colors.White,
         marginBottom: 25,
     },
     buttonTextStyle: {
-        color: '#fff',
+        color: Colors.White,
         textAlign: 'left',
         padding: 0,
     },

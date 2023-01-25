@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CardType, EmailType, NewEmailDataType, subscriptionApi, SubscriptionResponseType} from '../../api/mailHideApi';
 import {setPreloaderStatus} from './appReducer';
 import {addNewSecret, removeSecretEmail} from './secretsEmailsReducer';
-import {handleServerNetworkError} from '../../utils';
+import {handleServerNetworkError} from '../../utils/utils';
 import {AxiosError} from 'axios';
 import {AppDispatch} from '../store';
 

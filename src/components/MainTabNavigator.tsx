@@ -14,7 +14,7 @@ export const TabArr = [
     {route: 'Support', label: 'Support', type: Icons.MaterialIcons, icon: 'contact-support', component: SupportScreen, color: 'rgba(110,65,191,0.9)', alphaClr: 'rgba(24,8,48,0.9)'},
 ];
 
-export default function HideEmail() {
+export default function MainTabNavigator() {
     return (
         <Tab.Navigator
             initialRouteName={'Home'}

@@ -4,6 +4,7 @@ import {useAppSelector} from '../../../store/store';
 import {MaterialIcons} from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import ShowMoreSecretData from './modals/ShowMoreSecretData';
+import {Colors} from '../../../constants/Constants';
 
 const SecretsList: React.FC = () => {
     const secretList = useAppSelector(state => state.secrets.secretsList);
@@ -45,10 +46,10 @@ const styles = StyleSheet.create({
     secretBlock: {
         marginTop: 15,
         padding: 10,
-        backgroundColor: '#1A0933',
-        shadowColor: '#fff',
+        backgroundColor: Colors.Dark,
+        shadowColor: Colors.White,
         borderWidth: 2,
-        borderColor: '#815fc0',
+        borderColor: Colors.Primary,
         borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
@@ -62,17 +63,17 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        color: 'white',
+        color: Colors.White,
         fontWeight: '700',
     },
     secret: {
         fontSize: 16,
         textDecorationLine: 'underline',
-        color: '#0ee5e5',
+        color: Colors.Lite,
     },
     email: {
         fontSize: 14,
-        color: '#157c7c',
+        color: Colors.DimLite,
     },
 
 });

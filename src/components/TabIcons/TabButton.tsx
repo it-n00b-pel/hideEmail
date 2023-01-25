@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from './Icons';
 import * as Animatable from 'react-native-animatable';
-import {TabArr} from '../HideEmail';
+import {TabArr} from '../MainTabNavigator';
 
 
 const TabButton = (props: { item: typeof TabArr[0]; onPress: (event: GestureResponderEvent) => void; accessibilityState: any; }) => {

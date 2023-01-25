@@ -1,11 +1,10 @@
 import axios, {AxiosInstance, AxiosResponse} from 'axios';
 import {LoginData} from '../store/reducers/appReducer';
-import {getDataRead} from '../utils';
 
 export let instance: AxiosInstance;
 
-export async function createAxiosInstance() {
-    const token = await getDataRead();
+export async function createAxiosInstance(token: string) {
+    // const token = await getDataRead('token');
     instance = axios.create({
         withCredentials: true,
         baseURL: 'https://my.mailhide.ru/api/v1/',

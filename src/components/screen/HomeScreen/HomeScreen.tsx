@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import GradientContainer from '../../superComponents/GradientContainer';
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {useAppNavigation} from '../types';
+import {useAppNavigation} from '../../../utils/types';
 import {fetchSecretEmailsList} from '../../../store/reducers/secretsEmailsReducer';
 import SecretsList from './SecretsList';
 import AddNewSecretEmail from './modals/AddNewSecretEmail';
@@ -47,13 +47,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         paddingTop: 10,
+        paddingBottom:70,
         paddingHorizontal: 20,
     },
     text: {
         fontSize: 32,
         fontWeight: '600',
-        color: Colors.primaryLite,
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        color: Colors.Lite,
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 5,
     },

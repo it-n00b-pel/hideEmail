@@ -24,7 +24,7 @@ const SupportScreen: React.FC = () => {
                         }}
                                             underlayColor="#180830"
                                             style={styles.button}>
-                            <Text style={{fontSize: 22, fontWeight: '700', color: '#860488'}}>Send</Text>
+                            <Text style={{fontSize: 22, fontWeight: '700', color: Colors.White}}>Send</Text>
                         </TouchableHighlight>
                     </View>
 
@@ -40,15 +40,16 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'column',
-        paddingTop: 10,
+        paddingVertical: 10,
+
         flex: 1,
     },
     text: {
         marginHorizontal: 20,
         fontSize: 32,
         fontWeight: '600',
-        color: Colors.primaryLite,
-        textShadowColor: 'rgba(255,255,255,0.75)',
+        color: Colors.Lite,
+        textShadowColor: Colors.ShadowWhite,
         textShadowOffset: {width: 2, height: 2},
         textShadowRadius: 5,
     },
@@ -60,10 +61,10 @@ const styles = StyleSheet.create({
         color: 'white',
         marginTop: 20,
         padding: 10,
-        backgroundColor: '#1A0933',
-        shadowColor: '#ffffff',
+        backgroundColor: Colors.Dark,
+        shadowColor: Colors.White,
         borderWidth: 2,
-        borderColor: '#815fc0',
+        borderColor: Colors.LightPrimary,
         borderRadius: 10,
         shadowOffset: {
             width: 0,
@@ -75,16 +76,16 @@ const styles = StyleSheet.create({
     },
     button: {
         marginHorizontal: 20,
-        marginTop: 30,
+        marginVertical: 30,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         width: 120,
         height: 45,
-        backgroundColor: '#0ee5e5',
-        shadowColor: '#0ee5e5',
-        borderWidth: 2,
-        borderColor: '#e9f5ff',
+        backgroundColor: Colors.Lite,
+        shadowColor: Colors.White,
+        borderWidth: 1,
+        borderColor: Colors.ShadowWhite,
         borderRadius: 10,
         shadowOffset: {
             width: 0,
