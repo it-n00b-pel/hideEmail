@@ -17,7 +17,7 @@ const MailHide: React.FC = () => {
 
     useEffect(() => {
         async function prepare() {
-            await dispatch(checkLoginUser());
+             await dispatch(checkLoginUser());
         }
 
         prepare();

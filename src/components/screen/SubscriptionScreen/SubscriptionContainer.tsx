@@ -33,7 +33,7 @@ const SubscriptionContainer: React.FC = () => {
                     <Emails emails={subscription.emails} canAddEmail={subscription.can_add_email}/>
                     <HideSubscription/>
                     <HideProSubscription/>
-                    {subscription.cards && <CardsList cards={subscription.cards}/>}
+                    {subscription.cards.length && <CardsList cards={subscription.cards}/>}
                 </View>
             </ScrollView>
         }/>
