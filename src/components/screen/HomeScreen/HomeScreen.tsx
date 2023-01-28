@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import GradientContainer from '../../superComponents/GradientContainer';
-import {RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {RefreshControl, ScrollView} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {useAppNavigation} from '../../../utils/types';
 import {fetchSecretEmailsList} from '../../../store/reducers/secretsEmailsReducer';
 import SecretsList from './SecretsList';
 import AddNewSecretEmail from './modals/AddNewSecretEmail';
-import {Colors} from '../../../constants/Constants';
+import {StyledContainer, StyledTitle} from '../../../styles/components';
 
 const HomeScreen: React.FC = () => {
     const {isLogin} = useAppSelector(state => state.app);
@@ -31,33 +31,14 @@ const HomeScreen: React.FC = () => {
                         refreshControl={<RefreshControl refreshing={refreshing}
                                                         onRefresh={onRefresh}/>}
             >
-                <View style={styles.container}>
-                    <Text style={styles.text}>Ваши email</Text>
+                <StyledContainer>
+                    <StyledTitle fontSize={32} fontWeight={600}>Ваши email</StyledTitle>
                     <AddNewSecretEmail/>
                     <SecretsList/>
-                </View>
+                </StyledContainer>
             </ScrollView>
         }/>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        paddingTop: 10,
-        paddingBottom:70,
-        paddingHorizontal: 20,
-    },
-    text: {
-        fontSize: 32,
-        fontWeight: '600',
-        color: Colors.Lite,
-        textShadowColor: Colors.ShadowWhite,
-        textShadowOffset: {width: 2, height: 2},
-        textShadowRadius: 5,
-    },
-});
 
 export default HomeScreen;

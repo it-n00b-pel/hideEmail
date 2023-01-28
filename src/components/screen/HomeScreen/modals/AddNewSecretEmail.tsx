@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, Modal, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import SuperTextField from '../../../superComponents/SuperTextField';
 import SuperButton from '../../../superComponents/SuperButton';
@@ -8,6 +8,7 @@ import {addNewSecret, generateNewSecretEmail} from '../../../../store/reducers/s
 import SelectDropdown from 'react-native-select-dropdown';
 import {BlurView} from 'expo-blur';
 import {blurValue, Colors} from '../../../../constants/Constants';
+import {CenteredView, generalStyles, StyledHeader, StyledText, StyledTitle} from '../../../../styles/components';
 
 const AddNewSecretEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +34,7 @@ const AddNewSecretEmail: React.FC = () => {
     };
 
     return (
-        <View style={styles.centeredView}>
+        <View>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -42,43 +43,40 @@ const AddNewSecretEmail: React.FC = () => {
                     Alert.alert('Modal has been closed.');
                     setModalVisible(!modalVisible);
                 }}>
-                <BlurView intensity={blurValue} tint={'dark'} style={[styles.blur]}>
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-
-                            <View style={styles.header}>
-                                <Text style={styles.text}>Создание секретного email</Text>
+                <BlurView intensity={blurValue} tint={'dark'} style={{flex: 1}}>
+                    <CenteredView>
+                        <View style={generalStyles.modalView}>
+                            <StyledHeader>
+                                <StyledTitle>Создание секретного email</StyledTitle>
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                                     <MaterialIcons name="close" size={24} color="#fff"/>
                                 </TouchableOpacity>
+                            </StyledHeader>
+
+                            <View style={{marginBottom: 20}}>
+                                <StyledTitle fontSize={16}>Ваш новый email:</StyledTitle>
+                                <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secretEmail}/>
+                                <TouchableOpacity style={generalStyles.refreshEmail} onPress={generateSecretEmail}>
+                                    <MaterialIcons name="refresh" size={24} color="white"/>
+                                </TouchableOpacity>
                             </View>
 
-
-                            <View>
-                                <Text style={[styles.text, {fontSize: 12, marginTop: 25}]}>Ваш новый email:</Text>
-                                <View style={styles.generatorEmail}>
-                                    <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secretEmail}/>
-                                    <TouchableOpacity style={styles.refreshEmail} onPress={generateSecretEmail}>
-                                        <MaterialIcons name="refresh" size={24} color="white"/>
-                                    </TouchableOpacity>
-                                </View>
+                            <View style={{marginBottom: 20}}>
+                                <StyledTitle fontSize={16}>Ваш мини комментарий:</StyledTitle>
+                                <TextInput style={{
+                                    marginTop: 12,
+                                    padding: 15,
+                                    borderWidth: 1,
+                                    borderColor: Colors.White,
+                                    borderRadius: 4,
+                                    fontSize: 22,
+                                    minHeight: 60,
+                                    color: Colors.White,
+                                    backgroundColor: Colors.Primary,
+                                }} maxLength={100} multiline value={title} onChangeText={setTitle}/>
                             </View>
 
-                            <Text style={[styles.text, {fontSize: 12}]}>Ваш мини комментарий:</Text>
-                            <TextInput style={{
-                                marginTop: 12,
-                                marginBottom: 25,
-                                padding: 15,
-                                borderWidth: 1,
-                                borderColor: Colors.White,
-                                borderRadius: 4,
-                                fontSize: 22,
-                                minHeight: 60,
-                                color: Colors.White,
-                                backgroundColor: Colors.Primary,
-                            }} maxLength={100} multiline value={title} onChangeText={setTitle}/>
-
-                            <Text style={[styles.text, {fontSize: 12}]}>Выберите куда пересылать:</Text>
+                            <StyledTitle fontSize={16}>Выберите куда пересылать:</StyledTitle>
                             <SelectDropdown
                                 data={emailsList}
                                 onSelect={(selectedItem) => {
@@ -103,101 +101,19 @@ const AddNewSecretEmail: React.FC = () => {
                                 }}/>
                             <SuperButton title={'Создать'} handlePress={createNewSecret}/>
                         </View>
-                    </View>
+                    </CenteredView>
                 </BlurView>
             </Modal>
             <TouchableOpacity
-                style={[styles.buttonOpen]}
+                style={generalStyles.addButton}
                 onPress={() => setModalVisible(true)}>
-                <Text style={styles.textStyle}>Добавить</Text>
+                <StyledText fontSize={18} fontWeight={600}>Добавить</StyledText>
             </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        marginTop: 10,
-    },
-    modalView: {
-        marginHorizontal: 10,
-        backgroundColor: Colors.Dark,
-        borderRadius: 20,
-        padding: 20,
-        shadowColor: Colors.White,
-        shadowOffset: {
-            width: 0,
-            height: 0,
-        },
-        shadowOpacity: 0.8,
-        shadowRadius: 10,
-        elevation: 5,
-    },
-    blur: {
-        flex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    text: {
-        fontSize: 20,
-        color: Colors.Lite,
-        textShadowColor: Colors.ShadowWhite,
-        textShadowOffset: {width: 2, height: 2},
-        textShadowRadius: 3,
-    },
-    generatorEmail: {
-        marginBottom: 25,
-    },
-    refreshEmail: {
-        marginTop: 10,
-        backgroundColor: Colors.Primary,
-        borderRadius: 3,
-        height: 60,
-        width: 40,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        shadowColor: Colors.White,
-        borderWidth: 1,
-        borderColor: Colors.LightPrimary,
-        shadowOffset: {
-            width: 0,
-            height: 0,
-        },
-        shadowOpacity: 1,
-        shadowRadius: 5,
-        elevation: 5,
-    },
-    buttonOpen: {
-        width: 120,
-        padding: 8,
-        backgroundColor: Colors.Primary,
-        shadowColor: Colors.White,
-        borderWidth: 2,
-        borderColor: Colors.LightPrimary,
-        borderRadius: 5,
-        alignItems: 'center',
-        shadowOffset: {
-            width: 1,
-            height: 1,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-        elevation: 6,
-    },
-    textStyle: {
-        fontSize: 18,
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
     button: {
         marginTop: 10,
         width: '100%',
