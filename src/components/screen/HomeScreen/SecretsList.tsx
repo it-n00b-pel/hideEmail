@@ -18,7 +18,7 @@ const SecretsList: React.FC = () => {
     };
 
     const emailList = secretList.map(email => {
-        return <StyledBorderBlock key={email.id} style={generalStyles.borderBlock}>
+        return <StyledBorderBlock key={email.id} style={[generalStyles.borderBlock, {justifyContent: 'space-between'}]} direction alignItems={'center'}>
             <ShowMoreSecretData id={email.id} view={
                 <View>
                     <StyledText fontSize={18} fontWeight={600}>{email.title ? email.title : email.alias}</StyledText>

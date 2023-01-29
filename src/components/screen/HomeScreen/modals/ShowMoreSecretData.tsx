@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, Modal, TextInput, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {removeSecretEmail, showSecretData} from '../../../../store/reducers/secretsEmailsReducer';
@@ -8,6 +8,7 @@ import * as Clipboard from 'expo-clipboard';
 import SuperButton from '../../../superComponents/SuperButton';
 import {BlurView} from 'expo-blur';
 import {blurValue, Colors} from '../../../../constants/Constants';
+import {CenteredView, generalStyles, StyledHeader, StyledTitle} from '../../../../styles/components';
 
 type ShowMoreSecretDataPropsType = {
     id: number,
@@ -49,7 +50,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
     };
 
     return (
-        <View style={styles.centeredView}>
+        <View>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -59,26 +60,26 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                 //     setModalVisible(!modalVisible);
                 // }}
             >
-                <BlurView intensity={blurValue} tint={'dark'} style={[styles.blur]}>
-                    <View style={styles.centeredView}>
+                <BlurView intensity={blurValue} tint={'dark'} style={{flex: 1}}>
+                    <CenteredView>
+                        <View style={generalStyles.modalView}>
 
-                        <View style={styles.modalView}>
-                            <View style={styles.header}>
-                                <Text style={[styles.text, {fontSize: 22, marginTop: 0}]}>{secret.alias}</Text>
+                            <StyledHeader>
+                                <StyledTitle fontSize={22}>{secret.alias}</StyledTitle>
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                                     <MaterialIcons name="close" size={24} color="#fff"/>
                                 </TouchableOpacity>
-                            </View>
+                            </StyledHeader>
 
-                            <Text style={[styles.text]}>Ваш новый email:</Text>
-                            <View>
+                            <StyledTitle fontSize={14}>Ваш новый email:</StyledTitle>
+                            <View style={{marginBottom: 20}}>
                                 <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secret.alias}/>
-                                <TouchableOpacity style={styles.copyEmail} onPress={() => onPressHandler(secret.alias)}>
+                                <TouchableOpacity style={generalStyles.copyEmail} onPress={() => onPressHandler(secret.alias)}>
                                     <MaterialIcons name="content-copy" size={24} color="white"/>
                                 </TouchableOpacity>
                             </View>
 
-                            <Text style={[styles.text]}>Ваш мини комментарий:</Text>
+                            <StyledTitle fontSize={14}>Ваш мини комментарий:</StyledTitle>
                             <TextInput style={{
                                 marginTop: 12,
                                 padding: 15,
@@ -91,15 +92,15 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                                 backgroundColor: Colors.Primary,
                             }} value={secret.title} multiline focusable={false} editable={false}/>
 
-                            <Text style={[styles.text]}>Пересылаем на вот эту почту:</Text>
+                            <StyledTitle fontSize={14}>Пересылаем на вот эту почту:</StyledTitle>
                             <SuperTextField style={{width: '100%', marginTop: 12, height: 60}} focusable={false} editable={false} value={secret.email}/>
 
-                            <Text style={[styles.text, {fontSize: 16}]}>Дата создания: {startDate}</Text>
-                            <Text style={[styles.text, {fontSize: 16, marginTop: 5, marginBottom: 12}]}>Перенаправлено писем: {secret.redirect_count}</Text>
+                            <StyledTitle fontSize={16}>Дата создания: {startDate}</StyledTitle>
+                            <StyledTitle fontSize={16}>Перенаправлено писем: {secret.redirect_count}</StyledTitle>
 
                             <SuperButton title={'Удалить этот адрес'} handlePress={destroySecretEmail}/>
                         </View>
-                    </View>
+                    </CenteredView>
                 </BlurView>
 
             </Modal>
@@ -111,65 +112,5 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    blur: {
-        flex: 1,
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    modalView: {
-        marginHorizontal: 10,
-        backgroundColor: Colors.Dark,
-        borderRadius: 20,
-        padding: 20,
-        shadowColor: Colors.White,
-        shadowOffset: {
-            width: 0,
-            height: 0,
-        },
-        shadowOpacity: 0.8,
-        shadowRadius: 10,
-        elevation: 5,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    copyEmail: {
-        marginTop: 10,
-        backgroundColor: Colors.DimPrimary,
-        borderRadius: 3,
-        height: 60,
-        width: 40,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        shadowColor: Colors.White,
-        borderWidth: 1,
-        borderColor: Colors.LightPrimary,
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-        elevation: 2,
-    },
-    text: {
-        fontSize: 12,
-        color: Colors.Lite,
-        textShadowColor: Colors.ShadowWhite,
-        textShadowOffset: {width: 2, height: 2},
-        textShadowRadius: 5,
-        marginTop: 20,
-    },
-
-});
 
 export default ShowMoreSecretData;

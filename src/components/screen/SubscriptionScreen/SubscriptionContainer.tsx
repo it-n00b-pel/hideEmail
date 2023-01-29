@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import GradientContainer from '../../superComponents/GradientContainer';
-import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
+import {RefreshControl, ScrollView} from 'react-native';
 import CurrentTariff from './CurrentTariff';
 import Emails from './Emails';
 import HideSubscription from './HideSubscription';
@@ -8,6 +8,7 @@ import HideProSubscription from './HideProSubscription';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {fetchSubscription} from '../../../store/reducers/subscriptionReducer';
 import CardsList from './CardsList';
+import {StyledContainer, StyledTitle} from '../../../styles/components';
 
 const SubscriptionContainer: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -28,27 +29,17 @@ const SubscriptionContainer: React.FC = () => {
                             <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
                         }
             >
-                <View style={styles.container}>
+                <StyledContainer>
                     <CurrentTariff subscription={subscription}/>
-                    <Emails emails={subscription.emails} canAddEmail={subscription.can_add_email}/>
+                    {subscription.emails && <Emails emails={subscription.emails} canAddEmail={subscription.can_add_email}/>}
                     <HideSubscription/>
+                    <StyledTitle fontSize={32} fontWeight={600}>Подписки</StyledTitle>
                     <HideProSubscription/>
                     {subscription.cards.length && <CardsList cards={subscription.cards}/>}
-                </View>
+                </StyledContainer>
             </ScrollView>
         }/>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        paddingTop: 10,
-        paddingHorizontal: 20,
-        flex: 1,
-        marginBottom: 65,
-    },
-});
 
 export default SubscriptionContainer;

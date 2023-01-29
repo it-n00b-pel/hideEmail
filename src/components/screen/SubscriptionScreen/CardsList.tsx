@@ -1,11 +1,11 @@
 import React from 'react';
 import {CardType} from '../../../api/mailHideApi';
-import {StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
 import {FontAwesome5} from '@expo/vector-icons';
-import {Colors} from '../../../constants/Constants';
+import {generalStyles, StyledBorderBlock, StyledCardNumber, StyledText, StyledTitle} from '../../../styles/components';
 
 type CardsListPropsType = {
-    cards: CardType[]
+    cards: CardType[],
 }
 
 const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
@@ -22,67 +22,27 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
     };
 
     const cardsList = cards.map(card =>
-        <View key={card.id} style={styles.container}>
-            <Text style={[styles.text, {marginTop: 30}]}>Bank Card</Text>
-            <View style={styles.cardNumber}>
-                {cardType(card)}
-                <Text style={[styles.text, {fontSize: 28}]}>{card.first6.substring(0, 4)} {card.first6.substring(4, 6)}** **** {card.last4}</Text>
-            </View>
+        <StyledBorderBlock key={card.id} style={generalStyles.borderBlock}>
+            <StyledText fontSize={24} style={{marginTop: 20}}>Bank Card</StyledText>
 
-            <View style={styles.cardNumber}>
-                <Text style={[styles.text, {fontSize: 18}]}>{card.expiry_month}/{card.expiry_year}</Text>
-                <Text style={[styles.text, {fontSize: 18}]}>{card.card_type}</Text>
-            </View>
-        </View>,
+            <StyledCardNumber>
+                {cardType(card)}
+                <StyledText fontSize={28}>{card.first6.substring(0, 4)} {card.first6.substring(4, 6)}** **** {card.last4}</StyledText>
+            </StyledCardNumber>
+
+            <StyledCardNumber>
+                <StyledText fontSize={18}>{card.expiry_month}/{card.expiry_year}</StyledText>
+                <StyledText fontSize={18}>{card.card_type}</StyledText>
+            </StyledCardNumber>
+        </StyledBorderBlock>,
     );
 
     return (
-        <View style={{flexDirection: 'column'}}>
-            <Text style={styles.title}>Привязанные карты</Text>
+        <View>
+            <StyledTitle fontSize={32} fontWeight={600}>Привязанные карты</StyledTitle>
             {cardsList}
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        marginTop: 10,
-        padding: 10,
-        backgroundColor: Colors.Dark,
-        shadowColor: Colors.Dark,
-        borderWidth: 2,
-        borderColor: Colors.LightPrimary,
-        borderRadius: 10,
-        shadowOffset: {
-            width: 0,
-            height: 0,
-        },
-        shadowOpacity: 1,
-        shadowRadius: 10,
-        elevation: 6,
-    },
-    title: {
-        marginTop: 20,
-        fontWeight: '600',
-        fontSize: 32,
-        color: Colors.Lite,
-        textShadowColor: Colors.Secondary,
-        textShadowOffset: {width: 2, height: 2},
-        textShadowRadius: 5,
-    },
-    text: {
-        color: Colors.White,
-        fontSize: 24,
-        textShadowColor: Colors.ShadowWhite,
-        textShadowOffset: {width: 2, height: 2},
-        textShadowRadius: 5,
-    },
-    cardNumber: {
-        marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-});
 
 export default CardsList;

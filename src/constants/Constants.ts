@@ -1,4 +1,5 @@
 import * as Device from 'expo-device';
+import {Dimensions} from 'react-native';
 
 export const Colors = {
     Primary: '#532e91',
@@ -16,6 +17,6 @@ export const Colors = {
     Danger:'#E44C55',
 };
 
-// export const {width, height} = Dimensions.get('screen');
+ export const {width, height} = Dimensions.get('screen');
 
 export const blurValue = Device.osName === 'Android' ? 100 : 30;

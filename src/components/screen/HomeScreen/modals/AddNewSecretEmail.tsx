@@ -77,6 +77,7 @@ const AddNewSecretEmail: React.FC = () => {
                             </View>
 
                             <StyledTitle fontSize={16}>Выберите куда пересылать:</StyledTitle>
+
                             <SelectDropdown
                                 data={emailsList}
                                 onSelect={(selectedItem) => {
