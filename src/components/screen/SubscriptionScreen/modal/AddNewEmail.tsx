@@ -62,9 +62,14 @@ const AddNewEmail: React.FC = () => {
 
     const addNewEmailAddress = () => {
         dispatch(addNewEmail({email, code: +code})).then((res) => {
-            console.log(res.payload);
-            res.payload && closeModal();
+            if (res.payload === undefined) {
+                closeModal();
+            }
         });
+    };
+
+    const sendCode = () => {
+        dispatch(fetchVerifyCode(email));
     };
 
     return (
@@ -114,9 +119,7 @@ const AddNewEmail: React.FC = () => {
                             }
 
                             <View style={{marginTop: 20}}>
-                                {!isCode && <SuperButton title={'Отправить код'} isBlockButton={isBlockButton} handlePress={() => {
-                                    dispatch(fetchVerifyCode(email));
-                                }}/>}
+                                {!isCode && <SuperButton title={'Отправить код'} isBlockButton={isBlockButton} handlePress={sendCode}/>}
 
                                 {isCode && <SuperButton title={'Назад'} handlePress={() => {
                                     backTryAgain();

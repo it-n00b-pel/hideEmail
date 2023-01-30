@@ -11,7 +11,7 @@ export const StyledTitle = styled.Text<StyledTitleProps>`
   font-size: ${props => props.fontSize ? props.fontSize + 'px' : '18px'};
   font-weight: ${props => props.fontWeight || 400};
   color: ${Colors.Lite};
-  padding: 5px 5px 5px 0;
+  padding: 0 5px 5px 0;
   text-shadow: 2px 2px 5px ${Colors.ShadowWhite};
 `;
 
@@ -52,11 +52,24 @@ export const CenteredView = styled.View`
   justify-content: center;
 `;
 
-export const StyledHeader = styled.View`
+type StyledHeaderPropsType = {
+    marginBottom?: number
+    padding?: number
+}
+
+export const StyledHeader = styled.View<StyledHeaderPropsType>`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: ${props => props.marginBottom ? props.marginBottom + 'px' : '20px'};
+`;
+
+export const StyledMainHeader = styled.View`
+  padding: 20px 20px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const StyledContainer = styled.View`

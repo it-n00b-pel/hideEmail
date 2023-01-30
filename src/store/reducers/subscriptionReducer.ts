@@ -49,8 +49,11 @@ const slice = createSlice({
         });
         builder.addCase(fetchPlans.fulfilled, (state, action) => {
             if (action.payload) {
-                state.plans = action.payload.data;
+                state.plans = action.payload.data.plans;
             }
+        });
+        builder.addCase(addNewEmail.fulfilled, state => {
+            state.subscription.emails_used = state.subscription.alias_used + 1;
         });
 
     },
@@ -84,8 +87,20 @@ export const fetchPlans = createAsyncThunk('subscription/getPlans', async (arg, 
     try {
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
         const plans = await planApi.getPlans();
-        thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+        thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
         return plans;
+    }
+    catch (e) {
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
+    }
+});
+
+export const fetchUrlForPay = createAsyncThunk('subscription/fetchUrlForPay', async (plan_id: number, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+        const url = await planApi.getUrl(plan_id);
+        thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+        return url.data.redirect;
     }
     catch (e) {
         handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
@@ -96,6 +111,7 @@ export const addNewEmail = createAsyncThunk('subscription/addNewEmail', async (d
     try {
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
         await subscriptionApi.addNewEmail(data);
+        thunkAPI.dispatch(fetchSimpleEmailList());
         await thunkAPI.dispatch(fetchSimpleEmailList());
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
         Alert.alert('', `Email was added`, [

@@ -58,8 +58,11 @@ export const secretsApi = {
 };
 
 export const planApi = {
-    getPlans(): Promise<AxiosResponse<PlanType[]>> {
+    getPlans(): Promise<AxiosResponse<{ plans: PlanType[] }>> {
         return instance.get('sub/plan');
+    },
+    getUrl(plan_id: number): Promise<AxiosResponse<{ redirect: string }>> {
+        return instance.post('sub/plan', {plan_id, period: 'month'});
     },
 };
 

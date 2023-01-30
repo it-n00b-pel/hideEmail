@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {authApi, createAxiosInstance} from '../../api/mailHideApi';
 import {v1} from 'uuid';
 import {clearStorage, getDataRead, handleServerNetworkError, handleShowStartAnimated, storeDataSave} from '../../utils/utils';
-import {fetchSubscription} from './subscriptionReducer';
+import {fetchPlans, fetchSubscription} from './subscriptionReducer';
 import {fetchSecretEmailsList} from './secretsEmailsReducer';
 import {AxiosError} from 'axios';
 import {AppDispatch, AppRootStateType} from '../store';
@@ -53,6 +53,7 @@ export const checkLoginUser = createAsyncThunk('app/checkLoginUser', async (arg,
     if (token) {
         await createAxiosInstance(token);
         await thunkAPI.dispatch(fetchSubscription());
+        await thunkAPI.dispatch(fetchPlans());
         await thunkAPI.dispatch(fetchSecretEmailsList());
 
         const error = thunkAPI.getState() as AppRootStateType;
