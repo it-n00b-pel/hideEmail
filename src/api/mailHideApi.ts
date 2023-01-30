@@ -63,6 +63,12 @@ export const planApi = {
     },
 };
 
+export const supportApi = {
+    postMessage(message: string): Promise<AxiosResponse<{ success: string }>> {
+        return instance.post('support', {message});
+    },
+};
+
 export type CurrentSecretType = {
     id: number,
     title: string,

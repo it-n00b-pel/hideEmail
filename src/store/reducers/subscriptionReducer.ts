@@ -1,10 +1,11 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CardType, NewEmailDataType, planApi, PlanType, subscriptionApi, SubscriptionResponseType} from '../../api/mailHideApi';
+import {CardType, NewEmailDataType, planApi, PlanType, subscriptionApi, SubscriptionResponseType, supportApi} from '../../api/mailHideApi';
 import {setPreloaderStatus} from './appReducer';
 import {addNewSecret, removeSecretEmail} from './secretsEmailsReducer';
 import {handleServerNetworkError} from '../../utils/utils';
 import {AxiosError} from 'axios';
 import {AppDispatch} from '../store';
+import {Alert} from 'react-native';
 
 const slice = createSlice({
     name: 'subscription',
@@ -99,6 +100,19 @@ export const addNewEmail = createAsyncThunk('subscription/addNewEmail', async (d
     }
     catch (e) {
 
+    }
+});
+
+export const sendMessage = createAsyncThunk('support/sendMessage', async (message: string, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+        const res = await supportApi.postMessage(message);
+        thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+        Alert.alert('', `${res.data.success}`, [
+            {text: 'Ok', style: 'cancel'}]);
+    }
+    catch (e) {
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
     }
 });
 

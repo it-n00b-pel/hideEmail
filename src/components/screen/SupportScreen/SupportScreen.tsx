@@ -2,9 +2,20 @@ import GradientContainer from '../../superComponents/GradientContainer';
 import {ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import React, {useState} from 'react';
 import {Colors} from '../../../constants/Constants';
+import {useAppDispatch} from '../../../store/store';
+import {sendMessage} from '../../../store/reducers/subscriptionReducer';
 
 const SupportScreen: React.FC = () => {
     const [value, setValue] = useState('');
+    const dispatch = useAppDispatch();
+
+    const sendQuestion = () => {
+        if (value.trim().length) {
+            dispatch(sendMessage(value)).then(() => {
+                setValue('');
+            });
+        }
+    };
 
     return (
         <GradientContainer component={
@@ -20,8 +31,7 @@ const SupportScreen: React.FC = () => {
                     />
 
                     <View style={{alignItems: 'flex-end'}}>
-                        <TouchableHighlight onPress={() => {
-                        }}
+                        <TouchableHighlight onPress={sendQuestion}
                                             underlayColor="#180830"
                                             style={styles.button}>
                             <Text style={{fontSize: 22, fontWeight: '700', color: Colors.White}}>Send</Text>
