@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {CurrentSecretType, SecretDataType, secretsApi, SecretType} from '../../api/mailHideApi';
+import {CurrentSecretType, EmailType, SecretDataType, secretsApi, SecretType} from '../../api/mailHideApi';
 import {logOut, setPreloaderStatus} from './appReducer';
 import {handleServerNetworkError} from '../../utils/utils';
 import {AxiosError} from 'axios';
@@ -85,8 +85,8 @@ const slice = createSlice({
         secretsList: [] as SecretType[],
         newEmail: {
             secretEmail: '',
-            emails: [] as Array<{ address: string }>,
         },
+        emails: [] as EmailType[],
         currentSecret: {} as CurrentSecretType,
     },
     reducers: {},
@@ -103,7 +103,7 @@ const slice = createSlice({
         });
         builder.addCase(fetchSimpleEmailList.fulfilled, (state, action) => {
             if (action.payload) {
-                state.newEmail.emails = action.payload.data.emails;
+                state.emails = action.payload.data.emails;
             }
         });
         builder.addCase(logOut.fulfilled, (state) => {

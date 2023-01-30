@@ -16,10 +16,10 @@ const CurrentTariff: React.FC<CurrentTariffPropsType> = ({subscription}) => {
             <StyledTitle fontSize={32} fontWeight={600}>Активная подписка</StyledTitle>
 
             <StyledBorderBlock style={generalStyles.borderBlock}>
-                <StyledText fontSize={28} fontWeight={600} shadow>Тариф Триал</StyledText>
+                <StyledText fontSize={28} fontWeight={600} shadow>{subscription.self_plan.title}</StyledText>
                 <StyledText fontSize={20} shadow>Временная подписка до {endedDate}</StyledText>
-                <StyledText fontSize={18} shadow>Кол-во email получателей: {subscription.emails_used} / {subscription.emails_total}</StyledText>
-                <StyledText fontSize={18} shadow>Кол-во новых email: {subscription.alias_used} / {subscription.alias_total}</StyledText>
+                <StyledText fontSize={18} shadow>Кол-во email получателей: {subscription.emails_used}/{subscription.emails_total === 0 ? '∞' : subscription.emails_total}</StyledText>
+                <StyledText fontSize={18} shadow>Кол-во новых email: {subscription.alias_used}/{subscription.alias_total === 0 ? '∞' : subscription.alias_total}</StyledText>
             </StyledBorderBlock>
         </View>
     );

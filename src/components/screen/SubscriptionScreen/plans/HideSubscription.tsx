@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Colors} from '../../../constants/Constants';
-import SuperButton from '../../superComponents/SuperButton';
-import {generalStyles, StyledBorderBlock, StyledColorLine, StyledText} from '../../../styles/components';
+import {Colors} from '../../../../constants/Constants';
+import SuperButton from '../../../superComponents/SuperButton';
+import {generalStyles, StyledBorderBlock, StyledColorLine, StyledText} from '../../../../styles/components';
 
 const HideSubscription: React.FC = () => {
     return (

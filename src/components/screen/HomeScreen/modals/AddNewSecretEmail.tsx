@@ -14,7 +14,7 @@ const AddNewSecretEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const dispatch = useAppDispatch();
     const secretEmail = useAppSelector(state => state.secrets.newEmail.secretEmail);
-    const emailsList = useAppSelector(state => state.secrets.newEmail.emails).map(e => e.address);
+    const emailsList = useAppSelector(state => state.secrets.emails).map(e => e.address);
 
     const [title, setTitle] = useState('');
     const [currentEmail, setCurrentEmail] = useState(emailsList[0]);

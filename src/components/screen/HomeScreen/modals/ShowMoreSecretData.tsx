@@ -65,7 +65,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                         <View style={generalStyles.modalView}>
 
                             <StyledHeader>
-                                <StyledTitle fontSize={22}>{secret.alias}</StyledTitle>
+                                <StyledTitle fontSize={24}>Доп. информация</StyledTitle>
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                                     <MaterialIcons name="close" size={24} color="#fff"/>
                                 </TouchableOpacity>

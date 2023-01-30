@@ -18,8 +18,8 @@ const MoreEmailData: React.FC<Props> = ({view, email}) => {
     // };
 
     const endedDate = new Date(email.ended_at).getDate() + '-' + new Date(email.ended_at).getMonth() + 1 + '-' + new Date(email.ended_at).getFullYear();
-    const createdDate = new Date(email.created_at).getDate() + '-' + new Date(email.created_at).getMonth() + 1 + '-' + new Date(email.created_at).getFullYear();
-    const updateDate = new Date(email.updated_at).getDate() + '-' + new Date(email.updated_at).getMonth() + 1 + '-' + new Date(email.updated_at).getFullYear();
+    const createdDate = new Date(email.started_at).getDate() + '-' + new Date(email.started_at).getMonth() + 1 + '-' + new Date(email.started_at).getFullYear();
+    // const updateDate = new Date(email.updated_at).getDate() + '-' + new Date(email.updated_at).getMonth() + 1 + '-' + new Date(email.updated_at).getFullYear();
 
     return (
         <View>
@@ -46,7 +46,6 @@ const MoreEmailData: React.FC<Props> = ({view, email}) => {
                             {/*<View style={{marginBottom: 20}}>*/}
                             <StyledText fontSize={14} shadow>Адрес: {email.address}</StyledText>
                             <StyledText fontSize={14} shadow>Дата создания: {createdDate}</StyledText>
-                            <StyledText fontSize={14} shadow>Дата обновления: {updateDate}</StyledText>
                             <StyledText fontSize={14} shadow>Дата окончания: {endedDate}</StyledText>
                             {/*</View>*/}
 

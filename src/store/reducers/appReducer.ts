@@ -52,7 +52,7 @@ export const checkLoginUser = createAsyncThunk('app/checkLoginUser', async (arg,
     await getDataRead('token').then(res => token = res);
     if (token) {
         await createAxiosInstance(token);
-         await thunkAPI.dispatch(fetchSubscription());
+        await thunkAPI.dispatch(fetchSubscription());
         await thunkAPI.dispatch(fetchSecretEmailsList());
 
         const error = thunkAPI.getState() as AppRootStateType;

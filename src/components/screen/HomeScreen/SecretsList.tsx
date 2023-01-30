@@ -4,7 +4,7 @@ import {useAppSelector} from '../../../store/store';
 import {MaterialIcons} from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import ShowMoreSecretData from './modals/ShowMoreSecretData';
-import {Colors} from '../../../constants/Constants';
+import {Colors, width} from '../../../constants/Constants';
 import {generalStyles, StyledBorderBlock, StyledText} from '../../../styles/components';
 
 const SecretsList: React.FC = () => {
@@ -20,7 +20,7 @@ const SecretsList: React.FC = () => {
     const emailList = secretList.map(email => {
         return <StyledBorderBlock key={email.id} style={[generalStyles.borderBlock, {justifyContent: 'space-between'}]} direction alignItems={'center'}>
             <ShowMoreSecretData id={email.id} view={
-                <View>
+                <View style={{width: width - 90}}>
                     <StyledText fontSize={18} fontWeight={600}>{email.title ? email.title : email.alias}</StyledText>
                     <StyledText fontSize={16} color={Colors.Lite} underline>{email.alias ? email.alias : ''}</StyledText>
                     <StyledText fontSize={14} color={Colors.DimLite}>{email.email}</StyledText>

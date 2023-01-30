@@ -57,6 +57,12 @@ export const secretsApi = {
     },
 };
 
+export const planApi = {
+    getPlans(): Promise<AxiosResponse<PlanType[]>> {
+        return instance.get('sub/plan');
+    },
+};
+
 export type CurrentSecretType = {
     id: number,
     title: string,
@@ -73,11 +79,17 @@ export type SecretDataType = {
 }
 
 export type GetSimpleEmailsListResponseType = {
-    emails: Array<{ address: string }>,
+    emails: EmailType[],
+}
+
+export type EmailType = {
+    id: number,
+    address: string,
+    started_at: Date,
+    ended_at: Date
 }
 
 export type SubscriptionResponseType = {
-    emails: EmailType[],
     can_add_email: boolean,
     emails_total: number,
     emails_used: number,
@@ -85,47 +97,67 @@ export type SubscriptionResponseType = {
     alias_used: number,
     ended_at: Date,
     cards: CardType[],
-    plans: Array<any>,
-    self_plan: {}
+    self_plan: SelfPlanType
+}
+
+export type SelfPlanType = {
+    title: string,
+    description: string,
+    price: number,
+    priceYear: number,
+    aliasCount: number,
+    emailsCount: number,
+    planId: number,
+    priceByPeriod: number,
+}
+
+export type PlanType = {
+    title: string,
+    description: string,
+    price: number,
+    priceYear: number,
+    aliasCount: number,
+    emailsCount: number,
+    planId: number,
+    priceByPeriod: number
 }
 
 export type CardType = {
-    card_type: string,
-    created_at: string,
-    expiry_month: string,
-    expiry_year: string,
-    first6: string,
     id: number,
+    user_id: number,
+    type: string,
+    first6: string,
     last4: number,
+    expiry_month: number,
+    expiry_year: number,
+    card_type: string,
     more: {
         card: {
-            card_type: string,
-            expiry_month: number,
-            expiry_year: number,
-            first6: number,
-            issuer_country: string,
             last4: number,
+            first6: number,
+            card_type: string,
+            expiry_year: number,
+            expiry_month: number,
+            issuer_country: string,
         },
-        id: string,
-        saved: boolean,
-        title: string,
         type: string,
+        saved: boolean,
+        title: string
     },
-    payment_id: string,
-    type: string,
-    updated_at: string,
-    user_id: number,
+    created_at: Date,
+    updated_at: Date,
+
 }
 
-export type EmailType = {
-    id: number,
-    user_id: number,
-    address: string,
-    started_at: Date,
-    ended_at: Date,
-    created_at: Date,
-    updated_at: Date
-}
+// export type EmailType = {
+//     id: number,
+//     user_id: number,
+//     address: string,
+//     started_at: Date,
+//     ended_at: Date,
+//     created_at: Date,
+//     updated_at: Date
+// }
 
 export type SecretType = {
     id: number,

@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CardType, EmailType, NewEmailDataType, subscriptionApi, SubscriptionResponseType} from '../../api/mailHideApi';
+import {CardType, NewEmailDataType, planApi, PlanType, subscriptionApi, SubscriptionResponseType} from '../../api/mailHideApi';
 import {setPreloaderStatus} from './appReducer';
 import {addNewSecret, removeSecretEmail} from './secretsEmailsReducer';
 import {handleServerNetworkError} from '../../utils/utils';
@@ -10,7 +10,6 @@ const slice = createSlice({
     name: 'subscription',
     initialState: {
         subscription: {
-            emails: [] as EmailType[],
             can_add_email: false,
             emails_total: 0,
             emails_used: 0,
@@ -18,9 +17,18 @@ const slice = createSlice({
             alias_used: 0,
             ended_at: '' as unknown as Date,
             cards: [] as CardType[],
-            plans: [],
-            self_plan: {},
+            self_plan: {
+                title: '',
+                description: '',
+                price: 0,
+                priceYear: 0,
+                aliasCount: 0,
+                emailsCount: 0,
+                planId: 0,
+                priceByPeriod: 0,
+            },
         } as SubscriptionResponseType,
+        plans: [] as PlanType[],
         hasCode: false,
     },
     reducers: {
@@ -38,6 +46,12 @@ const slice = createSlice({
         builder.addCase(addNewSecret.fulfilled, (state) => {
             state.subscription.alias_used = state.subscription.alias_used + 1;
         });
+        builder.addCase(fetchPlans.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.plans = action.payload.data;
+            }
+        });
+
     },
 });
 
@@ -59,6 +73,18 @@ export const fetchVerifyCode = createAsyncThunk('subscription/fetchVerifyCode', 
         await subscriptionApi.getVerifyCode(email);
         thunkAPI.dispatch(setNewCode({hasCode: true}));
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+    }
+    catch (e) {
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
+    }
+});
+
+export const fetchPlans = createAsyncThunk('subscription/getPlans', async (arg, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+        const plans = await planApi.getPlans();
+        thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
+        return plans;
     }
     catch (e) {
         handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);

@@ -1,17 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import GradientContainer from '../../superComponents/GradientContainer';
 import {RefreshControl, ScrollView} from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {useAppNavigation} from '../../../utils/types';
+import {useAppDispatch} from '../../../store/store';
 import {fetchSecretEmailsList} from '../../../store/reducers/secretsEmailsReducer';
 import SecretsList from './SecretsList';
 import AddNewSecretEmail from './modals/AddNewSecretEmail';
 import {StyledContainer, StyledTitle} from '../../../styles/components';
 
 const HomeScreen: React.FC = () => {
-    const {isLogin} = useAppSelector(state => state.app);
     const dispatch = useAppDispatch();
-    const navigation = useAppNavigation();
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefresh = React.useCallback(() => {
@@ -20,10 +17,6 @@ const HomeScreen: React.FC = () => {
             setRefreshing(false);
         });
     }, []);
-
-    useEffect(() => {
-        !isLogin && navigation.navigate('Authorization');
-    }, [isLogin]);
 
     return (
         <GradientContainer component={
