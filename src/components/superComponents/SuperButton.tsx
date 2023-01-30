@@ -26,7 +26,6 @@ const SuperButton: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
     button: {
-        width: "100%",
         marginTop: 10,
         display: 'flex',
         alignItems: 'center',
