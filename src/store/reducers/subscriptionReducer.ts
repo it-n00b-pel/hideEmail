@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CardType, NewEmailDataType, planApi, PlanType, subscriptionApi, SubscriptionResponseType, supportApi} from '../../api/mailHideApi';
 import {setPreloaderStatus} from './appReducer';
-import {addNewSecret, removeSecretEmail} from './secretsEmailsReducer';
+import {addNewSecret, fetchSimpleEmailList, removeSecretEmail} from './secretsEmailsReducer';
 import {handleServerNetworkError} from '../../utils/utils';
 import {AxiosError} from 'axios';
 import {AppDispatch} from '../store';
@@ -96,10 +96,13 @@ export const addNewEmail = createAsyncThunk('subscription/addNewEmail', async (d
     try {
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
         await subscriptionApi.addNewEmail(data);
+        await thunkAPI.dispatch(fetchSimpleEmailList());
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+        Alert.alert('', `Email was added`, [
+            {text: 'Ok', style: 'cancel'}]);
     }
     catch (e) {
-
+        handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
     }
 });
 

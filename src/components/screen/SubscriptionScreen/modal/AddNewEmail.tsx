@@ -12,6 +12,7 @@ const AddNewEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const isCode = useAppSelector(state => state.subscription.hasCode);
     const dispatch = useAppDispatch();
+    const [isBlockButton, setBlockButton] = useState(true);
     const [email, setEmail] = useState('');
     const [code, setCodeFromEmail] = useState('');
     const [errorEmail, setErrorEmail] = useState<null | string>(null);
@@ -20,21 +21,31 @@ const AddNewEmail: React.FC = () => {
     const validateEmail = (email: string) => {
         setEmail(email);
         if (!email) {
+            setBlockButton(true);
             setErrorEmail('Required');
         }
         if (email.length > 0 && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            setBlockButton(true);
             setErrorEmail('Invalid Email');
-        } else setErrorEmail(null);
+        } else {
+            setBlockButton(false);
+            setErrorEmail(null);
+        }
     };
 
     const validateCode = (code: string) => {
         setCodeFromEmail(code);
         if (!code) {
+            setBlockButton(true);
             setErrorCode('Required');
         }
         if (code.length > 0 && code.length < 6) {
+            setBlockButton(true);
             setErrorCode('Must be 6 symbol');
-        } else setErrorCode(null);
+        } else {
+            setBlockButton(false);
+            setErrorCode(null);
+        }
     };
 
     const backTryAgain = () => {
@@ -44,8 +55,16 @@ const AddNewEmail: React.FC = () => {
     const closeModal = () => {
         setModalVisible(!modalVisible);
         setEmail('');
+        setCodeFromEmail('');
         setErrorEmail(null);
         backTryAgain();
+    };
+
+    const addNewEmailAddress = () => {
+        dispatch(addNewEmail({email, code: +code})).then((res) => {
+            console.log(res.payload);
+            res.payload && closeModal();
+        });
     };
 
     return (
@@ -75,12 +94,13 @@ const AddNewEmail: React.FC = () => {
                                     <SuperTextField style={{width: '100%', marginTop: 10, height: 60}}
                                                     value={email}
                                                     errorText={errorEmail}
+                                                    editable={!isCode}
                                                     onChangeText={text => validateEmail(text)}
                                     />
                                 </View>
                             </View>
 
-                            {!isCode && <View>
+                            {isCode && <View>
                                 <Text style={[styles.text, {fontSize: 12, marginTop: 10}]}>Код</Text>
                                 <View>
                                     <SuperTextField style={{width: '100%', marginTop: 10, height: 60}}
@@ -94,16 +114,16 @@ const AddNewEmail: React.FC = () => {
                             }
 
                             <View style={{marginTop: 20}}>
+                                {!isCode && <SuperButton title={'Отправить код'} isBlockButton={isBlockButton} handlePress={() => {
+                                    dispatch(fetchVerifyCode(email));
+                                }}/>}
+
                                 {isCode && <SuperButton title={'Назад'} handlePress={() => {
                                     backTryAgain();
                                 }}/>}
 
-                                {!isCode && <SuperButton title={'Отправить код'} handlePress={() => {
-                                    dispatch(fetchVerifyCode(email));
-                                }}/>}
-
                                 {isCode && <SuperButton title={'Добавить Email'} handlePress={() => {
-                                    dispatch(addNewEmail({email, code: +code}));
+                                    addNewEmailAddress();
                                 }}/>}
                             </View>
 
