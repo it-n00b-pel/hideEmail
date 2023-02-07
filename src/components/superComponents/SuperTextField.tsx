@@ -34,7 +34,7 @@ const SuperTextField: React.FC<Props> = (props) => {
     useEffect(() => {
         Animated.timing(focusAnim, {
             toValue: isFocused || !!value ? 1 : 0,
-            duration: 150,
+            duration: 700,
             easing: Easing.bezier(0.4, 0, 0.2, 1),
             useNativeDriver: true,
         }).start();
@@ -54,7 +54,7 @@ const SuperTextField: React.FC<Props> = (props) => {
                         borderColor: color,
                     },
                 ]}
-                 multiline={!!multiline}
+                multiline={!!multiline}
                 ref={inputRef}
                 {...restOfProps}
                 value={value}
@@ -81,7 +81,7 @@ const SuperTextField: React.FC<Props> = (props) => {
                             {
                                 translateY: focusAnim.interpolate({
                                     inputRange: [0, 1],
-                                    outputRange: [24, -15],
+                                    outputRange: [24, -20],
                                 }),
                             },
                             {
@@ -96,7 +96,7 @@ const SuperTextField: React.FC<Props> = (props) => {
                 >
                     <Text style={[styles.label, {color}]}>
                         {label}
-                        {errorText ? '*' : ''}
+                        {/*{errorText ? '*' : ''}*/}
                     </Text>
                 </Animated.View>
             </TouchableWithoutFeedback>
@@ -107,7 +107,7 @@ const SuperTextField: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
     input: {
-        height:60,
+        height: 60,
         padding: 15,
         borderWidth: 1,
         borderRadius: 4,
@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
     },
     labelContainer: {
         position: 'absolute',
-        paddingHorizontal: 5,
     },
     label: {
         fontSize: 12,

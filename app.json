@@ -1,13 +1,12 @@
 {
   "expo": {
-    "name": "hideEmail",
-    "slug": "hideEmail",
+    "name": "MailHide",
+    "slug": "MailHide",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./src/assets/img/eye.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
@@ -28,11 +27,17 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#000000"
+      },
+      "package": "my.mailhide.ru"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c6f3158e-022d-4d54-b588-aa1ba8abf7fe"
+      }
     }
   }
 }

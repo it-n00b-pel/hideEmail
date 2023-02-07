@@ -5,7 +5,7 @@ import {MaterialIcons} from '@expo/vector-icons';
 import {useNavigationState} from '@react-navigation/native';
 import {useAppDispatch} from '../../store/store';
 import {logOut} from '../../store/reducers/appReducer';
-import {Colors} from '../../constants/Constants';
+import {Colors, width} from '../../constants/Constants';
 import {StyledColorLine, StyledMainHeader, StyledTitle} from '../../styles/components';
 import {useAppNavigation} from '../../utils/types';
 
@@ -31,11 +31,13 @@ const GradientContainer: React.FC<GradientContainerPropsType> = ({component}) =>
         >
             <StyledMainHeader>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                    <StyledTitle fontSize={42}>mailHide</StyledTitle>
+                    <StyledTitle fontSize={42}>Mail
+                        <StyledTitle fontSize={42} color={Colors.Secondary}>Hide</StyledTitle>
+                    </StyledTitle>
                 </TouchableOpacity>
                 {isShowLogout}
             </StyledMainHeader>
-            <StyledColorLine color={Colors.White}/>
+            <StyledColorLine color={Colors.ShadowWhite} style={{width: width - 40, alignSelf: 'center'}}/>
 
             {component}
         </LinearGradient>

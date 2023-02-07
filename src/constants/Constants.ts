@@ -14,9 +14,9 @@ export const Colors = {
     ShadowWhite: 'rgba(255,255,255,0.5)',
     White: '#fff',
     Success: '#3cf281',
-    Danger:'#E44C55',
+    Danger: '#E44C55',
 };
 
- export const {width, height} = Dimensions.get('screen');
+export const {width, height} = Dimensions.get('screen');
 
 export const blurValue = Device.osName === 'Android' ? 100 : 30;

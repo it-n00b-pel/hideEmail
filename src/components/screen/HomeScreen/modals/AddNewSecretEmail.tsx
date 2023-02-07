@@ -1,20 +1,22 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Alert, Modal, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import SuperTextField from '../../../superComponents/SuperTextField';
 import SuperButton from '../../../superComponents/SuperButton';
 import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {addNewSecret, generateNewSecretEmail} from '../../../../store/reducers/secretsEmailsReducer';
 import SelectDropdown from 'react-native-select-dropdown';
-import {BlurView} from 'expo-blur';
+
 import {blurValue, Colors} from '../../../../constants/Constants';
 import {CenteredView, generalStyles, StyledHeader, StyledText, StyledTitle} from '../../../../styles/components';
+import {BlurView} from 'expo-blur';
 
 const AddNewSecretEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const dispatch = useAppDispatch();
     const secretEmail = useAppSelector(state => state.secrets.newEmail.secretEmail);
     const emailsList = useAppSelector(state => state.secrets.emails).map(e => e.address);
+    const isLoading = useAppSelector(state => state.app.status) === 'loading';
 
     const [title, setTitle] = useState('');
     const [currentEmail, setCurrentEmail] = useState(emailsList[0]);
@@ -46,6 +48,7 @@ const AddNewSecretEmail: React.FC = () => {
                 <BlurView intensity={blurValue} tint={'dark'} style={{flex: 1}}>
                     <CenteredView>
                         <View style={generalStyles.modalView}>
+
                             <StyledHeader>
                                 <StyledTitle>Создание секретного email</StyledTitle>
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
@@ -56,7 +59,7 @@ const AddNewSecretEmail: React.FC = () => {
                             <View style={{marginBottom: 20}}>
                                 <StyledTitle fontSize={16}>Ваш новый email:</StyledTitle>
                                 <SuperTextField style={{width: '100%', marginTop: 10, height: 60}} focusable={false} editable={false} value={secretEmail}/>
-                                <TouchableOpacity style={generalStyles.refreshEmail} onPress={generateSecretEmail}>
+                                <TouchableOpacity disabled={isLoading} style={generalStyles.refreshEmail} onPress={generateSecretEmail}>
                                     <MaterialIcons name="refresh" size={24} color="white"/>
                                 </TouchableOpacity>
                             </View>
@@ -65,7 +68,9 @@ const AddNewSecretEmail: React.FC = () => {
                                 <StyledTitle fontSize={16}>Ваш мини комментарий:</StyledTitle>
                                 <TextInput style={{
                                     marginTop: 12,
-                                    padding: 15,
+                                    paddingHorizontal: 15,
+                                    paddingTop: 15,
+                                    paddingBottom: 15,
                                     borderWidth: 1,
                                     borderColor: Colors.White,
                                     borderRadius: 4,
@@ -100,7 +105,7 @@ const AddNewSecretEmail: React.FC = () => {
                                 }}
                                 onChangeSearchInputText={() => {
                                 }}/>
-                            <SuperButton title={'Создать'} handlePress={createNewSecret}/>
+                            <SuperButton title={'Создать'} isBlockButton={isLoading} handlePress={createNewSecret}/>
                         </View>
                     </CenteredView>
                 </BlurView>
@@ -108,7 +113,10 @@ const AddNewSecretEmail: React.FC = () => {
             <TouchableOpacity
                 style={generalStyles.addButton}
                 onPress={() => setModalVisible(true)}>
-                <StyledText fontSize={18} fontWeight={600}>Добавить</StyledText>
+                <View>
+                    <StyledText fontSize={18} fontWeight={600}>Добавить</StyledText>
+                </View>
+                {isLoading && <ActivityIndicator animating={isLoading} color={Colors.Lite}/>}
             </TouchableOpacity>
         </View>
     );

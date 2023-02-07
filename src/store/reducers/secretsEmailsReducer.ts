@@ -10,8 +10,11 @@ export const fetchSecretEmailsList = createAsyncThunk('secret/fetchSecretList', 
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
         const secret = await secretsApi.getSecretsEmails();
         thunkAPI.dispatch(generateNewSecretEmail());
-        thunkAPI.dispatch(fetchSimpleEmailList());
+        // thunkAPI.dispatch(fetchSimpleEmailList());
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+        if (secret.data.secrets.length) {
+            thunkAPI.dispatch(showInstruction());
+        }
         return secret.data;
     }
     catch (e) {
@@ -61,6 +64,8 @@ export const addNewSecret = createAsyncThunk('secret/addNewSecret', async (data:
         await secretsApi.addNewSecretEmail(data);
         thunkAPI.dispatch(fetchSecretEmailsList());
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
+        thunkAPI.dispatch(showInstruction());
+        return 1;
     }
     catch (e) {
         handleServerNetworkError(e as AxiosError, thunkAPI.dispatch as AppDispatch);
@@ -88,8 +93,13 @@ const slice = createSlice({
         },
         emails: [] as EmailType[],
         currentSecret: {} as CurrentSecretType,
+        isInstruction: true,
     },
-    reducers: {},
+    reducers: {
+        showInstruction(state) {
+            state.isInstruction = false;
+        },
+    },
     extraReducers(builder) {
         builder.addCase(fetchSecretEmailsList.fulfilled, (state, action) => {
             if (action.payload) {
@@ -119,3 +129,5 @@ const slice = createSlice({
 });
 
 export const secretsEmailsReducer = slice.reducer;
+
+export const {showInstruction} = slice.actions;

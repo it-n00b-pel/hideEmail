@@ -24,7 +24,7 @@ const Emails: React.FC<EmailsPropsType> = ({emails, canAddEmail}) => {
 
     return (
         <View>
-            <StyledTitle fontSize={32}>Emails</StyledTitle>
+            <StyledTitle fontSize={32} fontWeight={600}>Emails</StyledTitle>
             <StyledBorderBlock style={generalStyles.borderBlock}>
                 {emailList}
                 {canAddEmail && <AddNewEmail/>}

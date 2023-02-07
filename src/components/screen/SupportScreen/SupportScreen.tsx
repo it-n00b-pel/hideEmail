@@ -1,12 +1,14 @@
 import GradientContainer from '../../superComponents/GradientContainer';
-import {ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {ActivityIndicator, ScrollView, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import {Colors} from '../../../constants/Constants';
-import {useAppDispatch} from '../../../store/store';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {sendMessage} from '../../../store/reducers/subscriptionReducer';
+import {generalStyles, StyledContainer, StyledText, StyledTitle} from '../../../styles/components';
 
 const SupportScreen: React.FC = () => {
     const [value, setValue] = useState('');
+    const isLoading = useAppSelector(state => state.app.status) === 'loading';
     const dispatch = useAppDispatch();
 
     const sendQuestion = () => {
@@ -19,11 +21,12 @@ const SupportScreen: React.FC = () => {
 
     return (
         <GradientContainer component={
-            <View style={styles.container}>
-                <ScrollView keyboardShouldPersistTaps="handled">
-                    <Text style={styles.text}>Поддержка</Text>
-                    <Text style={[styles.text, {fontSize: 20, marginTop: 20}]}>Сообщение</Text>
-                    <TextInput style={styles.input}
+
+            <ScrollView keyboardShouldPersistTaps="handled">
+                <StyledContainer>
+                    <StyledTitle fontSize={32} fontWeight={600}>Поддержка</StyledTitle>
+                    <StyledTitle fontSize={20} style={{marginTop: 20}}>Сообщение</StyledTitle>
+                    <TextInput style={[styles.input, generalStyles.borderBlock]}
                                value={value}
                                onChangeText={text => setValue(text)}
                                multiline
@@ -31,79 +34,46 @@ const SupportScreen: React.FC = () => {
                     />
 
                     <View style={{alignItems: 'flex-end'}}>
-                        <TouchableHighlight onPress={sendQuestion}
-                                            underlayColor="#180830"
-                                            style={styles.button}>
-                            <Text style={{fontSize: 22, fontWeight: '700', color: Colors.White}}>Send</Text>
-                        </TouchableHighlight>
+                        <TouchableOpacity onPress={sendQuestion}
+                                          disabled={isLoading}
+                                          style={[styles.button, generalStyles.borderBlock]}>
+                            <View>
+                                <StyledText fontSize={20} fontWeight={600} color={Colors.LightPrimary}>Отправить</StyledText>
+                            </View>
+                            {isLoading && <ActivityIndicator animating={isLoading} color={Colors.Primary}/>}
+                        </TouchableOpacity>
                     </View>
+                </StyledContainer>
+            </ScrollView>
 
-                </ScrollView>
-
-
-            </View>
         }/>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        paddingVertical: 10,
-
-        flex: 1,
-    },
-    text: {
-        marginHorizontal: 20,
-        fontSize: 32,
-        fontWeight: '600',
-        color: Colors.Lite,
-        textShadowColor: Colors.ShadowWhite,
-        textShadowOffset: {width: 2, height: 2},
-        textShadowRadius: 5,
-    },
     input: {
-        marginHorizontal: 20,
         minHeight: 80,
         maxHeight: 250,
         fontSize: 20,
         color: 'white',
-        marginTop: 20,
+        marginTop: 10,
         padding: 10,
         backgroundColor: Colors.Dark,
-        shadowColor: Colors.White,
         borderWidth: 2,
         borderColor: Colors.LightPrimary,
         borderRadius: 10,
-        shadowOffset: {
-            width: 0,
-            height: 0,
-        },
-        shadowOpacity: 1,
-        shadowRadius: 10,
-        elevation: 6,
     },
     button: {
-        marginHorizontal: 20,
         marginVertical: 30,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 120,
+        width: 140,
         height: 45,
         backgroundColor: Colors.Lite,
-        shadowColor: Colors.White,
         borderWidth: 1,
         borderColor: Colors.ShadowWhite,
         borderRadius: 10,
-        shadowOffset: {
-            width: 0,
-            height: 0,
-        },
-        shadowOpacity: 1,
-        shadowRadius: 10,
-        elevation: 6,
     },
 
 });

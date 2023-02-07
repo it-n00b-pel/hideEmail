@@ -8,6 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Image, View} from 'react-native';
 import {checkLoginUser} from '../store/reducers/appReducer';
 import {CenteredView} from '../styles/components';
+import AnimatedTyping from './superComponents/AnimatedTyping';
 
 // SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -43,8 +44,9 @@ const MailHide: React.FC = () => {
         >
             <NavigationContainer>
                 {!isInitialized ?
-                    <CenteredView style={{backgroundColor: '#000'}}>
-                        <Image source={require('../assets/img/scary-dark.gif')} style={{width: 370}}></Image>
+                    <CenteredView style={{backgroundColor: '#000000'}}>
+                        <Image source={require('../assets/img/eye2.gif')} style={{width: 150, height: 150, alignSelf: 'center'}}></Image>
+                        <AnimatedTyping text={['MailHide']}/>
                     </CenteredView>
                     :
                     <Stack.Navigator screenOptions={{headerShown: false}}>

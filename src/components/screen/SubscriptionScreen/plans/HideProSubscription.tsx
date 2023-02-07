@@ -11,7 +11,6 @@ const HideProSubscription: React.FC = () => {
     const dispatch = useAppDispatch();
     const redirectForPay = () => {
         dispatch(fetchUrlForPay(hideProPlan.planId)).then(async res => {
-            console.log(res.payload);
             const supported = await Linking.canOpenURL(res.payload as string);
             if (supported) {
                 await Linking.openURL(res.payload as string);
@@ -30,13 +29,13 @@ const HideProSubscription: React.FC = () => {
                 <StyledText fontSize={20}>{hideProPlan?.price} руб.</StyledText>
                 <StyledText fontSize={20}>{hideProPlan?.description}</StyledText>
 
-                <StyledColorLine color={Colors.Secondary}/>
+                <StyledColorLine color={Colors.Secondary} style={{marginTop:5, marginBottom: 5}}/>
 
                 <StyledText fontSize={20}>Неограниченное кол-во email получателей</StyledText>
                 <StyledText fontSize={20}>Неограниченное кол-во новых email</StyledText>
                 <StyledText fontSize={20}>Онлайн поддержка клиентов</StyledText>
 
-                <StyledColorLine color={Colors.Secondary}/>
+                <StyledColorLine color={Colors.Secondary} style={{marginTop:5}}/>
 
                 <SuperButton title={'Подключить на месяц 269 руб'} handlePress={redirectForPay}/>
             </StyledBorderBlock>

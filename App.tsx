@@ -2,9 +2,10 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {store} from './src/store/store';
 import MailHide from './src/components/MailHide';
+import {LogBox} from 'react-native';
 
 export default function App() {
-    // LogBox.ignoreAllLogs(true);
+     LogBox.ignoreAllLogs(true);
     return (
         <Provider store={store}>
             <MailHide/>

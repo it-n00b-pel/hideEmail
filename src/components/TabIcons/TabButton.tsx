@@ -4,7 +4,6 @@ import Icon from './Icons';
 import * as Animatable from 'react-native-animatable';
 import {TabArr} from '../MainTabNavigator';
 
-
 const TabButton = (props: { item: typeof TabArr[0]; onPress: (event: GestureResponderEvent) => void; accessibilityState: any; }) => {
 
     const {item, onPress, accessibilityState} = props;
@@ -50,17 +49,14 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: '#44D9E8',
-        background: "rgba(47,28,28,0)",
-
-        shadowColor: "#860488",
+        background: 'rgba(47,28,28,0)',
+        shadowColor: '#860488',
         shadowOffset: {
             width: 0,
             height: 12,
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
-
         elevation: 24,
     },
     btn: {
@@ -69,14 +65,13 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 16,
 
-        shadowColor: "#860488",
+        shadowColor: '#860488',
         shadowOffset: {
             width: 0,
             height: 12,
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
-
         elevation: 24,
     },
 });

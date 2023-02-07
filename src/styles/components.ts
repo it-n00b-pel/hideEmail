@@ -1,18 +1,19 @@
-import {Colors, width} from '../constants/Constants';
+import {Colors, height, width} from '../constants/Constants';
 import styled from 'styled-components/native';
 import {StyleSheet} from 'react-native';
 
 type StyledTitleProps = {
     fontWeight?: number,
     fontSize?: number,
+    center?: boolean
+    color?: string
 }
 
 export const StyledTitle = styled.Text<StyledTitleProps>`
   font-size: ${props => props.fontSize ? props.fontSize + 'px' : '18px'};
   font-weight: ${props => props.fontWeight || 400};
-  color: ${Colors.Lite};
-  padding: 0 5px 5px 0;
-  text-shadow: 2px 2px 5px ${Colors.ShadowWhite};
+  text-align: ${props => props.center ? 'center' : 'left'};
+  color: ${props => props.color ? props.color : `${Colors.Lite}`};
 `;
 
 type StyledTextProps = {
@@ -20,15 +21,14 @@ type StyledTextProps = {
     color?: string,
     underline?: boolean,
     fontWeight?: number,
-    shadow?: boolean
+    center?: boolean
 }
 export const StyledText = styled.Text<StyledTextProps>`
   font-size: ${props => props.fontSize ? props.fontSize + 'px' : '16px'};
-  padding: 3px 5px 3px 0;
   color: ${props => props.color || '#FFF'};
   text-decoration-line: ${props => props.underline ? 'underline' : 'none'};
   font-weight: ${props => props.fontWeight || 400};
-  text-shadow: ${props => props.shadow ? `2px 2px 5px ${Colors.White}` : 'none'};
+  text-align: ${props => props.center ? 'center' : 'left'};
 `;
 
 type StyledBorderBlockProps = {
@@ -72,8 +72,19 @@ export const StyledMainHeader = styled.View`
   align-items: center;
 `;
 
-export const StyledContainer = styled.View`
+type StyledContainerPropsType = {
+    center?: boolean
+}
+
+export const StyledContainer = styled.View<StyledContainerPropsType>`
   padding: 10px 20px 70px;
+  align-items: ${props => props.center ? 'center' : 'stretch'};
+`;
+
+export const StyledAuthFooter = styled.View`
+  position: absolute;
+  top: ${height - 80}px;
+  align-self: center;
 `;
 
 export const StyledEmail = styled.View`
@@ -83,6 +94,25 @@ export const StyledEmail = styled.View`
   justify-content: space-between;
   align-items: center;
   margin: 5px 0;
+  padding: 5px;
+`;
+
+export const StyledSecretTitle = styled.View`
+  margin-top: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  min-height: 60px;
+  border-width: 1px;
+  border-color: ${Colors.White};
+  border-radius: 4px;
+  background: ${Colors.Primary}
+`;
+
+export const StyledInstruction = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 30px;
 `;
 
 export const StyledCardNumber = styled.View`
@@ -130,6 +160,8 @@ export const generalStyles = StyleSheet.create({
         elevation: 5,
     },
     addButton: {
+        flexDirection: 'row',
+        justifyContent: 'center',
         marginVertical: 10,
         width: 120,
         padding: 8,
@@ -148,14 +180,13 @@ export const generalStyles = StyleSheet.create({
         elevation: 6,
     },
     refreshEmail: {
-        marginTop: 35,
         backgroundColor: Colors.Primary,
         borderRadius: 3,
-        height: 65,
+        height: 60,
         width: 40,
         position: 'absolute',
+        bottom: 0,
         right: 0,
-        top: 0,
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: Colors.White,
@@ -176,8 +207,8 @@ export const generalStyles = StyleSheet.create({
         height: 60,
         width: 40,
         position: 'absolute',
+        bottom: 0,
         right: 0,
-        top: 0,
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: Colors.White,
@@ -185,11 +216,11 @@ export const generalStyles = StyleSheet.create({
         borderColor: Colors.LightPrimary,
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 0,
         },
-        shadowOpacity: 0.5,
+        shadowOpacity: 1,
         shadowRadius: 5,
-        elevation: 2,
+        elevation: 5,
     },
 
 });

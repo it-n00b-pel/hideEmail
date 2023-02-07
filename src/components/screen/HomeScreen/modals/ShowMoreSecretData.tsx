@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Modal, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, Modal, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {removeSecretEmail, showSecretData} from '../../../../store/reducers/secretsEmailsReducer';
@@ -7,8 +7,8 @@ import SuperTextField from '../../../superComponents/SuperTextField';
 import * as Clipboard from 'expo-clipboard';
 import SuperButton from '../../../superComponents/SuperButton';
 import {BlurView} from 'expo-blur';
-import {blurValue, Colors} from '../../../../constants/Constants';
-import {CenteredView, generalStyles, StyledHeader, StyledTitle} from '../../../../styles/components';
+import {blurValue} from '../../../../constants/Constants';
+import {CenteredView, generalStyles, StyledHeader, StyledSecretTitle, StyledText, StyledTitle} from '../../../../styles/components';
 
 type ShowMoreSecretDataPropsType = {
     id: number,
@@ -19,6 +19,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
     const [modalVisible, setModalVisible] = useState(false);
     const secret = useAppSelector(state => state.secrets.currentSecret);
     const dispatch = useAppDispatch();
+    const isLoading = useAppSelector(state => state.app.status) === 'loading';
 
     const date = new Date(secret.created_at);
     const startDate = date.getDate() + '-' + date.getMonth() + 1 + '-' + date.getFullYear();
@@ -66,7 +67,7 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
 
                             <StyledHeader>
                                 <StyledTitle fontSize={24}>Доп. информация</StyledTitle>
-                                <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                <TouchableOpacity disabled={isLoading} onPress={() => setModalVisible(!modalVisible)}>
                                     <MaterialIcons name="close" size={24} color="#fff"/>
                                 </TouchableOpacity>
                             </StyledHeader>
@@ -80,25 +81,18 @@ const ShowMoreSecretData: React.FC<ShowMoreSecretDataPropsType> = ({view, id}) =
                             </View>
 
                             <StyledTitle fontSize={14}>Ваш мини комментарий:</StyledTitle>
-                            <TextInput style={{
-                                marginTop: 12,
-                                padding: 15,
-                                minHeight: 60,
-                                borderWidth: 1,
-                                borderColor: Colors.White,
-                                borderRadius: 4,
-                                fontSize: 22,
-                                color: Colors.White,
-                                backgroundColor: Colors.Primary,
-                            }} value={secret.title} multiline focusable={false} editable={false}/>
+
+                            <StyledSecretTitle>
+                                <StyledText fontSize={22}>{secret.title}</StyledText>
+                            </StyledSecretTitle>
 
                             <StyledTitle fontSize={14}>Пересылаем на вот эту почту:</StyledTitle>
-                            <SuperTextField style={{width: '100%', marginTop: 12, height: 60}} focusable={false} editable={false} value={secret.email}/>
+                            <SuperTextField style={{width: '100%', marginTop: 12, height: 60, marginBottom: 20}} focusable={false} editable={false} value={secret.email}/>
 
                             <StyledTitle fontSize={16}>Дата создания: {startDate}</StyledTitle>
                             <StyledTitle fontSize={16}>Перенаправлено писем: {secret.redirect_count}</StyledTitle>
 
-                            <SuperButton title={'Удалить этот адрес'} handlePress={destroySecretEmail}/>
+                            <SuperButton title={'Удалить этот адрес'} isBlockButton={isLoading} handlePress={destroySecretEmail}/>
                         </View>
                     </CenteredView>
                 </BlurView>

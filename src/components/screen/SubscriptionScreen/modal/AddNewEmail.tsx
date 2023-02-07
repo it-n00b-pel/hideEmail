@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Alert, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import SuperTextField from '../../../superComponents/SuperTextField';
 import SuperButton from '../../../superComponents/SuperButton';
@@ -7,9 +7,11 @@ import {useAppDispatch, useAppSelector} from '../../../../store/store';
 import {BlurView} from 'expo-blur';
 import {addNewEmail, fetchVerifyCode, setNewCode} from '../../../../store/reducers/subscriptionReducer';
 import {Colors} from '../../../../constants/Constants';
+import {generalStyles} from '../../../../styles/components';
 
 const AddNewEmail: React.FC = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const isLoading = useAppSelector(state => state.app.status)==='loading'
     const isCode = useAppSelector(state => state.subscription.hasCode);
     const dispatch = useAppDispatch();
     const [isBlockButton, setBlockButton] = useState(true);
@@ -98,6 +100,7 @@ const AddNewEmail: React.FC = () => {
                                 <View>
                                     <SuperTextField style={{width: '100%', marginTop: 10, height: 60}}
                                                     value={email}
+                                                    autoFocus
                                                     errorText={errorEmail}
                                                     editable={!isCode}
                                                     onChangeText={text => validateEmail(text)}
@@ -135,9 +138,13 @@ const AddNewEmail: React.FC = () => {
                 </BlurView>
             </Modal>
             <TouchableOpacity
-                style={[styles.buttonOpen]}
-                onPress={() => setModalVisible(true)}>
-                <Text style={styles.textStyle}>Добавить</Text>
+                style={generalStyles.addButton}
+                onPress={() => setModalVisible(true)}
+            >
+               <View>
+                   <Text style={styles.textStyle}>Добавить</Text>
+               </View>
+                {isLoading && <ActivityIndicator animating={isLoading} color={Colors.Lite}/>}
             </TouchableOpacity>
         </View>
     );

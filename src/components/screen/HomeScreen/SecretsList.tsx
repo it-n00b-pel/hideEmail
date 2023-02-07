@@ -1,14 +1,15 @@
 import React from 'react';
 import {Alert, TouchableOpacity, View} from 'react-native';
 import {useAppSelector} from '../../../store/store';
-import {MaterialIcons} from '@expo/vector-icons';
+import {MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import ShowMoreSecretData from './modals/ShowMoreSecretData';
 import {Colors, width} from '../../../constants/Constants';
-import {generalStyles, StyledBorderBlock, StyledText} from '../../../styles/components';
+import {generalStyles, StyledBorderBlock, StyledInstruction, StyledText} from '../../../styles/components';
 
 const SecretsList: React.FC = () => {
     const secretList = useAppSelector(state => state.secrets.secretsList);
+    const isInstruction = useAppSelector(state => state.secrets.isInstruction);
 
     const copySecretEmail = (alias: string) => {
         Clipboard.setStringAsync(alias).then(() => {
@@ -32,9 +33,29 @@ const SecretsList: React.FC = () => {
         </StyledBorderBlock>;
     });
 
+    const Instruction = <View>
+        <StyledInstruction>
+            <MaterialCommunityIcons name="arrow-up-left-bold" size={24} style={{padding: 5}} color={Colors.ShadowWhite}/>
+            <StyledText fontSize={16} style={{padding: 5}} color={Colors.ShadowWhite}>Жми сюда, чтобы создать свой первый секретный емейл.</StyledText>
+        </StyledInstruction>
+
+        <StyledInstruction>
+            <MaterialCommunityIcons name="arrow-left-bold-outline" size={28} style={{padding: 5}} color={Colors.ShadowWhite}/>
+            <StyledText fontSize={16} color={Colors.ShadowWhite}>Там информация о твоем текущем тарифе, доступных тарифах, привязанных картах, email и другое...</StyledText>
+        </StyledInstruction>
+
+        <StyledInstruction>
+            <StyledText fontSize={16} color={Colors.ShadowWhite}>
+                А тут форма обратной связи.
+                Дай знать, если возникли какие-то трудности, проблемы с приложением или просто пожелания.</StyledText>
+            <MaterialCommunityIcons name="arrow-right-bold-outline" size={28} style={{paddingLeft: 5}} color={Colors.ShadowWhite}/>
+        </StyledInstruction>
+    </View>;
+
     return (
         <View>
             {emailList}
+            {isInstruction && Instruction}
         </View>
     );
 };

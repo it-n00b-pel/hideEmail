@@ -100,6 +100,6 @@ let styles = StyleSheet.create({
     text: {
         color: Colors.White,
         fontSize: 30,
-        alignSelf: "stretch"
+        alignSelf: "center"
     }
 })

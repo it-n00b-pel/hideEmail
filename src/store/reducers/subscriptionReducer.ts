@@ -44,8 +44,10 @@ const slice = createSlice({
         builder.addCase(removeSecretEmail.fulfilled, (state) => {
             state.subscription.alias_used = state.subscription.alias_used - 1;
         });
-        builder.addCase(addNewSecret.fulfilled, (state) => {
-            state.subscription.alias_used = state.subscription.alias_used + 1;
+        builder.addCase(addNewSecret.fulfilled, (state, action) => {
+         if (action.payload)   {
+                state.subscription.alias_used = state.subscription.alias_used + action.payload;
+            }
         });
         builder.addCase(fetchPlans.fulfilled, (state, action) => {
             if (action.payload) {
@@ -63,6 +65,7 @@ export const fetchSubscription = createAsyncThunk('subscription/fetchSubscriptio
     try {
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
         const subscription = await subscriptionApi.getSubscription();
+        await thunkAPI.dispatch(fetchPlans());
         thunkAPI.dispatch(setSubscription({subscription: subscription.data}));
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
     }
@@ -111,7 +114,6 @@ export const addNewEmail = createAsyncThunk('subscription/addNewEmail', async (d
     try {
         thunkAPI.dispatch(setPreloaderStatus({status: 'loading'}));
         await subscriptionApi.addNewEmail(data);
-        thunkAPI.dispatch(fetchSimpleEmailList());
         await thunkAPI.dispatch(fetchSimpleEmailList());
         thunkAPI.dispatch(setPreloaderStatus({status: 'succeeded'}));
         Alert.alert('', `Email was added`, [
